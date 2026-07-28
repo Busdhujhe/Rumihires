@@ -49,20 +49,16 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero hero--image">
+    <img class="hero__photo" src="assets/img/home-hero.jpg" alt="Wedding celebration with French wave umbrellas on a garden lawn" />
     <div class="container">
       <div class="hero__content">
         <span class="eyebrow">luxury event hire · brisbane</span>
-        <h1>pieces worthy of your once-in-a-lifetime moment</h1>
-        <p>Fresh, elegant, ahead-of-the-trend event furnishings — without the outdated styles, high minimums or inflated prices. Curated for weddings and celebrations across Queensland &amp; Northern NSW.</p>
+        <h1>Rumi Hires</h1>
+        <p>Pieces worthy of your once-in-a-lifetime moment — fresh, elegant furnishings for weddings and celebrations across Queensland &amp; Northern NSW.</p>
         <div class="hero__ctas">
           <a href="items.html" class="btn btn--gold">browse the collection</a>
           <a href="contact.html" class="btn btn--ghost-light">book a free chat</a>
-        </div>
-        <div class="hero__trust">
-          <div><strong>Brisbane based</strong>servicing QLD &amp; NNSW</div>
-          <div><strong>No high minimums</strong>hire what you need</div>
-          <div><strong>Curated &amp; modern</strong>sourced with intention</div>
         </div>
       </div>
     </div>
@@ -101,8 +97,23 @@
     </div>
   </section>
 
+  <!-- FEATURED PRODUCTS -->
+  <section class="section section--cream" id="featured">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">from the collection</span>
+        <h2>signature pieces</h2>
+        <p>A glimpse of what you can hire — click through for full photos, specs and volume pricing.</p>
+      </div>
+      <div class="products products--home" id="homeFeatured"></div>
+      <p style="text-align:center; margin-top:2.5rem;">
+        <a href="items.html" class="btn btn--primary">view all items for hire</a>
+      </p>
+    </div>
+  </section>
+
   <!-- COLLECTIONS -->
-  <section class="section section--cream" id="collections">
+  <section class="section" id="collections">
     <div class="container">
       <div class="section-head section-head--center">
         <span class="eyebrow">our curated selection</span>
@@ -134,16 +145,20 @@
           </div>
         </a>
       </div>
-      <p style="text-align:center; margin-top:2.5rem;">
-        <a href="items.html" class="btn btn--primary">view all items for hire</a>
-      </p>
     </div>
+  </section>
+
+  <!-- ATMOSPHERE -->
+  <section class="mood" aria-label="Event styling gallery">
+    <div class="mood__item mood__item--wide" style="background-image:url('assets/img/home-umbrella-mood.jpg')" role="img" aria-label="Ornate mirror reflecting French wave umbrellas on a garden lawn"></div>
+    <div class="mood__item" style="background-image:url('assets/img/home-tableware.jpg')" role="img" aria-label="European style plates with floral centrepiece styling"></div>
+    <div class="mood__item" style="background-image:url('assets/img/home-detail.jpg')" role="img" aria-label="Pearl tile table setting with fresh fruit"></div>
   </section>
 
   <!-- STORY -->
   <section class="section" id="story">
     <div class="container story">
-      <div class="story__img" role="img" aria-label="Luxury wedding table styling with hydrangea centrepiece and white linen draping"></div>
+      <div class="story__img" style="background-image:url('assets/img/home-story.jpg')" role="img" aria-label="Outdoor wedding ceremony aisle with cream draping and florals"></div>
       <div class="story__text">
         <span class="eyebrow">the birth of rumi hires</span>
         <h2>born from our own wedding day</h2>
@@ -278,6 +293,9 @@
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
+  <script src="js/products.js"></script>
+  <script src="js/product-utils.js"></script>
+  <script src="js/render-home.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
