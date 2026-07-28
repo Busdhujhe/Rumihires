@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Rumi Hires — Event &amp; Wedding Hire Brisbane</title>
+  <meta name="description" content="View photos and hire pricing for Rumi Hires event furniture and decor in Brisbane." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="application/ld+json" id="productSchema"></script>
+</head>
+<body>
+
+  <div class="announce">
+    Brisbane based · servicing QLD &amp; Northern NSW — <a href="contact.html">get your free quote</a>
+  </div>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">RUMI <span>HIRES</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav">
+        <a href="index.html">home</a>
+        <a href="items.html" class="active">items for hire</a>
+        <a href="index.html#story">our story</a>
+        <a href="index.html#faq">faq</a>
+        <a href="contact.html">contact</a>
+        <a href="contact.html" class="btn btn--gold btn--small">book a chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section section--cream product-detail-page">
+    <div id="productDetail"></div>
+  </section>
+
+  <div class="product-lightbox" id="productLightbox" aria-hidden="true">
+    <div class="product-lightbox__backdrop"></div>
+    <div class="product-lightbox__inner">
+      <button type="button" class="product-lightbox__close" aria-label="Close">&times;</button>
+      <img id="productLightboxImg" src="" alt="">
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="logo">RUMI <span>HIRES</span></a>
+          <p style="margin-top:1rem;">Curated, modern event furnishings built on taste, intention and a passion for unforgettable moments.</p>
+        </div>
+        <div>
+          <h4>explore</h4>
+          <ul>
+            <li><a href="items.html">all items</a></li>
+            <li><a href="items.html?cat=seating">seating</a></li>
+            <li><a href="items.html?cat=tables">tables</a></li>
+            <li><a href="items.html?cat=umbrella">umbrellas</a></li>
+            <li><a href="items.html?cat=tableware">tableware</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>service area</h4>
+          <p>Brisbane based, servicing locations across Queensland and Northern New South Wales.</p>
+        </div>
+        <div>
+          <h4>contact</h4>
+          <ul>
+            <li><a href="mailto:hello@rumihires.com">hello@rumihires.com</a></li>
+            <li><a href="tel:+61426631389">+61 426 631 389</a></li>
+            <li><a href="https://www.rumihires.com">www.rumihires.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span id="year">2026</span> Rumi Hires. All rights reserved.</span>
+        <span><a href="terms.html">terms &amp; conditions</a> · <a href="privacy.html">privacy policy</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="quote-bar" id="quoteBar">
+    <span class="quote-bar__count"><strong id="quoteCount">0</strong> piece(s) in your quote list</span>
+    <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/product-utils.js"></script>
+  <script src="js/product-detail.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
