@@ -13,6 +13,8 @@
   --gold-dark: #5ab8db;
   --white: #ffffff;
   --muted: #5a8a9a;
+  /* matches the backdrop baked into the studio product photos */
+  --studio-bg: #e3e3e4;
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
   --radius: 14px;
   --font-display: "Cormorant Garamond", Georgia, serif;
@@ -168,7 +170,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 8% 42%;
+  object-position: center 58%;
   z-index: 0;
 }
 .hero--image::before {
@@ -249,56 +251,44 @@ a { color: var(--gold-dark); text-decoration: none; }
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   display: flex;
   align-items: flex-end;
   padding: 1.6rem;
-  color: var(--white);
+  color: var(--ink);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: var(--studio-bg);
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 }
 .collection-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
 .collection-card::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0, 0, 0, 0.72) 100%);
+  background: linear-gradient(180deg, rgba(246, 250, 252, 0) 64%, rgba(246, 250, 252, 0.65) 78%, rgba(246, 250, 252, 0.95) 90%, #f6fafc 100%);
 }
 .collection-card__body { position: relative; z-index: 1; }
-.collection-card__body h3 { color: var(--white); font-size: 1.6rem; }
+.collection-card__body h3 { color: var(--charcoal); font-size: 1.6rem; }
 .collection-card__body span {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #d7eef7;
+  color: var(--gold-dark);
 }
 .cc--seating {
-  background-image:
-    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55)),
-    url("../assets/img/products/french-black-chair-type-a.png");
-  background-color: #1a1a1a;
+  background-image: url("../assets/img/collection-seating.png");
 }
 .cc--umbrella {
-  background-image:
-    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55)),
-    url("../assets/img/products/french-wave-umbrella.png");
-  background-color: #1a1a1a;
-  background-position: center 40%;
+  background-image: url("../assets/img/collection-umbrella.png");
 }
 .cc--carts {
-  background-image:
-    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55)),
-    url("../assets/img/products/french-lite-iron-set.png");
-  background-color: #1a1a1a;
-  background-position: center 55%;
+  background-image: url("../assets/img/collection-tables.png");
 }
 .cc--eastern {
-  background-image:
-    linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.58)),
-    url("../assets/img/products/european-style-plates.png");
-  background-color: #1a1a1a;
-  background-position: center;
+  background-image: url("../assets/img/collection-tableware.png");
 }
 
 /* ---------- atmosphere strip ---------- */
@@ -353,7 +343,7 @@ a { color: var(--gold-dark); text-decoration: none; }
 }
 .product:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
 .product__img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,37 +355,25 @@ a { color: var(--gold-dark); text-decoration: none; }
   position: relative;
   text-transform: lowercase;
   overflow: hidden;
-  background: radial-gradient(ellipse 95% 90% at 50% 42%, #ffffff 0%, #f6f8fa 55%, #eceff3 100%);
+  background: var(--studio-bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+/* Photos are square studio shots — filling the square card edge to edge keeps
+   the shot's own backdrop as the only visible background. */
 .product__img img {
   position: absolute;
-  inset: 0.4rem;
-  width: calc(100% - 0.8rem);
-  height: calc(100% - 0.8rem);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: center center;
   display: none;
-  transform-origin: center center;
 }
 .product__img.has-photo img { display: block; }
 .product__img.has-photo {
   color: transparent;
   padding: 0;
-  background: radial-gradient(ellipse 92% 88% at 50% 44%, #ffffff 0%, #f7f9fb 48%, #edf1f4 100%);
-}
-/* JPG catalogue shots exported on pure white — blend into the card */
-.product__img.has-photo.product__img--white-bg {
-  background: #ffffff;
-}
-.product__img.has-photo.product__img--white-bg img {
-  mix-blend-mode: multiply;
-}
-.product-detail__gallery.product__img--white-bg {
-  background: #ffffff;
-}
-.product-detail__gallery.product__img--white-bg .product-detail__main img {
-  mix-blend-mode: multiply;
+  background: var(--studio-bg);
 }
 .product__img:not(.has-photo) {
   background: radial-gradient(ellipse 95% 90% at 50% 42%, #fafbfc 0%, #eef2f5 100%);
@@ -412,7 +390,43 @@ a { color: var(--gold-dark); text-decoration: none; }
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
 }
+.product__views {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.85rem 1.5rem 0;
+}
+.product__views-label {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-right: 0.15rem;
+}
+.product__view-btn {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.product__view-btn:hover { color: var(--charcoal); border-color: var(--gold-dark); }
+.product__view-btn.is-active {
+  color: var(--charcoal);
+  background: var(--cream);
+  border-color: var(--gold-dark);
+}
 .product__body { padding: 1.4rem 1.5rem 1.6rem; flex: 1; display: flex; flex-direction: column; }
+.product__views + .product__body { padding-top: 1rem; }
 .product__cat {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
@@ -577,26 +591,25 @@ a { color: var(--gold-dark); text-decoration: none; }
 .product-detail__gallery {
   border-radius: var(--radius);
   overflow: hidden;
-  background: radial-gradient(ellipse 92% 88% at 50% 44%, #ffffff 0%, #f7f9fb 48%, #edf1f4 100%);
+  background: var(--studio-bg);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 .product-detail__main {
   display: block;
   width: 100%;
   border: none;
-  padding: 0.75rem 0.5rem;
+  padding: 0;
   background: transparent;
   cursor: zoom-in;
   position: relative;
 }
 .product-detail__main img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   object-position: center center;
   display: block;
   max-height: min(70vh, 640px);
-  transform-origin: center center;
 }
 .product-detail__zoom {
   position: absolute;
@@ -616,7 +629,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   display: flex;
   gap: 0.6rem;
   padding: 0.75rem;
-  background: var(--cream);
+  background: var(--studio-bg);
   flex-wrap: wrap;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -624,13 +637,14 @@ a { color: var(--gold-dark); text-decoration: none; }
   border: 2px solid transparent;
   border-radius: 8px;
   padding: 0;
-  background: var(--white);
+  background: var(--studio-bg);
   cursor: pointer;
-  width: 72px;
-  height: 72px;
+  width: 78px;
   overflow: hidden;
   opacity: 0.65;
   transition: opacity 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 .product-detail__thumb.active,
 .product-detail__thumb:hover {
@@ -639,11 +653,21 @@ a { color: var(--gold-dark); text-decoration: none; }
 }
 .product-detail__thumb img {
   width: 100%;
-  height: 100%;
+  height: 68px;
   object-fit: contain;
   object-position: center;
-  padding: 0.35rem;
 }
+.product-detail__thumb-label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.35;
+  padding: 0 0.15rem 0.3rem;
+  text-align: center;
+}
+.product-detail__thumb.active .product-detail__thumb-label { color: var(--charcoal); }
 .product-detail__info h1 {
   font-size: clamp(2rem, 4vw, 2.8rem);
   margin-bottom: 0.5rem;

@@ -18,12 +18,6 @@
 
   var esc = window.RUMI ? window.RUMI.esc : function (s) { return s; };
 
-  var imagePath = window.RUMI ? window.RUMI.imagePath : function (slug, ext) {
-
-    return "assets/img/products/" + slug + "." + (ext || "png");
-
-  };
-
   var productUrl = window.RUMI ? window.RUMI.productUrl : function (slug) {
 
     return "product.html?slug=" + encodeURIComponent(slug);
@@ -66,7 +60,7 @@
 
     var detailUrl = productUrl(p.slug);
 
-
+    var images = window.RUMI.productImages(p);
 
     var imgHtml =
 
@@ -74,13 +68,33 @@
 
       '<div class="' + esc(window.RUMI.productImgClasses(p)) + '">' +
 
-      '<img src="' + esc(imagePath(p.slug, p.imageExt)) + '" alt="' + esc(p.item) + '" loading="lazy"' +
-      window.RUMI.productImgStyle(p) +
+      '<img src="' + esc(images[0].src) + '" alt="' + esc(images[0].alt) + '" loading="lazy"' +
       ' onerror="this.closest(\'.product__img\').classList.remove(\'has-photo\')">' +
 
       (p.badge ? '<span class="product__badge">' + esc(p.badge) + "</span>" : "") +
 
       "</div></a>";
+
+    if (p.optionName) {
+      card.setAttribute("data-option-name", p.optionName);
+      card.setAttribute("data-option", images[0].label);
+    }
+
+    var viewsHtml = images.length < 2 ? "" :
+      '<div class="product__views" role="group" aria-label="' +
+      (p.optionName ? "Choose " + esc(p.optionName) : "Photo views of " + esc(p.item)) + '">' +
+      (p.optionName ? '<span class="product__views-label">choose ' + esc(p.optionName) + "</span>" : "") +
+      images.map(function (img, i) {
+        return (
+          '<button type="button" class="product__view-btn' + (i === 0 ? " is-active" : "") + '"' +
+          ' data-src="' + esc(img.src) + '" data-alt="' + esc(img.alt) + '"' +
+          ' data-label="' + esc(img.label) + '"' +
+          ' aria-pressed="' + (i === 0 ? "true" : "false") + '">' +
+          esc(img.label) +
+          "</button>"
+        );
+      }).join("") +
+      "</div>";
 
 
 
@@ -114,10 +128,32 @@
 
 
 
-    card.innerHTML = imgHtml + '<div class="product__body">' + body + "</div>";
+    card.innerHTML = imgHtml + viewsHtml + '<div class="product__body">' + body + "</div>";
 
     wrap.appendChild(card);
 
+  });
+
+  wrap.addEventListener("click", function (e) {
+    var btn = e.target.closest(".product__view-btn");
+    if (!btn) return;
+
+    var card = btn.closest(".product");
+    var img = card.querySelector(".product__img img");
+    if (img) {
+      img.src = btn.getAttribute("data-src");
+      img.alt = btn.getAttribute("data-alt");
+    }
+
+    if (card.hasAttribute("data-option-name")) {
+      card.setAttribute("data-option", btn.getAttribute("data-label"));
+    }
+
+    Array.prototype.forEach.call(card.querySelectorAll(".product__view-btn"), function (b) {
+      var active = b === btn;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-pressed", active ? "true" : "false");
+    });
   });
 
 })();

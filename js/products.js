@@ -1,5 +1,6 @@
 /* Rumi Hires — product catalogue data
-   Images: place PNGs in assets/img/products/{slug}.png
+   Images: place photos in assets/img/products/{slug}.png, or set imageExt for another format
+   optionName turns the photo views into a customer-selectable variant carried through to the quote
    Run scripts/extract-catalogue.ps1 after adding "Rumi Hires Catalogue.pdf" to project root. */
 window.RUMI_PRODUCTS = [
   {
@@ -11,7 +12,12 @@ window.RUMI_PRODUCTS = [
     bulk: "20+ from $15 each",
     badge: "most hired",
     placeholder: "pi--chair-a",
-    imageFocus: "50% 62%",
+    imageExt: "jpg",
+    extraImages: [
+      { file: "french-lite-iron-chair-side.jpg", label: "side" },
+      { file: "french-lite-iron-chair-three-quarter.jpg", label: "3/4" },
+      { file: "french-lite-iron-chair-back.jpg", label: "back" }
+    ],
     cataloguePage: 1
   },
   {
@@ -22,7 +28,12 @@ window.RUMI_PRODUCTS = [
     spec: "with arms",
     price: 40,
     placeholder: "pi--chair-a",
-    imageFocus: "50% 50%",
+    imageExt: "jpg",
+    extraImages: [
+      { file: "french-black-chair-type-a-side.jpg", label: "side" },
+      { file: "french-black-chair-type-a-three-quarter.jpg", label: "3/4" },
+      { file: "french-black-chair-type-a-back.jpg", label: "back" }
+    ],
     cataloguePage: 2
   },
   {
@@ -33,32 +44,31 @@ window.RUMI_PRODUCTS = [
     spec: "no arms",
     price: 35,
     placeholder: "pi--chair-b",
-    imageScale: 1.75,
-    imageOrigin: "50% 72%",
+    imageExt: "jpg",
+    extraImages: [
+      { file: "french-black-chair-type-b-side.jpg", label: "side" },
+      { file: "french-black-chair-type-b-three-quarter.jpg", label: "3/4" },
+      { file: "french-black-chair-type-b-back.jpg", label: "back" }
+    ],
     cataloguePage: 3
   },
   {
     slug: "french-black-bench",
     cat: "lounge",
-    item: "French Black Bench (1100mm x 450mm)",
+    item: "French Black Bench",
     title: "french black bench",
-    spec: "1100mm × 450mm",
     price: 75,
     placeholder: "pi--bench",
-    imageScale: 1.65,
-    imageOrigin: "50% 74%",
     cataloguePage: 4
   },
   {
     slug: "french-black-day-bed",
     cat: "lounge",
-    item: "French Black Day Bed (1300mm x 450mm)",
+    item: "French Black Day Bed",
     title: "french black day bed",
-    spec: "1300mm × 450mm",
     price: 75,
     placeholder: "pi--daybed",
-    imageScale: 2,
-    imageOrigin: "50% 78%",
+    extraImages: [{ file: "french-black-day-bed-side.png", label: "side" }],
     cataloguePage: 5
   },
   {
@@ -66,11 +76,14 @@ window.RUMI_PRODUCTS = [
     cat: "umbrella",
     item: "French Wave Umbrella",
     title: "french wave umbrella",
+    spec: "brown or silver pole",
     price: 55,
     bulk: "5+ qty discount available",
     badge: "signature piece",
     placeholder: "pi--umbrella",
-    imageFocus: "48% 63%",
+    optionName: "pole",
+    imageLabel: "brown pole",
+    extraImages: [{ file: "french-wave-umbrella-silver.png", label: "silver pole" }],
     cataloguePage: 6
   },
   {
@@ -85,9 +98,8 @@ window.RUMI_PRODUCTS = [
   {
     slug: "french-lite-iron-table",
     cat: "tables",
-    item: "French Lite Iron Table (600mm)",
+    item: "French Lite Iron Table",
     title: "french lite iron table",
-    spec: "600mm diameter",
     price: 22,
     bulk: "20+ qty discount available",
     placeholder: "pi--table",
@@ -110,8 +122,6 @@ window.RUMI_PRODUCTS = [
     item: "Champagne Cooler",
     title: "champagne cooler",
     price: 20,
-    imageExt: "jpg",
-    whiteBg: true,
     placeholder: "pi--tableware",
     cataloguePage: 10
   },
@@ -152,8 +162,6 @@ window.RUMI_PRODUCTS = [
     title: "european style plates",
     price: 3,
     placeholder: "pi--tableware",
-    imageScale: 1.55,
-    imageOrigin: "50% 50%",
     cataloguePage: 14
   },
   {
@@ -177,7 +185,7 @@ window.RUMI_PRODUCTS = [
     cataloguePage: 16
   },
   {
-    slug: "timeless-snack-stand-a-3",
+    slug: "timeless-snack-stand-a",
     cat: "tableware",
     item: "Timeless Snack Stand A (3 level)",
     title: "timeless snack stand · type a",
@@ -187,34 +195,14 @@ window.RUMI_PRODUCTS = [
     cataloguePage: 17
   },
   {
-    slug: "timeless-snack-stand-a-2",
-    cat: "tableware",
-    item: "Timeless Snack Stand A (2 level)",
-    title: "timeless snack stand · type a",
-    spec: "2 level",
-    price: 5,
-    placeholder: "pi--tableware",
-    cataloguePage: 18
-  },
-  {
-    slug: "timeless-snack-stand-b-2",
+    slug: "timeless-snack-stand-b",
     cat: "tableware",
     item: "Timeless Snack Stand B (2 level)",
     title: "timeless snack stand · type b",
     spec: "2 level",
-    price: 8,
-    placeholder: "pi--tableware",
-    cataloguePage: 19
-  },
-  {
-    slug: "timeless-snack-stand-b-3",
-    cat: "tableware",
-    item: "Timeless Snack Stand B (3 level)",
-    title: "timeless snack stand · type b",
-    spec: "3 level",
     price: 5,
     placeholder: "pi--tableware",
-    cataloguePage: 20
+    cataloguePage: 18
   },
   {
     slug: "euro-tongs",
@@ -223,7 +211,7 @@ window.RUMI_PRODUCTS = [
     title: "euro tongs",
     price: 5,
     placeholder: "pi--tableware",
-    cataloguePage: 21
+    cataloguePage: 19
   },
   {
     slug: "pearl-serving-tray",
@@ -232,7 +220,7 @@ window.RUMI_PRODUCTS = [
     title: "pearl serving tray",
     price: 18,
     placeholder: "pi--tableware",
-    cataloguePage: 22
+    cataloguePage: 20
   },
   {
     slug: "fabric-table-lamp",
@@ -242,6 +230,6 @@ window.RUMI_PRODUCTS = [
     price: 13,
     bulk: "15+ qty discount available",
     placeholder: "pi--tableware",
-    cataloguePage: 23
+    cataloguePage: 21
   }
 ];

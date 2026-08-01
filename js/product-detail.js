@@ -24,10 +24,15 @@
 
   var thumbsHtml = "";
   if (images.length > 1) {
-    thumbsHtml = '<div class="product-detail__thumbs">' + images.map(function (img, i) {
+    thumbsHtml = '<div class="product-detail__thumbs"' +
+      (p.optionName ? ' role="group" aria-label="Choose ' + esc(p.optionName) + '"' : "") + ">" +
+      images.map(function (img, i) {
+      var label = img.label || "view " + (i + 1);
       return (
-        '<button type="button" class="product-detail__thumb' + (i === 0 ? " active" : "") + '" data-index="' + i + '">' +
+        '<button type="button" class="product-detail__thumb' + (i === 0 ? " active" : "") + '" data-index="' + i + '"' +
+        ' title="' + esc(label) + '" aria-label="Show ' + esc(label) + ' photo">' +
         '<img src="' + esc(img.src) + '" alt="" loading="lazy">' +
+        '<span class="product-detail__thumb-label">' + esc(label) + "</span>" +
         "</button>"
       );
     }).join("") + "</div>";
@@ -47,7 +52,6 @@
           '<a href="' + esc(window.RUMI.productUrl(item.slug)) + '" class="product product--link">' +
           '<div class="' + esc(window.RUMI.productImgClasses(item)) + '">' +
           '<img src="' + esc(window.RUMI.imagePath(item.slug, item.imageExt)) + '" alt="' + esc(item.item) + '" loading="lazy"' +
-          window.RUMI.productImgStyle(item) +
           ' onerror="this.closest(\'.product__img\').classList.remove(\'has-photo\')">' +
           "</div>" +
           '<div class="product__body">' +
@@ -69,10 +73,11 @@
     '<span aria-hidden="true">/</span>' +
     "<span>" + esc(p.title) + "</span>" +
     "</nav>" +
-    '<div class="product product-detail" data-cat="' + esc(p.cat) + '">' +
-    '<div class="product-detail__gallery ' + esc(p.placeholder) + (p.whiteBg ? " product__img--white-bg" : "") + '">' +
+    '<div class="product product-detail" data-cat="' + esc(p.cat) + '"' +
+    (p.optionName ? ' data-option-name="' + esc(p.optionName) + '" data-option="' + esc(images[0].label) + '"' : "") + ">" +
+    '<div class="product-detail__gallery ' + esc(p.placeholder) + '">' +
     '<button type="button" class="product-detail__main" id="productLightboxOpen" aria-label="View full size photo">' +
-    '<img id="productMainImg" src="' + esc(images[0].src) + '" alt="' + esc(images[0].alt) + '"' + window.RUMI.productImgStyle(p) + '>' +
+    '<img id="productMainImg" src="' + esc(images[0].src) + '" alt="' + esc(images[0].alt) + '">' +
     '<span class="product-detail__zoom">click to enlarge</span>' +
     "</button>" +
     thumbsHtml +
@@ -131,6 +136,11 @@
     btn.addEventListener("click", function () {
       var idx = parseInt(btn.getAttribute("data-index"), 10);
       mainImg.src = images[idx].src;
+      mainImg.alt = images[idx].alt;
+      var detail = root.querySelector(".product-detail");
+      if (detail && detail.hasAttribute("data-option-name")) {
+        detail.setAttribute("data-option", images[idx].label);
+      }
       root.querySelectorAll(".product-detail__thumb").forEach(function (b) {
         b.classList.toggle("active", b === btn);
       });

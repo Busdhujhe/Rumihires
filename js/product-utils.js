@@ -33,29 +33,29 @@ window.RUMI.productUrl = function (slug) {
 };
 
 window.RUMI.productImgClasses = function (p) {
-  var classes = "product__img " + (p.placeholder || "") + " has-photo";
-  if (p.whiteBg) classes += " product__img--white-bg";
-  return classes;
+  return "product__img " + (p.placeholder || "") + " has-photo";
 };
 
-window.RUMI.productImgStyle = function (p) {
-  var rules = [];
-  if (p.imageScale) {
-    rules.push("transform:scale(" + p.imageScale + ")");
-    rules.push("transform-origin:" + (p.imageOrigin || "center center"));
-  }
-  return rules.length ? ' style="' + rules.join(";") + '"' : "";
-};
-
+/* Returns the product's photos in display order: front first, then any
+   extra views. Each extra may be a plain filename or { file, label }. */
 window.RUMI.productImages = function (p) {
-  var images = [{
-    src: window.RUMI.imagePath(p.slug, p.imageExt),
-    alt: p.item
-  }];
-  if (p.extraImages && p.extraImages.length) {
-    p.extraImages.forEach(function (file) {
-      images.push({ src: "assets/img/products/" + file, alt: p.item });
-    });
+  var extras = p.extraImages || [];
+
+  function entry(src, label) {
+    return {
+      src: src,
+      label: label,
+      alt: extras.length && label ? p.item + " — " + label : p.item
+    };
   }
+
+  var images = [entry(window.RUMI.imagePath(p.slug, p.imageExt), p.imageLabel || "front")];
+
+  extras.forEach(function (extra) {
+    var file = typeof extra === "string" ? extra : extra.file;
+    var label = typeof extra === "string" ? "" : extra.label;
+    images.push(entry("assets/img/products/" + file, label));
+  });
+
   return images;
 };

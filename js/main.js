@@ -300,6 +300,8 @@
 
     var item = btn.getAttribute("data-item");
     var card = btn.closest(".product");
+    var option = card ? card.getAttribute("data-option") : null;
+    if (option) item += " (" + option + ")";
     var qtyInput = card ? card.querySelector(".quote-qty") : null;
     var qty = readQty(qtyInput);
     if (qtyInput) syncStepper(qtyInput.closest(".qty-stepper"), qty);
