@@ -16,8 +16,28 @@ window.RUMI.esc = function (str) {
   return div.innerHTML;
 };
 
+/* Bump when product photos are re-shot so browsers pick up the new files. */
+window.RUMI.assetVersion = "18";
+
+/* Moments gallery helpers — tagged real-event photos linked to hire products. */
+window.RUMI.momentsForProduct = function (slug) {
+  var list = window.RUMI_MOMENTS || [];
+  if (!slug) return list.slice();
+  return list.filter(function (m) {
+    return (m.products || []).indexOf(slug) !== -1;
+  });
+};
+
+window.RUMI.momentSrc = function (m) {
+  return "assets/img/moments/" + m.file + "?v=" + window.RUMI.assetVersion;
+};
+
+window.RUMI.momentsUrl = function (slug) {
+  return slug ? "moments.html?product=" + encodeURIComponent(slug) : "moments.html";
+};
+
 window.RUMI.imagePath = function (slug, ext) {
-  return "assets/img/products/" + slug + "." + (ext || "png");
+  return "assets/img/products/" + slug + "." + (ext || "png") + "?v=" + window.RUMI.assetVersion;
 };
 
 window.RUMI.getProduct = function (slug) {
@@ -54,7 +74,7 @@ window.RUMI.productImages = function (p) {
   extras.forEach(function (extra) {
     var file = typeof extra === "string" ? extra : extra.file;
     var label = typeof extra === "string" ? "" : extra.label;
-    images.push(entry("assets/img/products/" + file, label));
+    images.push(entry("assets/img/products/" + file + "?v=" + window.RUMI.assetVersion, label));
   });
 
   return images;

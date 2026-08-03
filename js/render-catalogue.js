@@ -69,7 +69,8 @@
       '<div class="' + esc(window.RUMI.productImgClasses(p)) + '">' +
 
       '<img src="' + esc(images[0].src) + '" alt="' + esc(images[0].alt) + '" loading="lazy"' +
-      ' onerror="this.closest(\'.product__img\').classList.remove(\'has-photo\')">' +
+      ' onerror="var wrap=this.closest(\'.product__img\'); if(wrap) wrap.classList.remove(\'has-photo\');"' +
+      ' onload="var wrap=this.closest(\'.product__img\'); if(wrap) wrap.classList.add(\'has-photo\');">' +
 
       (p.badge ? '<span class="product__badge">' + esc(p.badge) + "</span>" : "") +
 
@@ -140,9 +141,20 @@
 
     var card = btn.closest(".product");
     var img = card.querySelector(".product__img img");
+    var frame = card.querySelector(".product__img");
     if (img) {
-      img.src = btn.getAttribute("data-src");
-      img.alt = btn.getAttribute("data-alt");
+      var nextSrc = btn.getAttribute("data-src");
+      var nextAlt = btn.getAttribute("data-alt") || "";
+      // Force a reload even if the browser cached a failed 404 for a missing view
+      img.removeAttribute("src");
+      img.alt = nextAlt;
+      img.onload = function () {
+        if (frame) frame.classList.add("has-photo");
+      };
+      img.onerror = function () {
+        if (frame) frame.classList.remove("has-photo");
+      };
+      img.src = nextSrc;
     }
 
     if (card.hasAttribute("data-option-name")) {

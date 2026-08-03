@@ -13,11 +13,7 @@ window.RUMI_PRODUCTS = [
     badge: "most hired",
     placeholder: "pi--chair-a",
     imageExt: "jpg",
-    extraImages: [
-      { file: "french-lite-iron-chair-side.jpg", label: "side" },
-      { file: "french-lite-iron-chair-three-quarter.jpg", label: "3/4" },
-      { file: "french-lite-iron-chair-back.jpg", label: "back" }
-    ],
+    extraImages: [{ file: "french-lite-iron-chair-side.jpg", label: "side" }],
     cataloguePage: 1
   },
   {
@@ -31,8 +27,7 @@ window.RUMI_PRODUCTS = [
     imageExt: "jpg",
     extraImages: [
       { file: "french-black-chair-type-a-side.jpg", label: "side" },
-      { file: "french-black-chair-type-a-three-quarter.jpg", label: "3/4" },
-      { file: "french-black-chair-type-a-back.jpg", label: "back" }
+      { file: "french-black-chair-type-a-cushion.jpg", label: "with cushion" }
     ],
     cataloguePage: 2
   },
@@ -47,8 +42,7 @@ window.RUMI_PRODUCTS = [
     imageExt: "jpg",
     extraImages: [
       { file: "french-black-chair-type-b-side.jpg", label: "side" },
-      { file: "french-black-chair-type-b-three-quarter.jpg", label: "3/4" },
-      { file: "french-black-chair-type-b-back.jpg", label: "back" }
+      { file: "french-black-chair-type-b-cushion.jpg", label: "with cushion" }
     ],
     cataloguePage: 3
   },
