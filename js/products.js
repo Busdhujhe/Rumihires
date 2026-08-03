@@ -53,6 +53,7 @@ window.RUMI_PRODUCTS = [
     title: "french black bench",
     price: 75,
     placeholder: "pi--bench",
+    extraImages: [{ file: "french-black-bench-side.jpg", label: "side" }],
     cataloguePage: 4
   },
   {

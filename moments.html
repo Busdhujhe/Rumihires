@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product | Rumi Hires — Event &amp; Wedding Hire Brisbane</title>
-  <meta name="description" content="View photos and hire pricing for Rumi Hires event furniture and decor in Brisbane." />
+  <title>Moments | Rumi Hires — Real Events &amp; Hire Inspiration</title>
+  <meta name="description" content="Browse real weddings and events styled with Rumi Hires pieces. Spot the furniture and tableware in each photo, then hire the same items for your day." />
+  <link rel="canonical" href="https://rumihires.com/moments.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=20" />
-  <script type="application/ld+json" id="productSchema"></script>
 </head>
 <body>
 
@@ -23,8 +23,8 @@
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
       <nav class="nav">
         <a href="index.html">home</a>
-        <a href="items.html" class="active">items for hire</a>
-        <a href="moments.html">moments</a>
+        <a href="items.html">items for hire</a>
+        <a href="moments.html" class="active">moments</a>
         <a href="index.html#story">our story</a>
         <a href="index.html#faq">faq</a>
         <a href="contact.html">contact</a>
@@ -33,15 +33,36 @@
     </div>
   </header>
 
-  <section class="section section--cream product-detail-page">
-    <div id="productDetail"></div>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">real events</span>
+      <h1>moments</h1>
+      <p>A living lookbook of weddings and gatherings styled with our pieces. Tap a photo to see which hire items were used — then add them to your quote.</p>
+    </div>
   </section>
 
-  <div class="product-lightbox" id="productLightbox" aria-hidden="true">
-    <div class="product-lightbox__backdrop"></div>
-    <div class="product-lightbox__inner">
-      <button type="button" class="product-lightbox__close" aria-label="Close">&times;</button>
-      <img id="productLightboxImg" src="" alt="">
+  <section class="section section--cream">
+    <div class="container">
+      <div class="filters moments-filters" id="momentsFilters" role="toolbar" aria-label="Filter moments by product"></div>
+      <div class="moments-grid" id="momentsGrid"></div>
+      <p class="moments-note">More photos coming soon — if you’ve hired with us and have a favourite shot, we’d love to feature it.</p>
+    </div>
+  </section>
+
+  <div class="moments-lightbox" id="momentsLightbox" aria-hidden="true">
+    <div class="moments-lightbox__backdrop"></div>
+    <button type="button" class="moments-lightbox__close" aria-label="Close">&times;</button>
+    <button type="button" class="moments-lightbox__nav moments-lightbox__prev" aria-label="Previous photo">‹</button>
+    <button type="button" class="moments-lightbox__nav moments-lightbox__next" aria-label="Next photo">›</button>
+    <div class="moments-lightbox__inner">
+      <div class="moments-lightbox__media">
+        <img id="momentsLightboxImg" src="" alt="">
+      </div>
+      <aside class="moments-lightbox__side">
+        <h2 id="momentsLightboxTitle"></h2>
+        <p id="momentsLightboxCaption"></p>
+        <div id="momentsLightboxTags"></div>
+      </aside>
     </div>
   </div>
 
@@ -92,7 +113,7 @@
   <script src="js/products.js?v=20"></script>
   <script src="js/product-utils.js?v=20"></script>
   <script src="js/moments-data.js?v=20"></script>
-  <script src="js/product-detail.js?v=20"></script>
+  <script src="js/moments.js?v=20"></script>
   <script src="js/main.js?v=20"></script>
 </body>
 </html>

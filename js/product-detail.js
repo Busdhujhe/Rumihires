@@ -64,6 +64,26 @@
       "</div></div></section>"
     : "";
 
+  var inMoments = typeof window.RUMI.momentsForProduct === "function"
+    ? window.RUMI.momentsForProduct(p.slug)
+    : [];
+  var momentsHtml = inMoments.length
+    ? '<section class="product-moments">' +
+      '<div class="product-moments__head">' +
+      "<h2>seen in moments</h2>" +
+      '<a href="' + esc(window.RUMI.momentsUrl(p.slug)) + '">view all with this piece</a>' +
+      "</div>" +
+      '<div class="product-moments__grid">' +
+      inMoments.slice(0, 6).map(function (m) {
+        return (
+          '<a class="product-moments__shot" href="moments.html?shot=' + esc(m.id) + '&product=' + esc(p.slug) + '" title="' + esc(m.title) + '">' +
+          '<img src="' + esc(window.RUMI.momentSrc(m)) + '" alt="' + esc(m.title) + '" loading="lazy">' +
+          "</a>"
+        );
+      }).join("") +
+      "</div></section>"
+    : "";
+
   root.innerHTML =
     '<div class="container">' +
     '<nav class="product-detail__crumb" aria-label="Breadcrumb">' +
@@ -100,7 +120,9 @@
     "</div></div>" +
     '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '">add to quote</button>' +
     '<a href="contact.html" class="btn btn--ghost">ask about this item</a>' +
-    "</div></div></div></div>" +
+    "</div></div></div>" +
+    momentsHtml +
+    "</div>" +
     relatedHtml;
 
   document.title = p.item + " — Hire $" + p.price + " | Rumi Hires";
