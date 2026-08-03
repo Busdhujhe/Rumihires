@@ -133,6 +133,13 @@
 
     wrap.appendChild(card);
 
+    // Prefetch alternate angles so view switches are instant from cache
+    if (images.length > 1) {
+      images.slice(1).forEach(function (img) {
+        var pre = new Image();
+        pre.src = img.src;
+      });
+    }
   });
 
   wrap.addEventListener("click", function (e) {
@@ -145,8 +152,6 @@
     if (img) {
       var nextSrc = btn.getAttribute("data-src");
       var nextAlt = btn.getAttribute("data-alt") || "";
-      // Force a reload even if the browser cached a failed 404 for a missing view
-      img.removeAttribute("src");
       img.alt = nextAlt;
       img.onload = function () {
         if (frame) frame.classList.add("has-photo");
@@ -154,7 +159,12 @@
       img.onerror = function () {
         if (frame) frame.classList.remove("has-photo");
       };
-      img.src = nextSrc;
+      // Swap in place — do not clear src (that forced a full reload every click)
+      if (img.getAttribute("src") !== nextSrc) {
+        img.src = nextSrc;
+      } else if (frame) {
+        frame.classList.add("has-photo");
+      }
     }
 
     if (card.hasAttribute("data-option-name")) {

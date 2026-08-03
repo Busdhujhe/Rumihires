@@ -31,7 +31,7 @@
       return (
         '<button type="button" class="product-detail__thumb' + (i === 0 ? " active" : "") + '" data-index="' + i + '"' +
         ' title="' + esc(label) + '" aria-label="Show ' + esc(label) + ' photo">' +
-        '<img src="' + esc(img.src) + '" alt="" loading="lazy">' +
+        '<img src="' + esc(img.src) + '" alt="">' +
         '<span class="product-detail__thumb-label">' + esc(label) + "</span>" +
         "</button>"
       );
@@ -154,10 +154,17 @@
   }
 
   var mainImg = document.getElementById("productMainImg");
+  // Warm the browser cache so thumb → main swaps feel instant
+  images.slice(1).forEach(function (img) {
+    var pre = new Image();
+    pre.src = img.src;
+  });
   root.querySelectorAll(".product-detail__thumb").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var idx = parseInt(btn.getAttribute("data-index"), 10);
-      mainImg.src = images[idx].src;
+      if (mainImg.getAttribute("src") !== images[idx].src) {
+        mainImg.src = images[idx].src;
+      }
       mainImg.alt = images[idx].alt;
       var detail = root.querySelector(".product-detail");
       if (detail && detail.hasAttribute("data-option-name")) {
