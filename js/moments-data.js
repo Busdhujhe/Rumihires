@@ -3,6 +3,90 @@
    products: array of product slugs that appear in the photo. */
 window.RUMI_MOMENTS = [
   {
+    id: "backyard-ceremony",
+    file: "backyard-ceremony.jpg",
+    title: "Backyard vows",
+    caption: "French lite iron chairs and a cushioned day bed for guests at an intimate garden ceremony.",
+    products: ["french-lite-iron-chair", "french-black-day-bed"]
+  },
+  {
+    id: "ceremony-backdrop-seating",
+    file: "ceremony-backdrop-seating.jpg",
+    title: "Ceremony seating ready",
+    caption: "Rows of cream wrought-iron chairs facing a draped floral backdrop on the lawn.",
+    products: ["french-lite-iron-chair"]
+  },
+  {
+    id: "garden-vows-chairs",
+    file: "garden-vows-chairs.jpg",
+    title: "Garden aisle chairs",
+    caption: "French lite iron seating and a linen cocktail table waiting for the ceremony to begin.",
+    products: ["french-lite-iron-chair"]
+  },
+  {
+    id: "lounge-under-umbrellas",
+    file: "lounge-under-umbrellas.jpg",
+    title: "Lounge under the wave",
+    caption: "French black day beds with cream cushions styled beneath scalloped umbrellas.",
+    products: ["french-black-day-bed", "french-wave-umbrella"]
+  },
+  {
+    id: "pavilion-lawn-umbrellas",
+    file: "pavilion-lawn-umbrellas.jpg",
+    title: "Lawn & pavilion",
+    caption: "French wave umbrellas casting shade across a sunny outdoor celebration.",
+    products: ["french-wave-umbrella"]
+  },
+  {
+    id: "umbrella-event-setup",
+    file: "umbrella-event-setup.jpg",
+    title: "Umbrella in place",
+    caption: "A French wave umbrella set for a corporate Christmas activation.",
+    products: ["french-wave-umbrella"]
+  },
+  {
+    id: "dessert-buffet-tiers",
+    file: "dessert-buffet-tiers.jpg",
+    title: "Dessert buffet tiers",
+    caption: "Silver snack stands, bowls of fruit and stacked plates styled for an outdoor sweet table.",
+    products: ["timeless-snack-stand-a", "timeless-snack-stand-b", "stainless-steel-bowls-a", "european-style-plates"]
+  },
+  {
+    id: "dessert-table-umbrella",
+    file: "dessert-table-umbrella.jpg",
+    title: "Sweet table in the shade",
+    caption: "Pastries and silver stands under a scalloped French wave umbrella.",
+    products: ["french-wave-umbrella", "timeless-snack-stand-a", "timeless-snack-stand-b", "stainless-steel-bowls-a"]
+  },
+  {
+    id: "orchid-silver-centrepiece",
+    file: "orchid-silver-centrepiece.jpg",
+    title: "Orchid & silver",
+    caption: "Champagne cooler as a floral vessel with European plates and pearl coasters.",
+    products: ["champagne-cooler", "european-style-plates", "pearl-serving-tray"]
+  },
+  {
+    id: "crimson-banquet",
+    file: "crimson-banquet.jpg",
+    title: "Crimson banquet",
+    caption: "A red-draped celebration under glowing lanterns — atmosphere for an unforgettable night.",
+    products: []
+  },
+  {
+    id: "crimson-lanterns",
+    file: "crimson-lanterns.jpg",
+    title: "Lantern canopy",
+    caption: "Pleated red lanterns glowing against classical ceiling moulding.",
+    products: []
+  },
+  {
+    id: "crimson-vintage-table",
+    file: "crimson-vintage-table.jpg",
+    title: "Vintage crimson vignette",
+    caption: "Lamps, teacups and a rotary phone styled against rich red drapery.",
+    products: []
+  },
+  {
     id: "ceremony-aisle",
     file: "ceremony-aisle.jpg",
     title: "Garden ceremony aisle",
