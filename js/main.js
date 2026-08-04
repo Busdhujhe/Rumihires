@@ -40,14 +40,36 @@
     return 0;
   }
 
+  /* Unit hire price. Travels with the entry so totals still work on pages
+     that don't load the product catalogue. */
+  function entryPrice(entry) {
+    var stored = parseFloat(entry && entry.price);
+    if (!isNaN(stored) && stored > 0) return stored;
+    if (window.RUMI && window.RUMI.priceForItem) {
+      return window.RUMI.priceForItem(entry.item) || 0;
+    }
+    return 0;
+  }
+
+  function lineTotal(entry) {
+    return entryPrice(entry) * (entry.qty || 1);
+  }
+
+  function formatMoney(amount) {
+    var n = Math.round((amount || 0) * 100) / 100;
+    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+  }
+
   function normalizeEntry(entry) {
     if (typeof entry === "string") {
       entry = { item: entry, qty: 1 };
     }
     var max = entryMax(entry);
     var qty = Math.max(1, parseInt(entry.qty, 10) || 1);
+    var price = entryPrice(entry);
     var out = { item: entry.item, qty: max > 0 ? Math.min(qty, max) : qty };
     if (max > 0) out.max = max;
+    if (price > 0) out.price = price;
     return out;
   }
 
@@ -73,13 +95,36 @@
     var units = list.reduce(function (sum, entry) {
       return sum + entry.qty;
     }, 0);
-    return { lines: lines, units: units };
+    var hire = list.reduce(function (sum, entry) {
+      return sum + lineTotal(entry);
+    }, 0);
+    return { lines: lines, units: units, hire: hire };
   }
 
   function formatQuoteLine(entry) {
-    return entry.qty > 1
-      ? "  - " + entry.item + " × " + entry.qty
-      : "  - " + entry.item;
+    var price = entryPrice(entry);
+    var line = "  - " + entry.item;
+    if (entry.qty > 1) line += " × " + entry.qty;
+    if (price > 0) {
+      line += entry.qty > 1
+        ? " @ $" + formatMoney(price) + " = $" + formatMoney(lineTotal(entry))
+        : " — $" + formatMoney(price);
+    }
+    return line;
+  }
+
+  function summaryHtml(totals) {
+    var text =
+      totals.lines + " item" + (totals.lines === 1 ? "" : "s") +
+      " · " + totals.units + " piece" + (totals.units === 1 ? "" : "s");
+    if (totals.hire > 0) {
+      text +=
+        '<span class="quote-panel__hire">Hire total <strong>$' +
+        formatMoney(totals.hire) +
+        "</strong></span>" +
+        '<span class="quote-panel__hire-note">Items only — pickup/delivery quoted separately</span>';
+    }
+    return text;
   }
 
   function esc(str) {
@@ -155,6 +200,7 @@
         '<button type="button" class="quote-panel__close" id="closeQuotePanel" aria-label="Close quote list">&times;</button>' +
         "</div>" +
         '<div class="quote-panel__body" id="quotePanelBody"></div>' +
+        '<p class="quote-panel__note">Pickup from Brisbane or delivery across QLD &amp; Northern NSW — both available. Delivery is quoted once we have your venue address, so it won\u2019t appear in this list yet.</p>' +
         '<div class="quote-panel__foot">' +
         '<button type="button" class="btn btn--ghost btn--small" id="clearQuote">clear all</button>' +
         '<button type="button" class="btn btn--gold btn--small" id="sendQuotePanel">request quote</button>' +
@@ -187,19 +233,28 @@
   function renderQuotePanel() {
     if (!panelBody) return;
     var list = getQuote();
+    var note = panel && panel.querySelector(".quote-panel__note");
 
     if (!list.length) {
       panelBody.innerHTML =
         '<p class="quote-panel__empty">Your quote list is empty. ' +
         '<a href="items.html">Browse items</a> to add pieces.</p>';
+      if (note) note.style.display = "none";
       return;
     }
 
+    if (note) note.style.display = "";
+
     var totals = quoteTotals(list);
     var html = list.map(function (entry, index) {
+      var price = entryPrice(entry);
+      var line = lineTotal(entry);
       return (
         '<div class="quote-item" data-index="' + index + '">' +
         '<span class="quote-item__name">' + esc(entry.item) + "</span>" +
+        '<span class="quote-item__price"' + (price > 0 ? ' data-unit="' + price + '"' : "") + ">" +
+        (price > 0 ? "$" + formatMoney(line) : "") +
+        "</span>" +
         '<div class="quote-item__qty">' +
         (entryMax(entry) === 1
           ? '<span class="quote-item__fixed" aria-label="Quantity 1, only one available">1</span>'
@@ -210,11 +265,7 @@
       );
     }).join("");
 
-    html +=
-      '<p class="quote-panel__summary">' +
-      totals.lines + " item" + (totals.lines === 1 ? "" : "s") +
-      " · " + totals.units + " piece" + (totals.units === 1 ? "" : "s") + " total" +
-      "</p>";
+    html += '<div class="quote-panel__summary">' + summaryHtml(totals) + "</div>";
 
     panelBody.innerHTML = html;
     panelBody.querySelectorAll(".qty-stepper").forEach(function (stepper) {
@@ -312,13 +363,16 @@
         if (list[idx]) {
           list[idx].qty = val;
           saveQuote(list, { renderPanel: false });
-          var summary = panelBody && panelBody.querySelector(".quote-panel__summary");
-          if (summary) {
-            var totals = quoteTotals(list);
-            summary.textContent =
-              totals.lines + " item" + (totals.lines === 1 ? "" : "s") +
-              " · " + totals.units + " piece" + (totals.units === 1 ? "" : "s") + " total";
+          var priceEl = row.querySelector(".quote-item__price");
+          if (priceEl) {
+            var unit = parseFloat(priceEl.getAttribute("data-unit")) || entryPrice(list[idx]);
+            if (unit > 0) {
+              priceEl.setAttribute("data-unit", unit);
+              priceEl.textContent = "$" + formatMoney(unit * val);
+            }
           }
+          var summary = panelBody && panelBody.querySelector(".quote-panel__summary");
+          if (summary) summary.innerHTML = summaryHtml(quoteTotals(list));
         }
       }
       return;
@@ -339,6 +393,11 @@
     var max = stepper ? parseInt(stepper.getAttribute("data-max"), 10) || 0 : 0;
     if (!max && window.RUMI && window.RUMI.maxQtyForItem) max = window.RUMI.maxQtyForItem(item);
 
+    var price = parseFloat(btn.getAttribute("data-price"));
+    if (!(price > 0) && window.RUMI && window.RUMI.priceForItem) {
+      price = window.RUMI.priceForItem(item) || 0;
+    }
+
     var list = getQuote();
     var existing = list.find(function (entry) {
       return entry.item === item;
@@ -347,6 +406,7 @@
     if (existing) {
       existing.qty = qty;
       if (max > 0) existing.max = max;
+      if (price > 0) existing.price = price;
       saveQuote(list);
       showToast("Updated \u201c" + item + "\u201d to qty " + qty);
       return;
@@ -354,6 +414,7 @@
 
     var entry = { item: item, qty: qty };
     if (max > 0) entry.max = max;
+    if (price > 0) entry.price = price;
     list.push(entry);
     saveQuote(list);
     showToast("Added \u201c" + item + "\u201d \u00d7 " + qty + " to your quote list");
@@ -435,12 +496,10 @@
         "Name: " + get("name"),
         "Email: " + (get("email") || "not given"),
         "Phone: " + (get("phone") || "not given"),
-        "Event date: " + (get("date") || "TBC"),
+        "Hire start date: " + (get("hireStart") || "TBC"),
+        "Hire end date: " + (get("hireEnd") || "TBC"),
         "Event type: " + (get("type") || "-"),
-        "Venue / location: " + (get("location") || "TBC"),
-        "",
-        "Their vision:",
-        get("message") || "-"
+        "Venue / location: " + (get("location") || "TBC")
       ];
       var extra = get("extra");
       if (extra) lines.push("", "Anything else:", extra);
@@ -451,6 +510,11 @@
         items.forEach(function (entry) {
           lines.push(formatQuoteLine(entry));
         });
+        var hire = quoteTotals(items).hire;
+        if (hire > 0) {
+          lines.push("", "Hire total: $" + formatMoney(hire));
+          lines.push("(Pickup/delivery quoted separately once venue is confirmed)");
+        }
       } else {
         lines.push("", "Quote list: nothing selected");
       }
@@ -505,6 +569,15 @@
         setStatus("Please leave either an email address or a phone number so we can get back to you.", "error");
         var emailEl = document.getElementById("email");
         if (emailEl) emailEl.focus();
+        return;
+      }
+
+      var hireStart = get("hireStart");
+      var hireEnd = get("hireEnd");
+      if (hireStart && hireEnd && hireEnd < hireStart) {
+        setStatus("Hire end date needs to be on or after the start date.", "error");
+        var endEl = document.getElementById("hireEnd");
+        if (endEl) endEl.focus();
         return;
       }
 

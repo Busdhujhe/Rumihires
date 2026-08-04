@@ -122,7 +122,7 @@
       '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
       '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
       "</div></div>") +
-    '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '">add to quote</button>' +
+    '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '" data-price="' + p.price + '">add to quote</button>' +
     '<a href="contact.html" class="btn btn--ghost">ask about this item</a>' +
     "</div></div></div>" +
     momentsHtml +

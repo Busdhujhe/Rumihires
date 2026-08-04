@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=30" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
 </head>
 <body>
 
@@ -61,10 +61,14 @@
           </div>
           <p class="form-hint full">Leave an email or a phone number — whichever you'd rather we reached you on.</p>
           <div>
-            <label for="date">event date</label>
-            <input type="date" id="date" name="date" />
+            <label for="hireStart">hire start date</label>
+            <input type="date" id="hireStart" name="hireStart" />
           </div>
           <div>
+            <label for="hireEnd">hire end date</label>
+            <input type="date" id="hireEnd" name="hireEnd" />
+          </div>
+          <div class="full">
             <label for="type">event type</label>
             <select id="type" name="type">
               <option value="">select…</option>
@@ -77,16 +81,13 @@
           </div>
           <div class="full">
             <label for="location">venue / location</label>
-            <input type="text" id="location" name="location" placeholder="e.g. Brisbane, Gold Coast…" />
-          </div>
-          <div class="full">
-            <label for="message">tell us your vision *</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Which pieces caught your eye? Guest numbers? The look you're going for?"></textarea>
+            <input type="text" id="location" name="location" placeholder="e.g. venue name or suburb — needed if you'd like delivery" />
           </div>
           <div class="full">
             <label for="extra">anything else?</label>
-            <textarea id="extra" name="extra" rows="3" placeholder="Delivery access, timings, budget, questions — anything at all. Optional."></textarea>
+            <textarea id="extra" name="extra" rows="3" placeholder="Pickup or delivery preference, access notes, timings, budget — anything at all. Optional."></textarea>
           </div>
+          <p class="form-hint full">Pickup from Brisbane or delivery across QLD &amp; Northern NSW — both available. We quote delivery once we have your venue address, so it isn’t included in the hire totals above.</p>
           <div class="form-honey" aria-hidden="true">
             <label for="company">company</label>
             <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
@@ -168,6 +169,6 @@
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
-  <script src="js/main.js?v=30"></script>
+  <script src="js/main.js?v=34"></script>
 </body>
 </html>

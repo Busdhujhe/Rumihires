@@ -18,7 +18,7 @@ window.RUMI.esc = function (str) {
 };
 
 /* Bump when product photos are re-shot so browsers pick up the new files. */
-window.RUMI.assetVersion = "25";
+window.RUMI.assetVersion = "26";
 
 /* Moments gallery helpers — tagged real-event photos linked to hire products. */
 window.RUMI.momentsForProduct = function (slug) {
@@ -66,6 +66,19 @@ window.RUMI.stockNote = function (p) {
   var max = window.RUMI.maxQty(p);
   if (!max) return "";
   return max === 1 ? "only 1 available" : "only " + max + " available";
+};
+
+/* Hire price for a quote-list item name. Same prefix match as maxQtyForItem
+   so variant labels like " (silver pole)" still resolve. */
+window.RUMI.priceForItem = function (item) {
+  var list = window.RUMI_PRODUCTS || [];
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].item === item) return list[i].price || 0;
+  }
+  for (var j = 0; j < list.length; j++) {
+    if (item.indexOf(list[j].item + " (") === 0) return list[j].price || 0;
+  }
+  return 0;
 };
 
 window.RUMI.getProduct = function (slug) {

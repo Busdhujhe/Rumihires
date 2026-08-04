@@ -3,6 +3,20 @@
    products: array of product slugs that appear in the photo. */
 window.RUMI_MOMENTS = [
   {
+    id: "patio-black-lounge",
+    file: "patio-black-lounge.jpg",
+    title: "Patio lounge corner",
+    caption: "French black chairs and bench with cream cushions, styled under a covered outdoor patio.",
+    products: ["french-black-chair-type-a", "french-black-bench"]
+  },
+  {
+    id: "patio-black-chairs",
+    file: "patio-black-chairs.jpg",
+    title: "Covered patio seating",
+    caption: "French black chairs with cream cushions along a concrete courtyard under translucent roofing.",
+    products: ["french-black-chair-type-a"]
+  },
+  {
     id: "backyard-ceremony",
     file: "backyard-ceremony.jpg",
     title: "Backyard vows",
@@ -31,13 +45,6 @@ window.RUMI_MOMENTS = [
     products: ["french-black-day-bed", "french-wave-umbrella"]
   },
   {
-    id: "pavilion-lawn-umbrellas",
-    file: "pavilion-lawn-umbrellas.jpg",
-    title: "Lawn & pavilion",
-    caption: "French wave umbrellas casting shade across a sunny outdoor celebration.",
-    products: ["french-wave-umbrella"]
-  },
-  {
     id: "umbrella-event-setup",
     file: "umbrella-event-setup.jpg",
     title: "Umbrella in place",
@@ -53,17 +60,10 @@ window.RUMI_MOMENTS = [
   },
   {
     id: "dessert-table-umbrella",
-    file: "dessert-table-umbrella.jpg",
+    file: "dessert-table-umbrella-straight.jpg",
     title: "Sweet table in the shade",
     caption: "Pastries and silver stands under a scalloped French wave umbrella.",
     products: ["french-wave-umbrella", "timeless-snack-stand-a", "timeless-snack-stand-b", "stainless-steel-bowls-a"]
-  },
-  {
-    id: "orchid-silver-centrepiece",
-    file: "orchid-silver-centrepiece.jpg",
-    title: "Orchid & silver",
-    caption: "Champagne cooler as a floral vessel with European plates and pearl coasters.",
-    products: ["champagne-cooler", "european-style-plates", "pearl-serving-tray"]
   },
   {
     id: "crimson-banquet",

@@ -131,7 +131,7 @@
 
         "</div>") +
 
-      '<button type="button" class="btn btn--primary btn--small add-quote" data-item="' + esc(p.item) + '">add to quote</button>' +
+      '<button type="button" class="btn btn--primary btn--small add-quote" data-item="' + esc(p.item) + '" data-price="' + p.price + '">add to quote</button>' +
 
       "</div>";
 
