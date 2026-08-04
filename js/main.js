@@ -5,6 +5,16 @@
   var QUOTE_KEY = "rumi-quote-list";
   var EMAIL = "hello@rumihires.com";
 
+  /* Enquiry delivery.
+     Paste a free Web3Forms access key below and enquiries are sent straight to
+     EMAIL from the page, so the visitor never has to open a mail app. Get one
+     at https://web3forms.com — the key is safe to publish, it only permits
+     sending to the address verified against it.
+     While this is blank the form keeps its old behaviour and opens the
+     visitor's mail app instead, so the site still works either way. */
+  var FORM_ACCESS_KEY = "";
+  var FORM_ENDPOINT = "https://api.web3forms.com/submit";
+
   /* ---------- footer year ---------- */
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -19,14 +29,26 @@
   }
 
   /* ---------- quote list (localStorage) ---------- */
+  /* Stock ceiling for a saved line. It travels with the entry so the quote
+     panel still enforces it on pages that don't load the product catalogue. */
+  function entryMax(entry) {
+    var stored = parseInt(entry && entry.max, 10);
+    if (stored > 0) return stored;
+    if (window.RUMI && window.RUMI.maxQtyForItem) {
+      return window.RUMI.maxQtyForItem(entry.item) || 0;
+    }
+    return 0;
+  }
+
   function normalizeEntry(entry) {
     if (typeof entry === "string") {
-      return { item: entry, qty: 1 };
+      entry = { item: entry, qty: 1 };
     }
-    return {
-      item: entry.item,
-      qty: Math.max(1, parseInt(entry.qty, 10) || 1)
-    };
+    var max = entryMax(entry);
+    var qty = Math.max(1, parseInt(entry.qty, 10) || 1);
+    var out = { item: entry.item, qty: max > 0 ? Math.min(qty, max) : qty };
+    if (max > 0) out.max = max;
+    return out;
   }
 
   function getQuote() {
@@ -66,9 +88,14 @@
     return div.innerHTML;
   }
 
-  function qtyStepperHtml(value) {
+  function stepperMax(stepper) {
+    var max = stepper && parseInt(stepper.getAttribute("data-max"), 10);
+    return max > 0 ? max : 9999;
+  }
+
+  function qtyStepperHtml(value, max) {
     return (
-      '<div class="qty-stepper">' +
+      '<div class="qty-stepper"' + (max > 0 ? ' data-max="' + max + '"' : "") + ">" +
       '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
       '<input type="text" class="quote-qty" value="' + value + '" readonly inputmode="numeric" aria-label="Quantity">' +
       '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
@@ -78,20 +105,23 @@
 
   function readQty(input) {
     if (!input) return 1;
-    return Math.max(1, Math.min(9999, parseInt(input.value, 10) || 1));
+    var max = stepperMax(input.closest(".qty-stepper"));
+    return Math.max(1, Math.min(max, parseInt(input.value, 10) || 1));
   }
 
   function syncStepper(stepper, val) {
     var input = stepper.querySelector(".quote-qty");
     var minus = stepper.querySelector('[data-step="-1"]');
+    var plus = stepper.querySelector('[data-step="1"]');
     if (input) input.value = val;
     if (minus) minus.disabled = val <= 1;
+    if (plus) plus.disabled = val >= stepperMax(stepper);
   }
 
   function applyStepperStep(stepper, step) {
     var input = stepper.querySelector(".quote-qty");
     var val = readQty(input) + step;
-    val = Math.max(1, Math.min(9999, val));
+    val = Math.max(1, Math.min(stepperMax(stepper), val));
     syncStepper(stepper, val);
     return val;
   }
@@ -170,7 +200,11 @@
       return (
         '<div class="quote-item" data-index="' + index + '">' +
         '<span class="quote-item__name">' + esc(entry.item) + "</span>" +
-        '<div class="quote-item__qty">' + qtyStepperHtml(entry.qty) + "</div>" +
+        '<div class="quote-item__qty">' +
+        (entryMax(entry) === 1
+          ? '<span class="quote-item__fixed" aria-label="Quantity 1, only one available">1</span>'
+          : qtyStepperHtml(entry.qty, entryMax(entry))) +
+        "</div>" +
         '<button type="button" class="quote-item__remove" data-index="' + index + '" aria-label="Remove ' + esc(entry.item) + '">&times;</button>' +
         "</div>"
       );
@@ -198,23 +232,18 @@
     if (panelOpen && totals.lines === 0) closeQuotePanel();
   }
 
-  function sendQuoteEmail() {
-    var list = getQuote();
-    if (!list.length) return;
-    var body =
-      "Hi Rumi Hires,\n\n" +
-      "I'd like a quote for the following items:\n\n" +
-      list.map(formatQuoteLine).join("\n") +
-      "\n\nEvent date: \nVenue / location: \nApprox. guest numbers: \n\nThanks!";
-    window.location.href =
-      "mailto:" + EMAIL +
-      "?subject=" + encodeURIComponent("Quote request — Rumi Hires") +
-      "&body=" + encodeURIComponent(body);
-    localStorage.removeItem(QUOTE_KEY);
-    closeQuotePanel();
-    updateQuoteBar();
-    renderQuotePanel();
-    showToast("Quote list cleared — check your email app");
+  /* The list travels with the visitor in localStorage, so the enquiry form
+     picks it up on its own — we only need to get them to the form. */
+  function goToEnquiryForm() {
+    if (!getQuote().length) return;
+    var form = document.getElementById("enquiryForm");
+    if (form) {
+      closeQuotePanel();
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast("Your items are attached — just add your details");
+      return;
+    }
+    window.location.href = "contact.html#enquiry";
   }
 
   var toastTimer;
@@ -252,7 +281,7 @@
     }
 
     if (e.target.closest("#sendQuote") || e.target.closest("#sendQuotePanel")) {
-      sendQuoteEmail();
+      goToEnquiryForm();
       return;
     }
 
@@ -303,8 +332,12 @@
     var option = card ? card.getAttribute("data-option") : null;
     if (option) item += " (" + option + ")";
     var qtyInput = card ? card.querySelector(".quote-qty") : null;
+    var stepper = qtyInput ? qtyInput.closest(".qty-stepper") : null;
     var qty = readQty(qtyInput);
-    if (qtyInput) syncStepper(qtyInput.closest(".qty-stepper"), qty);
+    if (stepper) syncStepper(stepper, qty);
+
+    var max = stepper ? parseInt(stepper.getAttribute("data-max"), 10) || 0 : 0;
+    if (!max && window.RUMI && window.RUMI.maxQtyForItem) max = window.RUMI.maxQtyForItem(item);
 
     var list = getQuote();
     var existing = list.find(function (entry) {
@@ -313,12 +346,15 @@
 
     if (existing) {
       existing.qty = qty;
+      if (max > 0) existing.max = max;
       saveQuote(list);
       showToast("Updated \u201c" + item + "\u201d to qty " + qty);
       return;
     }
 
-    list.push({ item: item, qty: qty });
+    var entry = { item: item, qty: qty };
+    if (max > 0) entry.max = max;
+    list.push(entry);
     saveQuote(list);
     showToast("Added \u201c" + item + "\u201d \u00d7 " + qty + " to your quote list");
   });
@@ -369,41 +405,157 @@
     }
   }
 
-  /* ---------- enquiry form -> mailto ---------- */
+  /* ---------- enquiry form ---------- */
   var form = document.getElementById("enquiryForm");
   if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var get = function (id) {
-        var el = document.getElementById(id);
-        return el ? el.value.trim() : "";
-      };
-      var quoteItems = getQuote();
+    var statusEl = document.getElementById("formStatus");
+    var fallbackBtn = document.getElementById("formFallback");
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    var get = function (id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    };
+
+    var hint = document.getElementById("formHint");
+    if (hint && FORM_ACCESS_KEY) {
+      hint.textContent =
+        "Sent straight to our team — no email app needed. Anything in your quote list comes with it.";
+    }
+
+    function setStatus(msg, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = msg || "";
+      statusEl.className = "form-status" + (kind ? " form-status--" + kind : "");
+      statusEl.style.display = msg ? "block" : "none";
+    }
+
+    function enquiryDetails() {
       var lines = [
-        "Hi Rumi Hires,",
-        "",
         "Name: " + get("name"),
-        "Phone: " + (get("phone") || "-"),
-        "Email: " + get("email"),
+        "Email: " + (get("email") || "not given"),
+        "Phone: " + (get("phone") || "not given"),
         "Event date: " + (get("date") || "TBC"),
         "Event type: " + (get("type") || "-"),
         "Venue / location: " + (get("location") || "TBC"),
         "",
-        "My vision:",
-        get("message")
+        "Their vision:",
+        get("message") || "-"
       ];
-      if (quoteItems.length) {
-        lines.push("", "Items on my quote list:");
-        quoteItems.forEach(function (entry) {
+      var extra = get("extra");
+      if (extra) lines.push("", "Anything else:", extra);
+
+      var items = getQuote();
+      if (items.length) {
+        lines.push("", "Quote list:");
+        items.forEach(function (entry) {
           lines.push(formatQuoteLine(entry));
         });
+      } else {
+        lines.push("", "Quote list: nothing selected");
       }
-      lines.push("", "Thanks!");
+      return lines;
+    }
+
+    function sendByMailApp() {
+      var body = ["Hi Rumi Hires,", ""]
+        .concat(enquiryDetails(), ["", "Thanks!"])
+        .join("\n");
       window.location.href =
         "mailto:" + EMAIL +
         "?subject=" + encodeURIComponent("Event enquiry — " + (get("name") || "new enquiry")) +
-        "&body=" + encodeURIComponent(lines.join("\n"));
-      showToast("Opening your email app\u2026");
+        "&body=" + encodeURIComponent(body);
+    }
+
+    function showSuccess(replyTo) {
+      localStorage.removeItem(QUOTE_KEY);
+      updateQuoteBar();
+      renderQuotePanel();
+      var card = form.closest(".form-card") || form.parentNode;
+      card.innerHTML =
+        '<div class="form-success">' +
+        "<h2>thank you — we've got it</h2>" +
+        "<p>Your enquiry has been sent to our team" +
+        (replyTo ? " and we'll reply to " + esc(replyTo) : "") +
+        ". We aim to come back to you within one business day.</p>" +
+        '<p class="form-success__next">In the meantime, feel free to ' +
+        '<a href="items.html">keep browsing the collection</a>.</p>' +
+        "</div>";
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    if (fallbackBtn) {
+      fallbackBtn.addEventListener("click", function () {
+        sendByMailApp();
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      /* Honeypot: bots fill every field they find, people never see this one. */
+      if (get("company")) {
+        showSuccess("");
+        return;
+      }
+
+      var email = get("email");
+      var phone = get("phone");
+      if (!email && !phone) {
+        setStatus("Please leave either an email address or a phone number so we can get back to you.", "error");
+        var emailEl = document.getElementById("email");
+        if (emailEl) emailEl.focus();
+        return;
+      }
+
+      if (!FORM_ACCESS_KEY) {
+        sendByMailApp();
+        showToast("Opening your email app…");
+        return;
+      }
+
+      setStatus("");
+      if (fallbackBtn) fallbackBtn.style.display = "none";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "sending…";
+      }
+
+      var payload = {
+        access_key: FORM_ACCESS_KEY,
+        subject: "Event enquiry — " + (get("name") || "new enquiry"),
+        from_name: "Rumi Hires website",
+        name: get("name"),
+        phone: phone || "not given",
+        message: enquiryDetails().join("\n")
+      };
+      if (email) {
+        payload.email = email;
+        payload.replyto = email;
+      }
+
+      fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          return res.json().catch(function () {
+            return {};
+          });
+        })
+        .then(function (data) {
+          if (!data || !data.success) throw new Error("rejected");
+          showSuccess(email);
+        })
+        .catch(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "send enquiry";
+          }
+          setStatus("Sorry, that didn't send. Please check your connection and try again — or use the button below to send it by email instead.", "error");
+          if (fallbackBtn) fallbackBtn.style.display = "inline-block";
+        });
     });
   }
 })();

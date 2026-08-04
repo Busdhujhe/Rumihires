@@ -26,13 +26,15 @@
 
 
 
-  function qtyStepperHtml(value, id) {
+  function qtyStepperHtml(value, id, max) {
 
     var idAttr = id ? ' id="' + esc(id) + '"' : "";
 
+    var maxAttr = max > 0 ? ' data-max="' + max + '"' : "";
+
     return (
 
-      '<div class="qty-stepper">' +
+      '<div class="qty-stepper"' + maxAttr + ">" +
 
       '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
 
@@ -111,17 +113,23 @@
 
       (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
 
+      (window.RUMI.stockNote(p) ? '<p class="product__stock">' + esc(window.RUMI.stockNote(p)) + "</p>" : "") +
+
       '<a href="' + esc(detailUrl) + '" class="product__view">view photos &amp; details</a>' +
 
       '<div class="product__actions">' +
 
-      '<div class="product__qty">' +
+      /* A stepper pinned to 1 has both buttons dead, which reads as broken —
+         the stock note already tells the customer why. */
+      (window.RUMI.maxQty(p) === 1 ? "" :
 
-      '<label for="qty-' + esc(p.slug) + '">qty</label>' +
+        '<div class="product__qty">' +
 
-      qtyStepperHtml(1, "qty-" + p.slug) +
+        '<label for="qty-' + esc(p.slug) + '">qty</label>' +
 
-      "</div>" +
+        qtyStepperHtml(1, "qty-" + p.slug, window.RUMI.maxQty(p)) +
+
+        "</div>") +
 
       '<button type="button" class="btn btn--primary btn--small add-quote" data-item="' + esc(p.item) + '">add to quote</button>' +
 

@@ -226,5 +226,57 @@ window.RUMI_PRODUCTS = [
     bulk: "15+ qty discount available",
     placeholder: "pi--tableware",
     cataloguePage: 21
+  },
+  {
+    slug: "instax-mini-12",
+    cat: "cameras",
+    item: "Instax Mini 12 Instant Camera",
+    title: "instax mini 12",
+    spec: "credit-card size prints · film not included",
+    price: 35,
+    maxQty: 1,
+    placeholder: "pi--camera",
+    imageExt: "jpg",
+    extraImages: [{ file: "instax-mini-12-back.jpg", label: "back" }],
+    cataloguePage: 22
+  },
+  {
+    slug: "instax-square-sq40",
+    cat: "cameras",
+    item: "Instax Square SQ40 Instant Camera",
+    title: "instax square sq40",
+    spec: "square prints · film not included",
+    price: 45,
+    maxQty: 1,
+    placeholder: "pi--camera",
+    imageExt: "jpg",
+    extraImages: [{ file: "instax-square-sq40-back.jpg", label: "back" }],
+    cataloguePage: 23
+  },
+  {
+    slug: "instax-mini-liplay",
+    cat: "cameras",
+    item: "Instax Mini LiPlay Hybrid Camera",
+    title: "instax mini liplay",
+    spec: "preview before you print · film not included",
+    price: 55,
+    maxQty: 1,
+    placeholder: "pi--camera",
+    imageExt: "jpg",
+    extraImages: [{ file: "instax-mini-liplay-back.jpg", label: "back" }],
+    cataloguePage: 24
+  },
+  {
+    slug: "instax-camera-bundle",
+    cat: "cameras",
+    item: "Instax Camera Bundle (all 3 cameras)",
+    title: "instax camera bundle",
+    spec: "all 3 cameras · save $20 · film not included",
+    price: 115,
+    maxQty: 1,
+    badge: "best value",
+    placeholder: "pi--camera",
+    imageExt: "jpg",
+    cataloguePage: 25
   }
 ];

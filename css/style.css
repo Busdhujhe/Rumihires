@@ -12,7 +12,12 @@
   --gold: #99d6ee;
   --gold-dark: #5ab8db;
   --white: #ffffff;
-  --muted: #5a8a9a;
+  --muted: #6f6f6f;
+  /* Text tokens: accents on light surfaces are black, and text on the dark
+     sections is neutral grey so nothing on the site reads as blue. */
+  --accent-text: #000000;
+  --on-dark: #f2f2f2;
+  --on-dark-muted: #c8c8c8;
   /* matches the backdrop baked into the studio product photos */
   --studio-bg: #e3e3e4;
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
@@ -48,7 +53,7 @@ h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); }
 h2 { font-size: clamp(2rem, 4vw, 3rem); }
 h3 { font-size: 1.5rem; }
 
-a { color: var(--gold-dark); text-decoration: none; }
+a { color: var(--accent-text); text-decoration: none; }
 
 .container { width: min(1180px, 92%); margin: 0 auto; }
 
@@ -60,15 +65,16 @@ a { color: var(--gold-dark); text-decoration: none; }
   text-transform: uppercase;
   font-size: 0.72rem;
   font-weight: 500;
-  color: var(--gold);
+  color: var(--accent-text);
   margin-bottom: 0.9rem;
 }
 
 .section { padding: 5.5rem 0; }
 .section--cream { background: var(--cream); }
 .section--dark { background: var(--charcoal); }
-.section--dark h2, .section--dark h3 { color: var(--ivory); }
-.section--dark p { color: #b8dce8; }
+.section--dark h2, .section--dark h3 { color: var(--on-dark); }
+.section--dark p { color: var(--on-dark-muted); }
+.section--dark .eyebrow { color: var(--on-dark-muted); }
 
 .section-head { max-width: 620px; margin-bottom: 3rem; }
 .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
@@ -88,27 +94,30 @@ a { color: var(--gold-dark); text-decoration: none; }
   transition: all 0.25s ease;
   text-align: center;
 }
-.btn--primary { background: var(--charcoal); color: var(--ivory); }
+.btn--primary { background: var(--charcoal); color: var(--on-dark); }
 .btn--primary:hover { background: var(--gold-dark); color: var(--charcoal); transform: translateY(-2px); }
 .btn--gold { background: var(--gold); color: var(--charcoal); }
 .btn--gold:hover { background: var(--gold-dark); color: var(--charcoal); transform: translateY(-2px); }
 .btn--ghost { border-color: var(--charcoal); color: var(--charcoal); background: transparent; }
-.btn--ghost:hover { background: var(--charcoal); color: var(--ivory); }
-.btn--ghost-light { border-color: var(--ivory); color: var(--ivory); background: transparent; }
+.btn--ghost:hover { background: var(--charcoal); color: var(--on-dark); }
+.btn--ghost-light { border-color: var(--ivory); color: var(--on-dark); background: transparent; }
 .btn--ghost-light:hover { background: var(--ivory); color: var(--charcoal); }
+/* Solid counterpart for use over photography, where an outline button reads as unfilled. */
+.btn--light { border-color: var(--white); color: var(--charcoal); background: var(--white); }
+.btn--light:hover { background: #e2e2e2; border-color: #e2e2e2; color: var(--charcoal); }
 .btn--small { padding: 0.6rem 1.4rem; font-size: 0.72rem; }
 
 /* ---------- announcement bar ---------- */
 .announce {
   background: var(--charcoal);
-  color: var(--ivory);
+  color: var(--on-dark);
   text-align: center;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.55rem 1rem;
 }
-.announce a { color: var(--gold); }
+.announce a { color: var(--white); }
 
 /* ---------- header ---------- */
 .header {
@@ -134,7 +143,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   font-weight: 600;
   white-space: nowrap;
 }
-.logo span { color: var(--gold); }
+.logo span { color: var(--accent-text); }
 
 .nav { display: flex; align-items: center; gap: 1.8rem; }
 .nav a {
@@ -144,7 +153,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   text-transform: uppercase;
   transition: color 0.2s;
 }
-.nav a:hover, .nav a.active { color: var(--gold-dark); }
+.nav a:hover, .nav a.active { color: var(--accent-text); }
 
 .nav-toggle {
   display: none;
@@ -192,6 +201,11 @@ a { color: var(--gold-dark); text-decoration: none; }
   position: relative;
   z-index: 2;
 }
+/* The photo runs pale behind this line, so it needs a shadow to stay legible. */
+.hero__content .eyebrow {
+  color: var(--white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 8px rgba(0, 0, 0, 0.35);
+}
 .hero__content h1 {
   color: var(--white);
   margin-bottom: 1rem;
@@ -201,7 +215,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   line-height: 0.95;
 }
 .hero__content p {
-  color: #e5f4fa;
+  color: #f0f0f0;
   font-size: 1.15rem;
   max-width: 480px;
   margin-bottom: 2rem;
@@ -212,7 +226,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   display: flex;
   gap: 2.4rem;
   flex-wrap: wrap;
-  color: #c5e8f5;
+  color: #dcdcdc;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -239,7 +253,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   border: 1px solid var(--sand);
   display: flex; align-items: center; justify-content: center;
   font-size: 1.5rem;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   font-family: var(--font-display);
 }
 .prop h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
@@ -276,7 +290,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
 }
 .cc--seating {
   background-image: url("../assets/img/collection-seating.png");
@@ -328,8 +342,8 @@ a { color: var(--gold-dark); text-decoration: none; }
   cursor: pointer;
   transition: all 0.2s;
 }
-.filter-chip:hover { border-color: var(--gold); color: var(--gold-dark); }
-.filter-chip.active { background: var(--charcoal); color: var(--ivory); border-color: var(--charcoal); }
+.filter-chip:hover { border-color: var(--gold); color: var(--accent-text); }
+.filter-chip.active { background: var(--charcoal); color: var(--on-dark); border-color: var(--charcoal); }
 
 .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 .product {
@@ -402,7 +416,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   margin-right: 0.15rem;
 }
 .product__view-btn {
@@ -431,7 +445,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   margin-bottom: 0.35rem;
 }
 .product__body h3 { font-size: 1.35rem; margin-bottom: 0.4rem; }
@@ -440,10 +454,18 @@ a { color: var(--gold-dark); text-decoration: none; }
 .product__price .unit { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
 .product__bulk {
   font-size: 0.8rem;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   margin-top: -0.15rem;
   margin-bottom: 0.75rem;
   letter-spacing: 0.02em;
+}
+.product__stock {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: -0.15rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .product__spec {
   font-size: 0.85rem;
@@ -520,7 +542,8 @@ a { color: var(--gold-dark); text-decoration: none; }
 .pi--eastern,
 .pi--table,
 .pi--set,
-.pi--tableware {
+.pi--tableware,
+.pi--camera {
   background: radial-gradient(ellipse 95% 90% at 50% 42%, #fafbfc 0%, #eef2f5 100%);
 }
 .product__img.has-photo.pi--chair-a,
@@ -532,7 +555,8 @@ a { color: var(--gold-dark); text-decoration: none; }
 .product__img.has-photo.pi--eastern,
 .product__img.has-photo.pi--table,
 .product__img.has-photo.pi--set,
-.product__img.has-photo.pi--tableware {
+.product__img.has-photo.pi--tableware,
+.product__img.has-photo.pi--camera {
   background: radial-gradient(ellipse 92% 88% at 50% 44%, #ffffff 0%, #f7f9fb 48%, #edf1f4 100%);
 }
 
@@ -547,17 +571,17 @@ a { color: var(--gold-dark); text-decoration: none; }
   text-decoration: none;
   transition: color 0.2s;
 }
-.product__body h3 a:hover { color: var(--gold-dark); }
+.product__body h3 a:hover { color: var(--muted); }
 .product__view {
   display: inline-block;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   margin-bottom: 1rem;
   font-weight: 500;
 }
-.product__view:hover { color: var(--charcoal); }
+.product__view:hover { color: var(--muted); }
 .product--link {
   text-decoration: none;
   color: inherit;
@@ -573,7 +597,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   color: var(--muted);
 }
 .product-detail__crumb a {
-  color: var(--gold-dark);
+  color: var(--accent-text);
   text-decoration: none;
 }
 .product-detail__crumb a:hover { text-decoration: underline; }
@@ -774,7 +798,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-style: italic;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   border-left: 2px solid var(--gold);
   padding-left: 1.2rem;
   margin: 1.6rem 0;
@@ -786,12 +810,12 @@ a { color: var(--gold-dark); text-decoration: none; }
 .step__num {
   font-family: var(--font-display);
   font-size: 3.2rem;
-  color: var(--gold);
+  color: var(--on-dark-muted);
   opacity: 0.85;
   line-height: 1;
   margin-bottom: 0.6rem;
 }
-.step h3 { font-size: 1.25rem; margin-bottom: 0.4rem; color: var(--ivory); }
+.step h3 { font-size: 1.25rem; margin-bottom: 0.4rem; color: var(--on-dark); }
 .step p { font-size: 0.95rem; }
 
 /* ---------- FAQ ---------- */
@@ -813,7 +837,7 @@ a { color: var(--gold-dark); text-decoration: none; }
   justify-content: space-between;
   align-items: center;
 }
-.faq summary::after { content: "+"; color: var(--gold); font-size: 1.5rem; }
+.faq summary::after { content: "+"; color: var(--accent-text); font-size: 1.5rem; }
 .faq details[open] summary::after { content: "–"; }
 .faq details p { padding-top: 0.8rem; font-size: 0.98rem; }
 
@@ -857,6 +881,41 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(153, 214, 238, 0.45);
 }
 
+.form-hint {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: -0.5rem;
+}
+
+/* Bait field for bots — kept out of sight and out of the tab order rather
+   than display:none, which some bots skip. */
+.form-honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.9rem;
+}
+.form-status--error {
+  background: #fdeceb;
+  border: 1px solid #e6b5b0;
+  color: #8a2c22;
+}
+
+.form-success { text-align: center; padding: 1.5rem 0.5rem; }
+.form-success h2 { margin-bottom: 0.8rem; }
+.form-success p { font-size: 0.98rem; }
+.form-success__next { margin-top: 0.8rem; font-size: 0.9rem; color: var(--muted); }
+.form-success__next a { text-decoration: underline; text-underline-offset: 3px; }
+
 .contact-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3.5rem; align-items: start; }
 .contact-aside h3 { margin-bottom: 0.6rem; }
 .contact-aside .block { margin-bottom: 2rem; }
@@ -869,7 +928,7 @@ input:focus, select:focus, textarea:focus {
   left: 50%;
   transform: translateX(-50%) translateY(140%);
   background: var(--charcoal);
-  color: var(--ivory);
+  color: var(--on-dark);
   border-radius: 999px;
   padding: 0.7rem 0.8rem 0.7rem 1.6rem;
   display: flex;
@@ -882,11 +941,11 @@ input:focus, select:focus, textarea:focus {
 }
 .quote-bar.visible { transform: translateX(-50%) translateY(0); }
 .quote-bar__count { font-size: 0.9rem; letter-spacing: 0.04em; cursor: pointer; }
-.quote-bar__count:hover { color: var(--gold); }
-.quote-bar__count strong { color: var(--gold); }
+.quote-bar__count:hover { color: var(--white); }
+.quote-bar__count strong { color: var(--white); }
 .quote-bar__view {
   border-color: rgba(229, 244, 250, 0.35);
-  color: var(--ivory);
+  color: var(--on-dark);
   padding: 0.55rem 1rem;
   font-size: 0.68rem;
 }
@@ -959,7 +1018,7 @@ input:focus, select:focus, textarea:focus {
   padding: 2rem 0;
   font-size: 0.95rem;
 }
-.quote-panel__empty a { color: var(--gold-dark); }
+.quote-panel__empty a { color: var(--accent-text); }
 .quote-item {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -976,6 +1035,14 @@ input:focus, select:focus, textarea:focus {
 }
 .quote-item__qty .qty-stepper .quote-qty {
   width: 2.8rem;
+}
+/* Stands in for the stepper on pieces we only own one of. */
+.quote-item__fixed {
+  display: inline-block;
+  min-width: 2.8rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--muted);
 }
 .quote-item__remove {
   background: none;
@@ -1004,12 +1071,12 @@ input:focus, select:focus, textarea:focus {
 /* ---------- footer ---------- */
 .footer {
   background: var(--charcoal);
-  color: #8ec4d8;
+  color: var(--on-dark-muted);
   padding: 4rem 0 2rem;
   font-size: 0.92rem;
 }
 .footer h4 {
-  color: var(--ivory);
+  color: var(--on-dark);
   font-size: 1.1rem;
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
@@ -1021,11 +1088,12 @@ input:focus, select:focus, textarea:focus {
   padding-bottom: 2.5rem;
   border-bottom: 1px solid #1a3a4a;
 }
-.footer a { color: #8ec4d8; transition: color 0.2s; }
-.footer a:hover { color: var(--gold); }
+.footer a { color: var(--on-dark-muted); transition: color 0.2s; }
+.footer a:hover { color: var(--white); }
 .footer ul { list-style: none; }
 .footer li { margin-bottom: 0.5rem; }
-.footer__brand .logo { color: var(--ivory); font-size: 1.4rem; }
+.footer__brand .logo { color: var(--on-dark); font-size: 1.4rem; }
+.footer__brand .logo span { color: var(--on-dark); }
 .footer__bottom {
   display: flex;
   justify-content: space-between;
@@ -1164,7 +1232,7 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   font-weight: 500;
 }
 .moments-card__tags,
@@ -1280,7 +1348,7 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
   margin: 0 0 0.55rem !important;
   width: 100%;
 }
@@ -1347,7 +1415,7 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--accent-text);
 }
 .product-moments__grid {
   display: grid;

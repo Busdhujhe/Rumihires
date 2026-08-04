@@ -109,15 +109,19 @@
     (p.spec ? '<p class="product__spec">' + esc(p.spec) + "</p>" : "") +
     '<div class="product__price">$' + p.price + ' <span class="unit">/ hire</span></div>' +
     (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
+    (window.RUMI.stockNote(p) ? '<p class="product__stock">' + esc(window.RUMI.stockNote(p)) + "</p>" : "") +
     '<p class="product-detail__lead">Hire this piece for your event across Brisbane, Queensland &amp; Northern NSW. Add to your quote list — no obligation.</p>' +
     '<div class="product-detail__actions product__actions">' +
-    '<div class="product__qty">' +
-    "<label>qty</label>" +
-    '<div class="qty-stepper">' +
-    '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
-    '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
-    '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
-    "</div></div>" +
+    /* A stepper pinned to 1 has both buttons dead, which reads as broken —
+       the stock note already tells the customer why. */
+    (window.RUMI.maxQty(p) === 1 ? "" :
+      '<div class="product__qty">' +
+      "<label>qty</label>" +
+      '<div class="qty-stepper"' + (window.RUMI.maxQty(p) ? ' data-max="' + window.RUMI.maxQty(p) + '"' : "") + ">" +
+      '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
+      '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
+      '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
+      "</div></div>") +
     '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '">add to quote</button>' +
     '<a href="contact.html" class="btn btn--ghost">ask about this item</a>' +
     "</div></div></div>" +
