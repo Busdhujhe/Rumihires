@@ -45,13 +45,6 @@ window.RUMI_MOMENTS = [
     products: ["french-black-day-bed", "french-wave-umbrella"]
   },
   {
-    id: "umbrella-event-setup",
-    file: "umbrella-event-setup.jpg",
-    title: "Umbrella in place",
-    caption: "A French wave umbrella set for a corporate Christmas activation.",
-    products: ["french-wave-umbrella"]
-  },
-  {
     id: "dessert-buffet-tiers",
     file: "dessert-buffet-tiers.jpg",
     title: "Dessert buffet tiers",
