@@ -27,7 +27,7 @@ window.RUMI_MOMENTS = [
     id: "ceremony-backdrop-seating",
     file: "ceremony-backdrop-seating.jpg",
     title: "Ceremony seating ready",
-    caption: "Rows of cream wrought-iron chairs facing a draped floral backdrop on the lawn.",
+    caption: "Rows of matte white wrought-iron chairs facing a draped floral backdrop on the lawn.",
     products: ["french-lite-iron-chair"]
   },
   {
@@ -41,8 +41,8 @@ window.RUMI_MOMENTS = [
     id: "lounge-under-umbrellas",
     file: "lounge-under-umbrellas.jpg",
     title: "Lounge under the wave",
-    caption: "French black day beds with cream cushions styled beneath scalloped umbrellas.",
-    products: ["french-black-day-bed", "french-wave-umbrella"]
+    caption: "French black day beds and bench with cream cushions styled beneath scalloped umbrellas.",
+    products: ["french-black-day-bed", "french-black-bench", "french-wave-umbrella"]
   },
   {
     id: "dessert-buffet-tiers",
@@ -61,8 +61,8 @@ window.RUMI_MOMENTS = [
   {
     id: "crimson-banquet",
     file: "crimson-banquet.jpg",
-    title: "Crimson banquet",
-    caption: "A red-draped celebration under glowing lanterns — atmosphere for an unforgettable night.",
+    title: "Traditional Chinese wedding banquet",
+    caption: "Red-draped banquet rounds, bentwood chairs and glowing silk lanterns for a classic Chinese wedding dinner.",
     products: []
   },
   {
@@ -83,15 +83,15 @@ window.RUMI_MOMENTS = [
     id: "ceremony-aisle",
     file: "ceremony-aisle.jpg",
     title: "Garden ceremony aisle",
-    caption: "Soft cream draping, petal aisle and wrought-iron seating for an outdoor vows moment.",
-    products: ["french-lite-iron-chair"]
+    caption: "Soft cream draping, petal aisle, wrought-iron seating and a cushioned day bed for an outdoor vows moment.",
+    products: ["french-lite-iron-chair", "french-black-day-bed"]
   },
   {
     id: "golden-hour-couple",
     file: "golden-hour-couple.jpg",
     title: "Golden hour under the wave umbrella",
-    caption: "A draped table for two, scalloped umbrella canopy and a silver snack stand catching the last light.",
-    products: ["french-wave-umbrella", "timeless-snack-stand-a"]
+    caption: "A draped donut table for two, scalloped umbrella canopy and a silver snack stand catching the last light.",
+    products: ["french-wave-umbrella", "donut-table", "timeless-snack-stand-a"]
   },
   {
     id: "silver-centrepiece",

@@ -51,6 +51,14 @@
     return 0;
   }
 
+  function entryImage(entry) {
+    if (entry && entry.img) return entry.img;
+    if (window.RUMI && window.RUMI.imageForItem) {
+      return window.RUMI.imageForItem(entry.item) || "";
+    }
+    return "";
+  }
+
   function lineTotal(entry) {
     return entryPrice(entry) * (entry.qty || 1);
   }
@@ -67,9 +75,11 @@
     var max = entryMax(entry);
     var qty = Math.max(1, parseInt(entry.qty, 10) || 1);
     var price = entryPrice(entry);
+    var img = entryImage(entry);
     var out = { item: entry.item, qty: max > 0 ? Math.min(qty, max) : qty };
     if (max > 0) out.max = max;
     if (price > 0) out.price = price;
+    if (img) out.img = img;
     return out;
   }
 
@@ -249,8 +259,13 @@
     var html = list.map(function (entry, index) {
       var price = entryPrice(entry);
       var line = lineTotal(entry);
+      var img = entryImage(entry);
+      var thumb = img
+        ? '<div class="quote-item__thumb"><img src="' + esc(img) + '" alt="" loading="lazy"></div>'
+        : '<div class="quote-item__thumb quote-item__thumb--empty" aria-hidden="true"></div>';
       return (
         '<div class="quote-item" data-index="' + index + '">' +
+        thumb +
         '<span class="quote-item__name">' + esc(entry.item) + "</span>" +
         '<span class="quote-item__price"' + (price > 0 ? ' data-unit="' + price + '"' : "") + ">" +
         (price > 0 ? "$" + formatMoney(line) : "") +
@@ -398,6 +413,15 @@
       price = window.RUMI.priceForItem(item) || 0;
     }
 
+    var img = "";
+    if (card) {
+      var cardImg = card.querySelector(".product__img img, #productMainImg");
+      if (cardImg && cardImg.getAttribute("src")) img = cardImg.getAttribute("src");
+    }
+    if (!img && window.RUMI && window.RUMI.imageForItem) {
+      img = window.RUMI.imageForItem(item) || "";
+    }
+
     var list = getQuote();
     var existing = list.find(function (entry) {
       return entry.item === item;
@@ -407,6 +431,7 @@
       existing.qty = qty;
       if (max > 0) existing.max = max;
       if (price > 0) existing.price = price;
+      if (img) existing.img = img;
       saveQuote(list);
       showToast("Updated \u201c" + item + "\u201d to qty " + qty);
       return;
@@ -415,6 +440,7 @@
     var entry = { item: item, qty: qty };
     if (max > 0) entry.max = max;
     if (price > 0) entry.price = price;
+    if (img) entry.img = img;
     list.push(entry);
     saveQuote(list);
     showToast("Added \u201c" + item + "\u201d \u00d7 " + qty + " to your quote list");

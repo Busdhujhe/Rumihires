@@ -8,12 +8,29 @@ window.RUMI_PRODUCTS = [
     cat: "seating",
     item: "French Lite Iron Chair",
     title: "french lite iron chair",
+    spec: "matte white or gloss white · with arms",
     price: 18,
     bulk: "20+ from $15 each",
     badge: "most hired",
     placeholder: "pi--chair-a",
     imageExt: "jpg",
-    extraImages: [{ file: "french-lite-iron-chair-side.jpg", label: "side" }],
+    optionName: "finish",
+    finishes: [
+      {
+        label: "matte white",
+        views: [
+          { label: "front" },
+          { file: "french-lite-iron-chair-side.jpg", label: "side" }
+        ]
+      },
+      {
+        label: "gloss white",
+        views: [
+          { file: "french-lite-iron-chair-gloss.jpg", label: "front" },
+          { file: "french-lite-iron-chair-gloss-side.jpg", label: "side" }
+        ]
+      }
+    ],
     cataloguePage: 1
   },
   {
@@ -71,14 +88,17 @@ window.RUMI_PRODUCTS = [
     cat: "umbrella",
     item: "French Wave Umbrella",
     title: "french wave umbrella",
-    spec: "brown or silver pole",
+    spec: "2.1m brown or silver · XL 2.65m · 57cm square base",
     price: 55,
-    bulk: "5+ qty discount available",
+    bulk: "5+ qty discount available · XL $75",
     badge: "signature piece",
     placeholder: "pi--umbrella",
-    optionName: "pole",
-    imageLabel: "brown pole",
-    extraImages: [{ file: "french-wave-umbrella-silver.png", label: "silver pole" }],
+    optionName: "style",
+    imageLabel: "brown pole · 2.1m",
+    extraImages: [
+      { file: "french-wave-umbrella-silver.png", label: "silver pole · 2.1m" },
+      { file: "french-wave-umbrella-xl.jpg", label: "XL silver · 2.65m", price: 75 }
+    ],
     cataloguePage: 6
   },
   {
@@ -95,9 +115,13 @@ window.RUMI_PRODUCTS = [
     cat: "tables",
     item: "French Lite Iron Table",
     title: "french lite iron table",
+    spec: "matte white or gloss white · 600mm",
     price: 22,
     bulk: "20+ qty discount available",
     placeholder: "pi--table",
+    optionName: "finish",
+    imageLabel: "matte white",
+    extraImages: [{ file: "french-lite-iron-table-gloss.jpg", label: "gloss white" }],
     cataloguePage: 8
   },
   {
@@ -105,10 +129,13 @@ window.RUMI_PRODUCTS = [
     cat: "sets",
     item: "French Lite Iron Set (1 table & 2 chairs)",
     title: "french lite iron set",
-    spec: "1 table & 2 chairs",
+    spec: "1 table & 2 chairs · matte white or gloss white",
     price: 50,
     bulk: "20+ qty discount available",
     placeholder: "pi--set",
+    optionName: "finish",
+    imageLabel: "matte white",
+    extraImages: [{ file: "french-lite-iron-set-gloss.jpg", label: "gloss white" }],
     cataloguePage: 9
   },
   {
@@ -232,8 +259,9 @@ window.RUMI_PRODUCTS = [
     cat: "cameras",
     item: "Instax Mini 12 Instant Camera",
     title: "instax mini 12",
-    spec: "credit-card size prints · film not included",
-    price: 35,
+    spec: "credit-card size prints · 30 shots of film included",
+    price: 65,
+    bulk: "More or fewer shots of film available on enquiry",
     maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
@@ -245,8 +273,9 @@ window.RUMI_PRODUCTS = [
     cat: "cameras",
     item: "Instax Square SQ40 Instant Camera",
     title: "instax square sq40",
-    spec: "square prints · film not included",
-    price: 45,
+    spec: "square prints · 30 shots of film included",
+    price: 80,
+    bulk: "More or fewer shots of film available on enquiry",
     maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
@@ -258,8 +287,9 @@ window.RUMI_PRODUCTS = [
     cat: "cameras",
     item: "Instax Mini LiPlay Hybrid Camera",
     title: "instax mini liplay",
-    spec: "preview before you print · film not included",
-    price: 55,
+    spec: "preview before you print · 30 shots of film included",
+    price: 75,
+    bulk: "More or fewer shots of film available on enquiry",
     maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
@@ -271,8 +301,9 @@ window.RUMI_PRODUCTS = [
     cat: "cameras",
     item: "Instax Camera Bundle (all 3 cameras)",
     title: "instax camera bundle",
-    spec: "all 3 cameras · save $20 · film not included",
-    price: 115,
+    spec: "all 3 cameras · save $20 · 30 shots of film each",
+    price: 200,
+    bulk: "More or fewer shots of film available on enquiry",
     maxQty: 1,
     badge: "best value",
     placeholder: "pi--camera",
