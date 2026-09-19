@@ -589,16 +589,6 @@ a { color: var(--accent-text); text-decoration: none; }
   transition: color 0.2s;
 }
 .product__body h3 a:hover { color: var(--muted); }
-.product__view {
-  display: inline-block;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-text);
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-.product__view:hover { color: var(--muted); }
 .product--link {
   text-decoration: none;
   color: inherit;

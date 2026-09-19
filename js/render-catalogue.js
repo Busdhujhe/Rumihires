@@ -154,7 +154,6 @@
       '<div class="product__price">$' + gallery.options[0].price + ' <span class="unit">/ hire</span></div>' +
       (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
       (window.RUMI.stockNote(p) ? '<p class="product__stock">' + esc(window.RUMI.stockNote(p)) + "</p>" : "") +
-      '<a href="' + esc(detailUrl) + '" class="product__view">view photos &amp; details</a>' +
       '<div class="product__actions">' +
       (window.RUMI.maxQty(p) === 1 ? "" :
         '<div class="product__qty">' +
