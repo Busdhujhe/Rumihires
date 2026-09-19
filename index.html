@@ -12,20 +12,55 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=74" />
+  <link rel="stylesheet" href="css/style.css?v=75" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": "https://rumihires.com/#business",
     "name": "Rumi Hires",
-    "description": "Luxury event and wedding hire — French-style chairs, tables, umbrellas, lounge furniture and tableware.",
+    "description": "Luxury event and wedding furniture hire in Brisbane — French-style chairs, tables, umbrellas, lounge furniture and tableware.",
     "email": "hello@rumihires.com",
     "telephone": "+61426631389",
     "url": "https://rumihires.com",
     "sameAs": ["https://share.google/gJ9520QYMrZenCq0h"],
-    "address": { "@type": "PostalAddress", "addressLocality": "Brisbane", "addressRegion": "QLD", "addressCountry": "AU" },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "40 Wool St",
+      "addressLocality": "Toowong",
+      "addressRegion": "QLD",
+      "postalCode": "4066",
+      "addressCountry": "AU"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": -27.4808567, "longitude": 152.9796475 },
     "areaServed": ["Brisbane", "Queensland", "Northern New South Wales"],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "bestRating": "5", "reviewCount": "8" }
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "bestRating": "5", "worstRating": "1", "reviewCount": "8" },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Louise" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewBody": "Arthur from Rumi Hires offers a VERY good service. QUALITY TASTEFUL FURNITURE FOR HIRE!",
+        "publisher": { "@type": "Organization", "name": "Google" },
+        "itemReviewed": { "@id": "https://rumihires.com/#business" }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Tori" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewBody": "Super quick at communicating! Overall great service.",
+        "publisher": { "@type": "Organization", "name": "Google" },
+        "itemReviewed": { "@id": "https://rumihires.com/#business" }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Savannah" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewBody": "Easy to organise! Affordable and great quality.",
+        "publisher": { "@type": "Organization", "name": "Google" },
+        "itemReviewed": { "@id": "https://rumihires.com/#business" }
+      }
+    ]
   }
   </script>
 </head>
@@ -195,45 +230,66 @@
   </section>
 
   <!-- GOOGLE REVIEWS -->
-  <section class="section section--cream" id="reviews">
+  <section class="section section--cream" id="reviews" aria-labelledby="reviews-heading">
     <div class="container">
       <div class="section-head section-head--center">
         <span class="eyebrow">google reviews</span>
-        <h2>what clients say</h2>
-        <p>A few notes from our Google listing — first names only. The rest live on the profile.</p>
+        <h2 id="reviews-heading">what Brisbane clients say</h2>
+        <p>Real notes from people who hired our event furniture — 5.0 from 8 reviews on Google, first names only.</p>
       </div>
       <div class="reviews-strip">
-        <div class="reviews-score" aria-label="Rated 5.0 out of 5 from 8 Google reviews">
-          <p class="reviews-score__value">5.0</p>
+        <div class="reviews-score">
+          <p class="reviews-score__value">5.0<span class="visually-hidden"> out of 5</span></p>
           <p class="reviews-score__stars" aria-hidden="true">★★★★★</p>
           <p class="reviews-score__count">8 Google reviews</p>
         </div>
         <div class="reviews-strip__copy">
-          <p>See recent notes on the collection, delivery and service — then leave a review of your own after the day.</p>
-          <a class="btn btn--gold" href="https://share.google/gJ9520QYMrZenCq0h" target="_blank" rel="noopener noreferrer">See all on Google</a>
+          <p>These quotes are from our official Google listing. Read the rest there, or leave a review after your event.</p>
+          <div class="reviews-strip__actions">
+            <a class="btn btn--gold" href="https://share.google/gJ9520QYMrZenCq0h" target="_blank" rel="noopener noreferrer">See all on Google</a>
+            <a class="btn btn--ghost" href="https://share.google/gJ9520QYMrZenCq0h" target="_blank" rel="noopener noreferrer">Write a review</a>
+          </div>
         </div>
       </div>
       <ul class="reviews-quotes">
-        <li class="review-card">
-          <p class="review-card__stars" aria-hidden="true">★★★★★</p>
-          <blockquote>
-            <p>Arthur from Rumi Hires offers a VERY good service. QUALITY TASTEFUL FURNITURE FOR HIRE!</p>
-          </blockquote>
-          <p class="review-card__name">Louise</p>
+        <li>
+          <figure class="review-card">
+            <p class="review-card__stars" aria-hidden="true">★★★★★</p>
+            <blockquote cite="https://share.google/gJ9520QYMrZenCq0h">
+              <p>Arthur from Rumi Hires offers a VERY good service. QUALITY TASTEFUL FURNITURE FOR HIRE!</p>
+            </blockquote>
+            <figcaption>
+              <cite>Louise</cite>
+              <span class="review-card__source">Google review</span>
+              <span class="visually-hidden">Rated 5 out of 5 stars</span>
+            </figcaption>
+          </figure>
         </li>
-        <li class="review-card">
-          <p class="review-card__stars" aria-hidden="true">★★★★★</p>
-          <blockquote>
-            <p>Super quick at communicating! Overall great service.</p>
-          </blockquote>
-          <p class="review-card__name">Tori</p>
+        <li>
+          <figure class="review-card">
+            <p class="review-card__stars" aria-hidden="true">★★★★★</p>
+            <blockquote cite="https://share.google/gJ9520QYMrZenCq0h">
+              <p>Super quick at communicating! Overall great service.</p>
+            </blockquote>
+            <figcaption>
+              <cite>Tori</cite>
+              <span class="review-card__source">Google review</span>
+              <span class="visually-hidden">Rated 5 out of 5 stars</span>
+            </figcaption>
+          </figure>
         </li>
-        <li class="review-card">
-          <p class="review-card__stars" aria-hidden="true">★★★★★</p>
-          <blockquote>
-            <p>Easy to organise! Affordable and great quality.</p>
-          </blockquote>
-          <p class="review-card__name">Savannah</p>
+        <li>
+          <figure class="review-card">
+            <p class="review-card__stars" aria-hidden="true">★★★★★</p>
+            <blockquote cite="https://share.google/gJ9520QYMrZenCq0h">
+              <p>Easy to organise! Affordable and great quality.</p>
+            </blockquote>
+            <figcaption>
+              <cite>Savannah</cite>
+              <span class="review-card__source">Google review</span>
+              <span class="visually-hidden">Rated 5 out of 5 stars</span>
+            </figcaption>
+          </figure>
         </li>
       </ul>
     </div>
