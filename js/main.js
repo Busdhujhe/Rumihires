@@ -32,6 +32,10 @@
   /* Stock ceiling for a saved line. It travels with the entry so the quote
      panel still enforces it on pages that don't load the product catalogue. */
   function entryMax(entry) {
+    if (window.RUMI && window.RUMI.findProductForItem && window.RUMI_PRODUCTS) {
+      var found = window.RUMI.findProductForItem(entry && entry.item);
+      if (found) return window.RUMI.maxQty(found.product, found.option);
+    }
     var stored = parseInt(entry && entry.max, 10);
     if (stored > 0) return stored;
     if (window.RUMI && window.RUMI.maxQtyForItem) {
@@ -282,7 +286,7 @@
         "</span>" +
         '<div class="quote-item__qty">' +
         (entryMax(entry) === 1
-          ? '<span class="quote-item__fixed" aria-label="Quantity 1, only one available">1</span>'
+          ? '<span class="quote-item__fixed" aria-label="Quantity 1">1</span>'
           : qtyStepperHtml(entry.qty, entryMax(entry))) +
         "</div>" +
         '<button type="button" class="quote-item__remove" data-index="' + index + '" aria-label="Remove ' + esc(entry.item) + '">&times;</button>' +

@@ -138,6 +138,7 @@
 
   var first = currentView();
   var hasFinishAngles = gallery.optionName && gallery.options.some(function (o) { return o.views.length > 1; });
+  var startMax = (gallery.options[0] && gallery.options[0].maxQty) || window.RUMI.maxQty(p);
 
   root.innerHTML =
     '<div class="container">' +
@@ -164,17 +165,15 @@
     (p.spec ? '<p class="product__spec">' + esc(p.spec) + "</p>" : "") +
     '<div class="product__price" id="productPrice">$' + gallery.options[0].price + ' <span class="unit">/ hire</span></div>' +
     (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
-    (window.RUMI.stockNote(p) ? '<p class="product__stock">' + esc(window.RUMI.stockNote(p)) + "</p>" : "") +
     '<p class="product-detail__lead">Hire this piece for your event across Brisbane, Queensland &amp; Northern NSW. Add to your quote list — no obligation.</p>' +
     '<div class="product-detail__actions product__actions">' +
-    (window.RUMI.maxQty(p) === 1 ? "" :
-      '<div class="product__qty">' +
-      "<label>qty</label>" +
-      '<div class="qty-stepper"' + (window.RUMI.maxQty(p) ? ' data-max="' + window.RUMI.maxQty(p) + '"' : "") + ">" +
-      '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
-      '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
-      '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
-      "</div></div>") +
+    '<div class="product__qty">' +
+    "<label>qty</label>" +
+    '<div class="qty-stepper"' + (startMax ? ' data-max="' + startMax + '"' : "") + ">" +
+    '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
+    '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
+    '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
+    "</div></div>" +
     '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '" data-price="' + gallery.options[0].price + '">add to quote</button>' +
     '<a href="contact.html" class="btn btn--ghost">ask about this item</a>' +
     "</div></div></div>" +
@@ -231,6 +230,20 @@
     }
     var addBtn = root.querySelector(".add-quote");
     if (addBtn) addBtn.setAttribute("data-price", String(opt.price));
+    var stepper = root.querySelector(".qty-stepper");
+    if (stepper) {
+      var max = (opt && opt.maxQty) || window.RUMI.maxQty(p);
+      if (max > 0) stepper.setAttribute("data-max", String(max));
+      else stepper.removeAttribute("data-max");
+      var input = stepper.querySelector(".quote-qty");
+      var qty = Math.max(1, parseInt(input && input.value, 10) || 1);
+      if (max > 0 && qty > max) qty = max;
+      if (input) input.value = qty;
+      var minus = stepper.querySelector('[data-step="-1"]');
+      var plus = stepper.querySelector('[data-step="1"]');
+      if (minus) minus.disabled = qty <= 1;
+      if (plus) plus.disabled = max > 0 && qty >= max;
+    }
   }
 
   root.addEventListener("click", function (e) {

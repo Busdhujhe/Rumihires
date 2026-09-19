@@ -41,31 +41,68 @@ window.RUMI.imagePath = function (slug, ext) {
   return "assets/img/products/" + slug + "." + (ext || "png") + "?v=" + window.RUMI.assetVersion;
 };
 
-/* Stock ceiling for a product — 0 means no limit. Used to stop a visitor
-   asking for three of something we only own one of. */
-window.RUMI.maxQty = function (p) {
-  var max = p && parseInt(p.maxQty, 10);
+/* Silent stock ceiling — 0 means no limit. Never shown to customers.
+   optionLabel picks a finish/style cap when the product has variants. */
+window.RUMI.parseMaxQty = function (val) {
+  var max = parseInt(val, 10);
   return max > 0 ? max : 0;
+};
+
+window.RUMI.maxQty = function (p, optionLabel) {
+  if (!p) return 0;
+  var parseMax = window.RUMI.parseMaxQty;
+
+  if (optionLabel) {
+    var finishes = p.finishes || [];
+    for (var i = 0; i < finishes.length; i++) {
+      if (finishes[i].label === optionLabel) return parseMax(finishes[i].maxQty);
+    }
+    if (p.optionName) {
+      var mainLabel = p.imageLabel || "";
+      if (mainLabel && optionLabel === mainLabel) {
+        var imageMax = parseMax(p.imageMaxQty);
+        if (imageMax) return imageMax;
+      }
+      var extras = p.extraImages || [];
+      for (var k = 0; k < extras.length; k++) {
+        var extra = extras[k];
+        if (typeof extra !== "string" && extra.label === optionLabel) {
+          return parseMax(extra.maxQty);
+        }
+      }
+    }
+  }
+
+  return parseMax(p.maxQty);
+};
+
+/* Resolve a quote-list name back to a catalogue product + option label. */
+window.RUMI.findProductForItem = function (item) {
+  var list = window.RUMI_PRODUCTS || [];
+  if (!item) return null;
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].item === item) return { product: list[i], option: "" };
+  }
+  for (var j = 0; j < list.length; j++) {
+    var prefix = list[j].item + " (";
+    if (item.indexOf(prefix) === 0 && item.charAt(item.length - 1) === ")") {
+      return { product: list[j], option: item.slice(prefix.length, -1) };
+    }
+  }
+  return null;
 };
 
 /* The quote list only stores the display name, and variant products have
    their option appended as " (silver pole)", so fall back to a prefix match. */
 window.RUMI.maxQtyForItem = function (item) {
-  var list = window.RUMI_PRODUCTS || [];
-  for (var i = 0; i < list.length; i++) {
-    if (list[i].item === item) return window.RUMI.maxQty(list[i]);
-  }
-  for (var j = 0; j < list.length; j++) {
-    if (item.indexOf(list[j].item + " (") === 0) return window.RUMI.maxQty(list[j]);
-  }
-  return 0;
+  var found = window.RUMI.findProductForItem(item);
+  if (!found) return 0;
+  return window.RUMI.maxQty(found.product, found.option);
 };
 
-/* Explains the capped quantity stepper to the customer. */
-window.RUMI.stockNote = function (p) {
-  var max = window.RUMI.maxQty(p);
-  if (!max) return "";
-  return max === 1 ? "only 1 available" : "only " + max + " available";
+/* Stock ceilings stay silent — never shown on the site. */
+window.RUMI.stockNote = function () {
+  return "";
 };
 
 /* Hire price for a quote-list item name. Same prefix match as maxQtyForItem
@@ -190,6 +227,7 @@ window.RUMI.productGallery = function (p) {
         return {
           label: f.label,
           price: price,
+          maxQty: window.RUMI.parseMaxQty(f.maxQty),
           views: (f.views || []).map(function (vw) {
             var file = typeof vw === "string" ? vw : vw.file;
             var label = typeof vw === "string" ? "front" : (vw.label || "front");
@@ -206,13 +244,19 @@ window.RUMI.productGallery = function (p) {
   if (!p.optionName) main.alt = p.item;
 
   if (p.optionName) {
-    var options = [{ label: mainLabel || "front", price: p.price, views: [main] }];
+    var options = [{
+      label: mainLabel || "front",
+      price: p.price,
+      maxQty: window.RUMI.parseMaxQty(p.imageMaxQty),
+      views: [main]
+    }];
     extras.forEach(function (extra) {
       var file = typeof extra === "string" ? extra : extra.file;
       var label = typeof extra === "string" ? "" : extra.label;
       var price = typeof extra === "string" ? p.price : (extra.price > 0 ? extra.price : p.price);
+      var maxQty = typeof extra === "string" ? 0 : window.RUMI.parseMaxQty(extra.maxQty);
       var view = makeView(file, label, label, price);
-      options.push({ label: label, price: price, views: [view] });
+      options.push({ label: label, price: price, maxQty: maxQty, views: [view] });
     });
     return { optionName: p.optionName, options: options };
   }

@@ -18,6 +18,7 @@ window.RUMI_PRODUCTS = [
     finishes: [
       {
         label: "matte white",
+        maxQty: 46,
         views: [
           { label: "front" },
           { file: "french-lite-iron-chair-side.jpg", label: "side" }
@@ -25,6 +26,7 @@ window.RUMI_PRODUCTS = [
       },
       {
         label: "gloss white",
+        maxQty: 102,
         views: [
           { file: "french-lite-iron-chair-gloss.jpg", label: "front" },
           { file: "french-lite-iron-chair-gloss-side.jpg", label: "side" }
@@ -40,6 +42,7 @@ window.RUMI_PRODUCTS = [
     title: "french black chair · type a",
     spec: "with arms",
     price: 40,
+    maxQty: 12,
     placeholder: "pi--chair-a",
     imageExt: "jpg",
     extraImages: [
@@ -55,6 +58,7 @@ window.RUMI_PRODUCTS = [
     title: "french black chair · type b",
     spec: "no arms",
     price: 35,
+    maxQty: 12,
     placeholder: "pi--chair-b",
     imageExt: "jpg",
     extraImages: [
@@ -69,6 +73,7 @@ window.RUMI_PRODUCTS = [
     item: "French Black Bench",
     title: "french black bench",
     price: 75,
+    maxQty: 6,
     placeholder: "pi--bench",
     extraImages: [{ file: "french-black-bench-side.jpg", label: "side" }],
     cataloguePage: 4
@@ -79,6 +84,7 @@ window.RUMI_PRODUCTS = [
     item: "French Black Day Bed",
     title: "french black day bed",
     price: 75,
+    maxQty: 3,
     placeholder: "pi--daybed",
     extraImages: [{ file: "french-black-day-bed-side.png", label: "side" }],
     cataloguePage: 5
@@ -95,9 +101,10 @@ window.RUMI_PRODUCTS = [
     placeholder: "pi--umbrella",
     optionName: "style",
     imageLabel: "brown pole · 2.1m",
+    imageMaxQty: 7,
     extraImages: [
       { file: "french-wave-umbrella-silver.png", label: "silver pole · 2.1m" },
-      { file: "french-wave-umbrella-xl.jpg", label: "XL silver · 2.65m", price: 75 }
+      { file: "french-wave-umbrella-xl.jpg", label: "XL silver · 2.65m", price: 75, maxQty: 6 }
     ],
     cataloguePage: 6
   },
@@ -121,7 +128,8 @@ window.RUMI_PRODUCTS = [
     placeholder: "pi--table",
     optionName: "finish",
     imageLabel: "matte white",
-    extraImages: [{ file: "french-lite-iron-table-gloss.jpg", label: "gloss white" }],
+    imageMaxQty: 20,
+    extraImages: [{ file: "french-lite-iron-table-gloss.jpg", label: "gloss white", maxQty: 9 }],
     cataloguePage: 8
   },
   {
@@ -230,6 +238,7 @@ window.RUMI_PRODUCTS = [
     item: "Fabric Table Lamp",
     title: "fabric table lamp",
     price: 13,
+    maxQty: 10,
     bulk: "15+ qty discount available",
     placeholder: "pi--tableware",
     cataloguePage: 21
@@ -242,7 +251,6 @@ window.RUMI_PRODUCTS = [
     spec: "credit-card size prints · 30 shots of film included",
     price: 65,
     bulk: "More or fewer shots of film available on enquiry",
-    maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
     extraImages: [{ file: "instax-mini-12-back.jpg", label: "back" }],
@@ -256,7 +264,6 @@ window.RUMI_PRODUCTS = [
     spec: "square prints · 30 shots of film included",
     price: 80,
     bulk: "More or fewer shots of film available on enquiry",
-    maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
     extraImages: [{ file: "instax-square-sq40-back.jpg", label: "back" }],
@@ -270,7 +277,6 @@ window.RUMI_PRODUCTS = [
     spec: "preview before you print · 30 shots of film included",
     price: 75,
     bulk: "More or fewer shots of film available on enquiry",
-    maxQty: 1,
     placeholder: "pi--camera",
     imageExt: "jpg",
     extraImages: [{ file: "instax-mini-liplay-back.jpg", label: "back" }],
@@ -284,7 +290,6 @@ window.RUMI_PRODUCTS = [
     spec: "all 3 cameras · save $20 · 30 shots of film each",
     price: 200,
     bulk: "More or fewer shots of film available on enquiry",
-    maxQty: 1,
     badge: "best value",
     placeholder: "pi--camera",
     imageExt: "jpg",

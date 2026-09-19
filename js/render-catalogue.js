@@ -53,6 +53,27 @@
     if (addBtn) addBtn.setAttribute("data-price", String(price));
   }
 
+  function optionMax(opt, p) {
+    var max = opt && window.RUMI.parseMaxQty ? window.RUMI.parseMaxQty(opt.maxQty) : 0;
+    if (max) return max;
+    return window.RUMI.maxQty(p);
+  }
+
+  function applyStepperMax(card, max) {
+    var stepper = card.querySelector(".qty-stepper");
+    if (!stepper) return;
+    if (max > 0) stepper.setAttribute("data-max", String(max));
+    else stepper.removeAttribute("data-max");
+    var input = stepper.querySelector(".quote-qty");
+    var qty = Math.max(1, parseInt(input && input.value, 10) || 1);
+    if (max > 0 && qty > max) qty = max;
+    if (input) input.value = qty;
+    var minus = stepper.querySelector('[data-step="-1"]');
+    var plus = stepper.querySelector('[data-step="1"]');
+    if (minus) minus.disabled = qty <= 1;
+    if (plus) plus.disabled = max > 0 && qty >= max;
+  }
+
   function angleButtonsHtml(views, activeIdx) {
     if (!views || views.length < 2) return "";
     return (
@@ -153,13 +174,11 @@
       (p.spec ? '<p class="product__spec">' + esc(p.spec) + "</p>" : "") +
       '<div class="product__price">$' + gallery.options[0].price + ' <span class="unit">/ hire</span></div>' +
       (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
-      (window.RUMI.stockNote(p) ? '<p class="product__stock">' + esc(window.RUMI.stockNote(p)) + "</p>" : "") +
       '<div class="product__actions">' +
-      (window.RUMI.maxQty(p) === 1 ? "" :
-        '<div class="product__qty">' +
-        '<label for="qty-' + esc(p.slug) + '">qty</label>' +
-        qtyStepperHtml(1, "qty-" + p.slug, window.RUMI.maxQty(p)) +
-        "</div>") +
+      '<div class="product__qty">' +
+      '<label for="qty-' + esc(p.slug) + '">qty</label>' +
+      qtyStepperHtml(1, "qty-" + p.slug, optionMax(gallery.options[0], p)) +
+      "</div>" +
       '<button type="button" class="btn btn--primary btn--small add-quote" data-item="' + esc(p.item) + '" data-price="' + gallery.options[0].price + '">add to quote</button>' +
       "</div>";
 
@@ -197,6 +216,7 @@
       }
       setCardPrice(card, opt.price);
       setCardImage(card, opt.views[keepAngle]);
+      applyStepperMax(card, optionMax(opt, null));
 
       Array.prototype.forEach.call(card.querySelectorAll('.product__view-btn[data-role="option"]'), function (b) {
         var active = b === btn;
