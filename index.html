@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=70" />
+  <link rel="stylesheet" href="css/style.css?v=71" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -22,8 +22,10 @@
     "email": "hello@rumihires.com",
     "telephone": "+61426631389",
     "url": "https://rumihires.com",
+    "sameAs": ["https://share.google/gJ9520QYMrZenCq0h"],
     "address": { "@type": "PostalAddress", "addressLocality": "Brisbane", "addressRegion": "QLD", "addressCountry": "AU" },
-    "areaServed": ["Brisbane", "Queensland", "Northern New South Wales"]
+    "areaServed": ["Brisbane", "Queensland", "Northern New South Wales"],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "bestRating": "5", "reviewCount": "8" }
   }
   </script>
 </head>
@@ -42,6 +44,7 @@
         <a href="items.html">items for hire</a>
         <a href="moments.html">moments</a>
         <a href="index.html#story">our story</a>
+        <a href="#reviews">reviews</a>
         <a href="index.html#faq">faq</a>
         <a href="contact.html" class="btn btn--gold btn--small">book a chat</a>
       </nav>
@@ -191,6 +194,28 @@
     </div>
   </section>
 
+  <!-- GOOGLE REVIEWS -->
+  <section class="section section--cream" id="reviews">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">google reviews</span>
+        <h2>what clients say</h2>
+        <p>Couples and planners leave their feedback on Google. Here is the current rating from our listing.</p>
+      </div>
+      <div class="reviews-strip">
+        <div class="reviews-score" aria-label="Rated 5.0 out of 5 from 8 Google reviews">
+          <p class="reviews-score__value">5.0</p>
+          <p class="reviews-score__stars" aria-hidden="true">★★★★★</p>
+          <p class="reviews-score__count">8 Google reviews</p>
+        </div>
+        <div class="reviews-strip__copy">
+          <p>See recent notes on the collection, delivery and service — then leave a review of your own after the day.</p>
+          <a class="btn btn--gold" href="https://share.google/gJ9520QYMrZenCq0h" target="_blank" rel="noopener noreferrer">Read our Google reviews</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="section" id="faq">
     <div class="container">
@@ -250,6 +275,7 @@
           <ul>
             <li><a href="items.html">all items</a></li>
             <li><a href="moments.html">moments</a></li>
+            <li><a href="#reviews">google reviews</a></li>
             <li><a href="items.html?cat=seating">seating</a></li>
             <li><a href="items.html?cat=tables">tables</a></li>
             <li><a href="items.html?cat=umbrella">umbrellas</a></li>
