@@ -309,13 +309,13 @@ a { color: var(--accent-text); text-decoration: none; }
   color: var(--accent-text);
 }
 .cc--seating {
-  background-image: url("../assets/img/collection-seating.png?v=75");
+  background-image: url("../assets/img/collection-seating.png?v=76");
 }
 .cc--umbrella {
   background-image: url("../assets/img/collection-umbrella.png");
 }
 .cc--carts {
-  background-image: url("../assets/img/collection-tables.png?v=75");
+  background-image: url("../assets/img/collection-tables.png?v=76");
 }
 .cc--eastern {
   background-image: url("../assets/img/collection-tableware.png");
