@@ -537,6 +537,11 @@
       return el ? el.value.trim() : "";
     };
 
+    var getChoice = function (name) {
+      var checked = form.querySelector('input[name="' + name + '"]:checked');
+      return checked ? checked.value.trim() : "";
+    };
+
     var hint = document.getElementById("formHint");
     if (hint && FORM_ACCESS_KEY) {
       hint.textContent =
@@ -558,7 +563,8 @@
         "Hire start date: " + (get("hireStart") || "TBC"),
         "Hire end date: " + (get("hireEnd") || "TBC"),
         "Event type: " + (get("type") || "-"),
-        "Venue / location: " + (get("location") || "TBC")
+        "Venue / location: " + (get("location") || "TBC"),
+        "Pickup or delivery: " + (getChoice("pickupOrDelivery") || "TBC")
       ];
       var extra = get("extra");
       if (extra) lines.push("", "Anything else:", extra);
@@ -631,6 +637,14 @@
         return;
       }
 
+      var pickupOrDelivery = getChoice("pickupOrDelivery");
+      if (!pickupOrDelivery) {
+        setStatus("Please choose pickup or delivery.", "error");
+        var firstChoice = form.querySelector('input[name="pickupOrDelivery"]');
+        if (firstChoice) firstChoice.focus();
+        return;
+      }
+
       var hireStart = get("hireStart");
       var hireEnd = get("hireEnd");
       if (hireStart && hireEnd && hireEnd < hireStart) {
@@ -659,6 +673,7 @@
         from_name: "Rumi Hires website",
         name: get("name"),
         phone: phone || "not given",
+        pickupOrDelivery: pickupOrDelivery,
         message: enquiryDetails().join("\n")
       };
       if (email) {

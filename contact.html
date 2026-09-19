@@ -8,7 +8,64 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=71" />
+  <link rel="stylesheet" href="css/style.css?v=83" />
+  <style>
+    /* Pickup / delivery radios — scoped to this form so global input styles stay intact. */
+    .form-choice {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+    .form-choice legend {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+      color: var(--ink);
+      padding: 0;
+    }
+    .form-choice__options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+    .form-choice__option {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0;
+      padding: 0.75rem 1.1rem;
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      background: var(--ivory);
+      font-size: 0.95rem;
+      letter-spacing: 0;
+      text-transform: none;
+      cursor: pointer;
+      flex: 1;
+      min-width: 140px;
+    }
+    .form-choice__option input[type="radio"] {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+      accent-color: var(--gold-dark);
+      flex-shrink: 0;
+    }
+    .form-choice__option:has(input:focus-visible) {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(153, 214, 238, 0.45);
+    }
+    .form-choice__option:has(input:checked) {
+      border-color: var(--gold);
+      background: var(--white);
+    }
+  </style>
 </head>
 <body>
 
@@ -83,11 +140,24 @@
             <label for="location">venue / location</label>
             <input type="text" id="location" name="location" placeholder="e.g. venue name or suburb — needed if you'd like delivery" />
           </div>
+          <fieldset class="form-choice full">
+            <legend>Pickup or delivery *</legend>
+            <div class="form-choice__options">
+              <label class="form-choice__option">
+                <input type="radio" name="pickupOrDelivery" value="Pickup" required />
+                Pickup
+              </label>
+              <label class="form-choice__option">
+                <input type="radio" name="pickupOrDelivery" value="Delivery" required />
+                Delivery
+              </label>
+            </div>
+          </fieldset>
+          <p class="form-hint full">Pickup from Brisbane, or delivery across QLD &amp; Northern NSW. We’ll quote delivery once we have your venue — it isn’t included in the hire totals above.</p>
           <div class="full">
             <label for="extra">anything else?</label>
-            <textarea id="extra" name="extra" rows="3" placeholder="Pickup or delivery preference, access notes, timings, budget — anything at all. Optional."></textarea>
+            <textarea id="extra" name="extra" rows="3" placeholder="Access notes, timings, budget — anything at all. Optional."></textarea>
           </div>
-          <p class="form-hint full">Pickup from Brisbane or delivery across QLD &amp; Northern NSW — both available. We quote delivery once we have your venue address, so it isn’t included in the hire totals above.</p>
           <div class="form-honey" aria-hidden="true">
             <label for="company">company</label>
             <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
@@ -169,6 +239,6 @@
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
-  <script src="js/main.js?v=69"></script>
+  <script src="js/main.js?v=70"></script>
 </body>
 </html>
