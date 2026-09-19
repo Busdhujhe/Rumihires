@@ -129,7 +129,7 @@ window.RUMI_PRODUCTS = [
     optionName: "finish",
     imageLabel: "matte white",
     imageMaxQty: 20,
-    extraImages: [{ file: "french-lite-iron-table-gloss.jpg", label: "gloss white", maxQty: 9 }],
+    extraImages: [{ file: "french-lite-iron-table-gloss.png", label: "gloss white", maxQty: 9 }],
     cataloguePage: 8
   },
   {
