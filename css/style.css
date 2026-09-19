@@ -930,6 +930,33 @@ input:focus, select:focus, textarea:focus {
   color: #8a2c22;
 }
 
+.enquiry-quote {
+  margin: 0 0 1.8rem;
+  padding: 1.2rem 1.2rem 1rem;
+  background: var(--ivory);
+  border: 1px solid var(--sand);
+  border-radius: 10px;
+}
+.enquiry-quote h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.35rem;
+}
+.enquiry-quote__lead,
+.enquiry-quote__more {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+.enquiry-quote__more { margin: 0.8rem 0 0; }
+.enquiry-quote__more a { text-decoration: underline; text-underline-offset: 3px; }
+.enquiry-quote .quote-item {
+  grid-template-columns: 52px 1fr auto auto auto;
+  padding: 0.7rem 0;
+}
+.enquiry-quote .quote-panel__summary {
+  padding-top: 0.85rem;
+}
+
 .form-success { text-align: center; padding: 1.5rem 0.5rem; }
 .form-success h2 { margin-bottom: 0.8rem; }
 .form-success p { font-size: 0.98rem; }

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=59" />
+  <link rel="stylesheet" href="css/style.css?v=68" />
 </head>
 <body>
 
@@ -45,6 +45,7 @@
       <div class="form-card">
         <h2 style="margin-bottom:0.4rem;">request your free quote</h2>
         <p style="margin-bottom:1.8rem; font-size:0.95rem;">Tell us about your event and we'll come back with availability and a tailored quote.</p>
+        <div id="enquiryQuote" class="enquiry-quote" hidden></div>
         <form id="enquiryForm" class="form-grid">
           <div class="full">
             <label for="name">your name *</label>
@@ -95,7 +96,7 @@
             <p class="form-status" id="formStatus" role="alert" style="display:none;"></p>
             <button type="submit" class="btn btn--gold" style="width:100%;">send enquiry</button>
             <button type="button" class="btn btn--ghost btn--small" id="formFallback" style="display:none; width:100%; margin-top:0.6rem;">send by email instead</button>
-            <p class="text-muted" id="formHint" style="font-size:0.8rem; margin-top:0.7rem;">This opens your email app with everything pre-filled — just press send. Items in your quote list are included automatically.</p>
+            <p class="text-muted" id="formHint" style="font-size:0.8rem; margin-top:0.7rem;">Sent straight to our team — no email app needed. Items in your quote list are included automatically.</p>
           </div>
         </form>
       </div>
@@ -168,6 +169,6 @@
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
-  <script src="js/main.js?v=59"></script>
+  <script src="js/main.js?v=68"></script>
 </body>
 </html>

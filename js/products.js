@@ -187,26 +187,6 @@ window.RUMI_PRODUCTS = [
     cataloguePage: 14
   },
   {
-    slug: "golden-snack-stand-a",
-    cat: "tableware",
-    item: "Golden Snack Stand A (3 level)",
-    title: "golden snack stand · type a",
-    spec: "3 level",
-    price: 13,
-    placeholder: "pi--tableware",
-    cataloguePage: 15
-  },
-  {
-    slug: "golden-snack-stand-b",
-    cat: "tableware",
-    item: "Golden Snack Stand B (2 level)",
-    title: "golden snack stand · type b",
-    spec: "2 level",
-    price: 10,
-    placeholder: "pi--tableware",
-    cataloguePage: 16
-  },
-  {
     slug: "timeless-snack-stand-a",
     cat: "tableware",
     item: "Timeless Snack Stand A (3 level)",

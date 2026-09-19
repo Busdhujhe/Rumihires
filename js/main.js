@@ -98,6 +98,9 @@
     if (!options || options.renderPanel !== false) {
       renderQuotePanel();
     }
+    if (!options || options.renderEnquiry !== false) {
+      renderEnquiryQuote();
+    }
   }
 
   function quoteTotals(list) {
@@ -255,6 +258,13 @@
 
     if (note) note.style.display = "";
 
+    panelBody.innerHTML = quoteListHtml(list);
+    panelBody.querySelectorAll(".qty-stepper").forEach(function (stepper) {
+      syncStepper(stepper, readQty(stepper.querySelector(".quote-qty")));
+    });
+  }
+
+  function quoteListHtml(list) {
     var totals = quoteTotals(list);
     var html = list.map(function (entry, index) {
       var price = entryPrice(entry);
@@ -279,11 +289,26 @@
         "</div>"
       );
     }).join("");
-
     html += '<div class="quote-panel__summary">' + summaryHtml(totals) + "</div>";
+    return html;
+  }
 
-    panelBody.innerHTML = html;
-    panelBody.querySelectorAll(".qty-stepper").forEach(function (stepper) {
+  function renderEnquiryQuote() {
+    var wrap = document.getElementById("enquiryQuote");
+    if (!wrap) return;
+    var list = getQuote();
+    if (!list.length) {
+      wrap.hidden = true;
+      wrap.innerHTML = "";
+      return;
+    }
+    wrap.hidden = false;
+    wrap.innerHTML =
+      "<h3>your quote list</h3>" +
+      '<p class="enquiry-quote__lead">These pieces will be included with your enquiry. You can still change quantities or remove items.</p>' +
+      '<div class="enquiry-quote__list">' + quoteListHtml(list) + "</div>" +
+      '<p class="enquiry-quote__more"><a href="items.html">Add more items</a></p>';
+    wrap.querySelectorAll(".qty-stepper").forEach(function (stepper) {
       syncStepper(stepper, readQty(stepper.querySelector(".quote-qty")));
     });
   }
@@ -386,8 +411,11 @@
               priceEl.textContent = "$" + formatMoney(unit * val);
             }
           }
-          var summary = panelBody && panelBody.querySelector(".quote-panel__summary");
-          if (summary) summary.innerHTML = summaryHtml(quoteTotals(list));
+          var summaries = document.querySelectorAll(".quote-panel__summary");
+          var totalsHtml = summaryHtml(quoteTotals(list));
+          summaries.forEach(function (summary) {
+            summary.innerHTML = totalsHtml;
+          });
         }
       }
       return;
@@ -453,6 +481,7 @@
   ensureQuoteUI();
   updateQuoteBar();
   renderQuotePanel();
+  renderEnquiryQuote();
 
   document.querySelectorAll(".qty-stepper").forEach(function (stepper) {
     syncStepper(stepper, readQty(stepper.querySelector(".quote-qty")));
