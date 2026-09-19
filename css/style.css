@@ -297,13 +297,13 @@ a { color: var(--accent-text); text-decoration: none; }
   color: var(--accent-text);
 }
 .cc--seating {
-  background-image: url("../assets/img/collection-seating.png");
+  background-image: url("../assets/img/collection-seating.png?v=74");
 }
 .cc--umbrella {
   background-image: url("../assets/img/collection-umbrella.png");
 }
 .cc--carts {
-  background-image: url("../assets/img/collection-tables.png");
+  background-image: url("../assets/img/collection-tables.png?v=74");
 }
 .cc--eastern {
   background-image: url("../assets/img/collection-tableware.png");
