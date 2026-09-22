@@ -188,7 +188,7 @@ window.RUMI.getProduct = function (slug) {
 };
 
 window.RUMI.productUrl = function (slug) {
-  return "product.html?slug=" + encodeURIComponent(slug);
+  return "hire/" + encodeURIComponent(slug) + ".html";
 };
 
 window.RUMI.productImgClasses = function (p) {

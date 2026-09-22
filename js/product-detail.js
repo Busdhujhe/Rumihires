@@ -5,9 +5,18 @@
   var root = document.getElementById("productDetail");
   if (!root) return;
 
-  var slug = new URLSearchParams(window.location.search).get("slug");
+  function slugFromPath() {
+    var path = window.location.pathname || "";
+    var match = path.match(/\/hire\/([^\/]+?)(?:\.html)?\/?$/i);
+    return match ? decodeURIComponent(match[1]) : "";
+  }
+
+  var slug =
+    root.getAttribute("data-slug") ||
+    new URLSearchParams(window.location.search).get("slug") ||
+    slugFromPath();
   if (slug === "french-wave-umbrella-xl") {
-    window.location.replace("product.html?slug=french-wave-umbrella");
+    window.location.replace(window.RUMI.productUrl("french-wave-umbrella"));
     return;
   }
   var p = window.RUMI.getProduct(slug);
