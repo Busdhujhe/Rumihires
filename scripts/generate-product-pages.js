@@ -4,7 +4,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const assetVersion = "72";
-const cssVersion = "90";
+const cssVersion = "91";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
 new Function("window", productsCode)(sandbox.window);
@@ -84,7 +84,7 @@ function pageHtml(p) {
 <body>
 
   <div class="announce">
-    Brisbane based · servicing QLD &amp; Northern NSW — <a href="contact.html">get your free quote</a>
+    <span class="announce__long">Brisbane based · servicing QLD &amp; Northern NSW — </span><a href="contact.html"><span class="announce__long">get your free quote</span><span class="announce__short">Brisbane · QLD &amp; Northern NSW — free quote</span></a>
   </div>
 
   <header class="header">
@@ -96,6 +96,7 @@ function pageHtml(p) {
         <a href="items.html" class="active">items for hire</a>
         <a href="moments.html">moments</a>
         <a href="index.html#story">our story</a>
+        <a href="index.html#reviews">reviews</a>
         <a href="index.html#faq">faq</a>
         <a href="contact.html" class="btn btn--gold btn--small">book a chat</a>
       </nav>
@@ -156,6 +157,7 @@ function pageHtml(p) {
           <ul>
             <li><a href="items.html">all items</a></li>
             <li><a href="moments.html">moments</a></li>
+            <li><a href="index.html#reviews">google reviews</a></li>
             <li><a href="items.html?cat=seating">seating</a></li>
             <li><a href="items.html?cat=tables">tables</a></li>
             <li><a href="items.html?cat=umbrella">umbrellas</a></li>
@@ -192,7 +194,7 @@ function pageHtml(p) {
   <script src="js/product-utils.js?v=${assetVersion}"></script>
   <script src="js/moments-data.js?v=66"></script>
   <script src="js/product-detail.js?v=61"></script>
-  <script src="js/main.js?v=70"></script>
+  <script src="js/main.js?v=71"></script>
 </body>
 </html>
 `;

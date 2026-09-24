@@ -12,7 +12,7 @@
      sending to the address verified against it.
      While this is blank the form keeps its old behaviour and opens the
      visitor's mail app instead, so the site still works either way. */
-  var FORM_ACCESS_KEY = "";
+  var FORM_ACCESS_KEY = "657a96e5-34a5-45ac-b1ba-aba21deaf59c";
   var FORM_ENDPOINT = "https://api.web3forms.com/submit";
 
   /* ---------- footer year ---------- */
