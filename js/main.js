@@ -562,10 +562,14 @@
     pop.hidden = true;
     pop.setAttribute("role", "dialog");
     pop.setAttribute("aria-label", "Choose a date");
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     pop.innerHTML =
       '<div class="cal__head">' +
       '<button type="button" class="cal__nav" data-dir="-1" aria-label="Previous month">‹</button>' +
-      '<div class="cal__title"></div>' +
+      '<div class="cal__picks">' +
+      '<label class="cal__pick"><span class="visually-hidden">Month</span><select class="cal__month"></select></label>' +
+      '<label class="cal__pick"><span class="visually-hidden">Year</span><select class="cal__year"></select></label>' +
+      "</div>" +
       '<button type="button" class="cal__nav" data-dir="1" aria-label="Next month">›</button>' +
       "</div>" +
       '<div class="cal__week">' + week.map(function (d) { return "<span>" + d + "</span>"; }).join("") + "</div>" +
@@ -605,10 +609,28 @@
       openBtn = null;
     }
 
+    function fillPicks() {
+      var monthSel = pop.querySelector(".cal__month");
+      var yearSel = pop.querySelector(".cal__year");
+      if (!monthSel.options.length) {
+        monthSel.innerHTML = monthNames.map(function (name, index) {
+          return '<option value="' + index + '">' + name + "</option>";
+        }).join("");
+      }
+      var nowYear = new Date().getFullYear();
+      var from = Math.min(nowYear, view.getFullYear());
+      var to = Math.max(nowYear + 3, view.getFullYear());
+      var years = "";
+      var y;
+      for (y = from; y <= to; y++) years += '<option value="' + y + '">' + y + "</option>";
+      if (yearSel.innerHTML !== years) yearSel.innerHTML = years;
+      monthSel.value = String(view.getMonth());
+      yearSel.value = String(view.getFullYear());
+    }
+
     function render() {
-      var title = pop.querySelector(".cal__title");
       var grid = pop.querySelector(".cal__grid");
-      title.textContent = view.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
+      fillPicks();
       var year = view.getFullYear();
       var month = view.getMonth();
       var first = new Date(year, month, 1);
@@ -658,6 +680,14 @@
     Array.prototype.forEach.call(buttons, function (btn) {
       paintButton(btn);
       btn.addEventListener("click", function () { openCal(btn); });
+    });
+
+    pop.addEventListener("change", function (e) {
+      if (!e.target.matches(".cal__month, .cal__year")) return;
+      var month = Number(pop.querySelector(".cal__month").value);
+      var year = Number(pop.querySelector(".cal__year").value);
+      view = new Date(year, month, 1);
+      render();
     });
 
     pop.addEventListener("click", function (e) {
@@ -872,25 +902,56 @@
   (function initReviewRail() {
     var viewport = document.querySelector(".reviews__viewport");
     if (!viewport) return;
+    var track = viewport.querySelector(".reviews__track");
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var timer;
+    var originals = Array.prototype.slice.call(track.children);
+    var count = originals.length;
+    originals.forEach(function (li) {
+      var clone = li.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+    });
 
     function cardStep() {
-      var card = viewport.querySelector("li");
+      var card = track.children[0];
       if (!card) return 0;
-      var styles = window.getComputedStyle(viewport.querySelector(".reviews__track"));
+      var styles = window.getComputedStyle(track);
       var gap = parseFloat(styles.columnGap || styles.gap) || 16;
       return card.getBoundingClientRect().width + gap;
     }
 
+    function loopWidth() {
+      var repeat = track.children[count];
+      if (!repeat) return 0;
+      return repeat.offsetLeft - track.children[0].offsetLeft;
+    }
+
+    function jump(left) {
+      var snap = viewport.style.scrollSnapType;
+      viewport.style.scrollSnapType = "none";
+      viewport.style.scrollBehavior = "auto";
+      viewport.scrollLeft = left;
+      viewport.style.scrollBehavior = "";
+      viewport.style.scrollSnapType = snap;
+    }
+
+    function settle() {
+      var loop = loopWidth();
+      if (!loop) return;
+      if (viewport.scrollLeft >= loop - 2) jump(viewport.scrollLeft - loop);
+    }
+
     function glide(dir) {
       var step = cardStep();
-      if (!step) return;
-      var max = viewport.scrollWidth - viewport.clientWidth;
-      var next = viewport.scrollLeft + step * dir;
-      if (dir > 0 && next > max + 4) next = 0;
-      if (dir < 0 && viewport.scrollLeft < 4) next = max;
-      viewport.scrollTo({ left: next, behavior: reduce ? "auto" : "smooth" });
+      var loop = loopWidth();
+      if (!step || !loop) return;
+      if (viewport.scrollLeft >= loop - 2) jump(viewport.scrollLeft - loop);
+      if (dir < 0 && viewport.scrollLeft < 2) jump(loop);
+      viewport.scrollTo({
+        left: viewport.scrollLeft + step * dir,
+        behavior: reduce ? "auto" : "smooth"
+      });
     }
 
     function stop() { window.clearInterval(timer); }
@@ -913,6 +974,7 @@
         start();
       });
     });
+    viewport.addEventListener("scrollend", settle);
     start();
   })();
 })();
