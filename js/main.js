@@ -44,15 +44,48 @@
     return 0;
   }
 
-  /* Unit hire price. Travels with the entry so totals still work on pages
-     that don't load the product catalogue. */
-  function entryPrice(entry) {
+  /* List price stored on the line. Volume rates below replace it once qty qualifies. */
+  function listPrice(entry) {
     var stored = parseFloat(entry && entry.price);
     if (!isNaN(stored) && stored > 0) return stored;
     if (window.RUMI && window.RUMI.priceForItem) {
       return window.RUMI.priceForItem(entry.item) || 0;
     }
     return 0;
+  }
+
+  /* Discounted unit prices. Only rates that have been published are listed here. */
+  var VOLUME_RATES = [
+    { test: /^French Lite Iron Chair\b/i, min: 20, price: 15 }
+  ];
+
+  function volumeUnit(item, qty, list) {
+    var unit = list;
+    VOLUME_RATES.forEach(function (rate) {
+      if (!rate.test.test(item || "")) return;
+      if ((qty || 1) >= rate.min && rate.price > 0 && rate.price < unit) unit = rate.price;
+    });
+    return unit;
+  }
+
+  /* Unit hire price. Travels with the entry so totals still work on pages
+     that don't load the product catalogue. */
+  function entryPrice(entry) {
+    return volumeUnit(entry && entry.item, entry && entry.qty, listPrice(entry));
+  }
+
+  function priceCellHtml(entry) {
+    var list = listPrice(entry);
+    var unit = entryPrice(entry);
+    var qty = entry.qty || 1;
+    if (!(unit > 0)) return "";
+    var line = unit * qty;
+    if (unit < list) {
+      return (
+        '<s class="quote-item__was">$' + formatMoney(list * qty) + "</s> $" + formatMoney(line)
+      );
+    }
+    return "$" + formatMoney(line);
   }
 
   function entryImage(entry) {
@@ -78,7 +111,7 @@
     }
     var max = entryMax(entry);
     var qty = Math.max(1, parseInt(entry.qty, 10) || 1);
-    var price = entryPrice(entry);
+    var price = listPrice(entry);
     var img = entryImage(entry);
     var out = { item: entry.item, qty: max > 0 ? Math.min(qty, max) : qty };
     if (max > 0) out.max = max;
@@ -271,8 +304,6 @@
   function quoteListHtml(list) {
     var totals = quoteTotals(list);
     var html = list.map(function (entry, index) {
-      var price = entryPrice(entry);
-      var line = lineTotal(entry);
       var img = entryImage(entry);
       var thumb = img
         ? '<div class="quote-item__thumb"><img src="' + esc(img) + '" alt="" loading="lazy"></div>'
@@ -281,9 +312,7 @@
         '<div class="quote-item" data-index="' + index + '">' +
         thumb +
         '<span class="quote-item__name">' + esc(entry.item) + "</span>" +
-        '<span class="quote-item__price"' + (price > 0 ? ' data-unit="' + price + '"' : "") + ">" +
-        (price > 0 ? "$" + formatMoney(line) : "") +
-        "</span>" +
+        '<span class="quote-item__price">' + priceCellHtml(entry) + "</span>" +
         '<div class="quote-item__qty">' +
         (entryMax(entry) === 1
           ? '<span class="quote-item__fixed" aria-label="Quantity 1">1</span>'
@@ -408,13 +437,7 @@
           list[idx].qty = val;
           saveQuote(list, { renderPanel: false });
           var priceEl = row.querySelector(".quote-item__price");
-          if (priceEl) {
-            var unit = parseFloat(priceEl.getAttribute("data-unit")) || entryPrice(list[idx]);
-            if (unit > 0) {
-              priceEl.setAttribute("data-unit", unit);
-              priceEl.textContent = "$" + formatMoney(unit * val);
-            }
-          }
+          if (priceEl) priceEl.innerHTML = priceCellHtml(list[idx]);
           var summaries = document.querySelectorAll(".quote-panel__summary");
           var totalsHtml = summaryHtml(quoteTotals(list));
           summaries.forEach(function (summary) {
@@ -525,6 +548,144 @@
     }
   }
 
+  function initHireCalendars(form) {
+    var buttons = form.querySelectorAll(".date-field__btn");
+    if (!buttons.length) return;
+
+    var week = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+    var openBtn = null;
+    var view = new Date();
+    view.setDate(1);
+
+    var pop = document.createElement("div");
+    pop.className = "cal";
+    pop.hidden = true;
+    pop.setAttribute("role", "dialog");
+    pop.setAttribute("aria-label", "Choose a date");
+    pop.innerHTML =
+      '<div class="cal__head">' +
+      '<button type="button" class="cal__nav" data-dir="-1" aria-label="Previous month">‹</button>' +
+      '<div class="cal__title"></div>' +
+      '<button type="button" class="cal__nav" data-dir="1" aria-label="Next month">›</button>' +
+      "</div>" +
+      '<div class="cal__week">' + week.map(function (d) { return "<span>" + d + "</span>"; }).join("") + "</div>" +
+      '<div class="cal__grid"></div>';
+    document.body.appendChild(pop);
+
+    function iso(date) {
+      var m = date.getMonth() + 1;
+      var day = date.getDate();
+      return date.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+    }
+
+    function parseIso(value) {
+      if (!value) return null;
+      var parts = value.split("-");
+      if (parts.length !== 3) return null;
+      return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    }
+
+    function labelFor(value) {
+      var date = parseIso(value);
+      if (!date) return "Select a date";
+      return date.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function paintButton(btn) {
+      var input = document.getElementById(btn.getAttribute("data-date-target"));
+      var text = btn.querySelector(".date-field__value");
+      var value = input ? input.value : "";
+      if (text) text.textContent = labelFor(value);
+      btn.classList.toggle("has-value", !!value);
+    }
+
+    function closeCal() {
+      pop.hidden = true;
+      if (openBtn) openBtn.closest(".date-field").classList.remove("is-open");
+      openBtn = null;
+    }
+
+    function render() {
+      var title = pop.querySelector(".cal__title");
+      var grid = pop.querySelector(".cal__grid");
+      title.textContent = view.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
+      var year = view.getFullYear();
+      var month = view.getMonth();
+      var first = new Date(year, month, 1);
+      var lead = (first.getDay() + 6) % 7;
+      var count = new Date(year, month + 1, 0).getDate();
+      var startVal = (document.getElementById("hireStart") || {}).value || "";
+      var endVal = (document.getElementById("hireEnd") || {}).value || "";
+      var selected = openBtn ? (document.getElementById(openBtn.getAttribute("data-date-target")) || {}).value : "";
+      var today = iso(new Date());
+      var html = "";
+      var i;
+      for (i = 0; i < lead; i++) html += '<button type="button" class="cal__day" disabled></button>';
+      for (i = 1; i <= count; i++) {
+        var date = new Date(year, month, i);
+        var value = iso(date);
+        var classes = "cal__day";
+        if (value === today) classes += " is-today";
+        if (value === selected || value === startVal || value === endVal) classes += " is-selected";
+        else if (startVal && endVal && value > startVal && value < endVal) classes += " is-in";
+        html += '<button type="button" class="' + classes + '" data-value="' + value + '">' + i + "</button>";
+      }
+      grid.innerHTML = html;
+    }
+
+    function place() {
+      if (!openBtn) return;
+      var field = openBtn.closest(".date-field");
+      field.appendChild(pop);
+    }
+
+    function openCal(btn) {
+      if (openBtn === btn && !pop.hidden) {
+        closeCal();
+        return;
+      }
+      if (openBtn) openBtn.closest(".date-field").classList.remove("is-open");
+      openBtn = btn;
+      btn.closest(".date-field").classList.add("is-open");
+      var current = parseIso((document.getElementById(btn.getAttribute("data-date-target")) || {}).value);
+      view = current ? new Date(current.getFullYear(), current.getMonth(), 1) : new Date();
+      view.setDate(1);
+      place();
+      pop.hidden = false;
+      render();
+    }
+
+    Array.prototype.forEach.call(buttons, function (btn) {
+      paintButton(btn);
+      btn.addEventListener("click", function () { openCal(btn); });
+    });
+
+    pop.addEventListener("click", function (e) {
+      var nav = e.target.closest(".cal__nav");
+      if (nav) {
+        view.setMonth(view.getMonth() + Number(nav.getAttribute("data-dir")));
+        render();
+        return;
+      }
+      var day = e.target.closest(".cal__day[data-value]");
+      if (!day || !openBtn) return;
+      var input = document.getElementById(openBtn.getAttribute("data-date-target"));
+      if (input) input.value = day.getAttribute("data-value");
+      Array.prototype.forEach.call(buttons, paintButton);
+      closeCal();
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!openBtn) return;
+      if (e.target.closest(".cal") || e.target.closest(".date-field__btn")) return;
+      closeCal();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeCal();
+    });
+  }
+
   /* ---------- enquiry form ---------- */
   var form = document.getElementById("enquiryForm");
   if (form) {
@@ -547,6 +708,8 @@
       hint.textContent =
         "Sent straight to our team — no email app needed. Anything in your quote list comes with it.";
     }
+
+    initHireCalendars(form);
 
     function setStatus(msg, kind) {
       if (!statusEl) return;
@@ -705,4 +868,51 @@
         });
     });
   }
+
+  (function initReviewRail() {
+    var viewport = document.querySelector(".reviews__viewport");
+    if (!viewport) return;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var timer;
+
+    function cardStep() {
+      var card = viewport.querySelector("li");
+      if (!card) return 0;
+      var styles = window.getComputedStyle(viewport.querySelector(".reviews__track"));
+      var gap = parseFloat(styles.columnGap || styles.gap) || 16;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function glide(dir) {
+      var step = cardStep();
+      if (!step) return;
+      var max = viewport.scrollWidth - viewport.clientWidth;
+      var next = viewport.scrollLeft + step * dir;
+      if (dir > 0 && next > max + 4) next = 0;
+      if (dir < 0 && viewport.scrollLeft < 4) next = max;
+      viewport.scrollTo({ left: next, behavior: reduce ? "auto" : "smooth" });
+    }
+
+    function stop() { window.clearInterval(timer); }
+    function start() {
+      stop();
+      if (reduce) return;
+      timer = window.setInterval(function () { glide(1); }, 5200);
+    }
+
+    viewport.addEventListener("mouseenter", stop);
+    viewport.addEventListener("mouseleave", start);
+    viewport.addEventListener("focusin", stop);
+    viewport.addEventListener("focusout", function (e) {
+      if (!viewport.contains(e.relatedTarget)) start();
+    });
+    document.querySelectorAll("[data-review-dir]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        stop();
+        glide(parseInt(btn.getAttribute("data-review-dir"), 10) || 1);
+        start();
+      });
+    });
+    start();
+  })();
 })();

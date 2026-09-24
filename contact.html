@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=91" />
+  <link rel="stylesheet" href="css/style.css?v=94" />
   <style>
     /* Pickup / delivery radios — scoped to this form so global input styles stay intact. */
     .form-choice {
@@ -120,12 +120,23 @@
           <p class="form-hint full">Leave an email or a phone number — whichever you'd rather we reached you on.</p>
           <div>
             <label for="hireStart">hire start date</label>
-            <input type="date" id="hireStart" name="hireStart" />
+            <div class="date-field">
+              <input type="hidden" id="hireStart" name="hireStart" />
+              <button type="button" class="date-field__btn" data-date-target="hireStart" aria-haspopup="dialog">
+                <span class="date-field__value">Select a date</span>
+              </button>
+            </div>
           </div>
           <div>
             <label for="hireEnd">hire end date</label>
-            <input type="date" id="hireEnd" name="hireEnd" />
+            <div class="date-field">
+              <input type="hidden" id="hireEnd" name="hireEnd" />
+              <button type="button" class="date-field__btn" data-date-target="hireEnd" aria-haspopup="dialog">
+                <span class="date-field__value">Select a date</span>
+              </button>
+            </div>
           </div>
+          <p class="form-hint form-hint--dates full">Most customers start the hire the day before the event and finish the day after. It leaves time to set up and pack away, so the day itself stays unhurried.</p>
           <div class="full">
             <label for="type">event type</label>
             <select id="type" name="type">
@@ -241,6 +252,6 @@
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
-  <script src="js/main.js?v=71"></script>
+  <script src="js/main.js?v=73"></script>
 </body>
 </html>

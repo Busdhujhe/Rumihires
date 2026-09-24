@@ -194,7 +194,7 @@ function pageHtml(p) {
   <script src="js/product-utils.js?v=${assetVersion}"></script>
   <script src="js/moments-data.js?v=66"></script>
   <script src="js/product-detail.js?v=61"></script>
-  <script src="js/main.js?v=71"></script>
+  <script src="js/main.js?v=73"></script>
 </body>
 </html>
 `;
