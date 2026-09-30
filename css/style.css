@@ -1578,7 +1578,7 @@ input:focus, select:focus, textarea:focus {
   #products .product__stock,
   #products .product__actions,
   #products .product__cat { display: none; }
-  #products .product__img { aspect-ratio: 16 / 10; }
+  #products .product__img { aspect-ratio: 1 / 1; }
   #products .product__body { padding: 0.7rem 0.95rem 0.8rem; }
   #products .product__views + .product__body,
   #products .product__body { padding-top: 0.7rem; }
