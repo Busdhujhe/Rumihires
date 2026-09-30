@@ -128,7 +128,6 @@ function pageHtml(p) {
               $${p.price} <span class="unit">/ hire</span>
             </div>
             ${p.bulk ? `<p class="product__bulk">${esc(p.bulk)}</p>` : ""}
-            <p class="product-detail__lead" itemprop="description">Hire this ${esc(p.item)} for your event across Brisbane, Queensland &amp; Northern NSW. Add to your quote list — no obligation.</p>
             <p><a class="btn btn--gold" href="contact.html">request a free quote</a>
             <a class="btn btn--ghost" href="items.html">browse all items</a></p>
           </div>
@@ -193,7 +192,7 @@ function pageHtml(p) {
   <script src="js/products.js?v=${assetVersion}"></script>
   <script src="js/product-utils.js?v=${assetVersion}"></script>
   <script src="js/moments-data.js?v=66"></script>
-  <script src="js/product-detail.js?v=61"></script>
+  <script src="js/product-detail.js?v=62"></script>
   <script src="js/main.js?v=73"></script>
 </body>
 </html>

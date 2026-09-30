@@ -316,7 +316,7 @@ a { color: var(--accent-text); text-decoration: none; }
   color: var(--accent-text);
 }
 .cc--seating {
-  background-image: url("../assets/img/collection-seating.jpg?v=91");
+  background-image: url("../assets/img/collection-seating.jpg?v=100");
 }
 .cc--umbrella {
   background-image: url("../assets/img/collection-umbrella.jpg?v=91");
@@ -1572,18 +1572,7 @@ input:focus, select:focus, textarea:focus {
   .nav-toggle { display: flex; }
   .products { grid-template-columns: 1fr; }
   #products.products { gap: 0.85rem; }
-  #products .product__views,
-  #products .product__spec,
-  #products .product__bulk,
-  #products .product__stock,
-  #products .product__actions,
-  #products .product__cat { display: none; }
   #products .product__img { aspect-ratio: 1 / 1; }
-  #products .product__body { padding: 0.7rem 0.95rem 0.8rem; }
-  #products .product__views + .product__body,
-  #products .product__body { padding-top: 0.7rem; }
-  #products .product__body h3 { font-size: 1.35rem; margin-bottom: 0.15rem; line-height: 1.15; }
-  #products .product__price { margin-bottom: 0; }
   .products--related { grid-template-columns: 1fr; }
   #reviews { padding-top: 3.2rem; padding-bottom: 4.2rem; }
   .reviews__track > li { flex-basis: 88%; }

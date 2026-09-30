@@ -174,7 +174,6 @@
     (p.spec ? '<p class="product__spec">' + esc(p.spec) + "</p>" : "") +
     '<div class="product__price" id="productPrice">$' + gallery.options[0].price + ' <span class="unit">/ hire</span></div>' +
     (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
-    '<p class="product-detail__lead">Hire this piece for your event across Brisbane, Queensland &amp; Northern NSW. Add to your quote list — no obligation.</p>' +
     '<div class="product-detail__actions product__actions">' +
     '<div class="product__qty">' +
     "<label>qty</label>" +
