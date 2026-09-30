@@ -647,10 +647,12 @@
         var date = new Date(year, month, i);
         var value = iso(date);
         var classes = "cal__day";
+        var past = value < today;
         if (value === today) classes += " is-today";
-        if (value === selected || value === startVal || value === endVal) classes += " is-selected";
+        if (past) classes += " is-past";
+        else if (value === selected || value === startVal || value === endVal) classes += " is-selected";
         else if (startVal && endVal && value > startVal && value < endVal) classes += " is-in";
-        html += '<button type="button" class="' + classes + '" data-value="' + value + '">' + i + "</button>";
+        html += '<button type="button" class="' + classes + '"' + (past ? "" : ' data-value="' + value + '"') + ">" + i + "</button>";
       }
       grid.innerHTML = html;
     }
@@ -733,12 +735,6 @@
       return checked ? checked.value.trim() : "";
     };
 
-    var hint = document.getElementById("formHint");
-    if (hint && FORM_ACCESS_KEY) {
-      hint.textContent =
-        "Sent straight to our team — no email app needed. Anything in your quote list comes with it.";
-    }
-
     initHireCalendars(form);
 
     function setStatus(msg, kind) {
@@ -806,8 +802,87 @@
       card.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
+    function todayIso() {
+      var now = new Date();
+      var month = now.getMonth() + 1;
+      var day = now.getDate();
+      return now.getFullYear() + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
+    }
+
+    function isRealIsoDate(value) {
+      var match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+      if (!match) return false;
+      var year = Number(match[1]);
+      var month = Number(match[2]);
+      var day = Number(match[3]);
+      var date = new Date(year, month - 1, day);
+      return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+    }
+
+    function enquiryProblem() {
+      var email = get("email");
+      var phone = get("phone");
+      var phoneDigits = phone.replace(/\D/g, "");
+      if (!email && !phone) {
+        return {
+          msg: "Please leave either an email address or a phone number so we can get back to you.",
+          focus: document.getElementById("email")
+        };
+      }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return {
+          msg: "Please enter a valid email address, or leave email blank and give us a phone number.",
+          focus: document.getElementById("email")
+        };
+      }
+      if (phone && (phoneDigits.length < 8 || /[^\d\s()+.-]/.test(phone))) {
+        return {
+          msg: "Please enter a valid phone number, or leave phone blank and give us an email address.",
+          focus: document.getElementById("phone")
+        };
+      }
+
+      var pickupOrDelivery = getChoice("pickupOrDelivery");
+      if (!pickupOrDelivery) {
+        return {
+          msg: "Please choose pickup or delivery.",
+          focus: form.querySelector('input[name="pickupOrDelivery"]')
+        };
+      }
+
+      var hireStart = get("hireStart");
+      var hireEnd = get("hireEnd");
+      var startBtn = form.querySelector('[data-date-target="hireStart"]');
+      var endBtn = form.querySelector('[data-date-target="hireEnd"]');
+      if (!isRealIsoDate(hireStart)) {
+        return { msg: "Please choose a hire start date.", focus: startBtn };
+      }
+      if (!isRealIsoDate(hireEnd)) {
+        return { msg: "Please choose a hire end date.", focus: endBtn };
+      }
+      if (hireStart < todayIso()) {
+        return { msg: "Hire start date needs to be today or later.", focus: startBtn };
+      }
+      if (hireEnd < hireStart) {
+        return { msg: "Hire end date needs to be on or after the start date.", focus: endBtn };
+      }
+      return null;
+    }
+
+    function showProblem(problem) {
+      setStatus(problem.msg, "error");
+      if (!problem.focus) return;
+      problem.focus.focus();
+      problem.focus.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     if (fallbackBtn) {
       fallbackBtn.addEventListener("click", function () {
+        var problem = enquiryProblem();
+        if (problem) {
+          showProblem(problem);
+          return;
+        }
         sendByMailApp();
       });
     }
@@ -821,31 +896,15 @@
         return;
       }
 
+      var problem = enquiryProblem();
+      if (problem) {
+        showProblem(problem);
+        return;
+      }
+
       var email = get("email");
       var phone = get("phone");
-      if (!email && !phone) {
-        setStatus("Please leave either an email address or a phone number so we can get back to you.", "error");
-        var emailEl = document.getElementById("email");
-        if (emailEl) emailEl.focus();
-        return;
-      }
-
       var pickupOrDelivery = getChoice("pickupOrDelivery");
-      if (!pickupOrDelivery) {
-        setStatus("Please choose pickup or delivery.", "error");
-        var firstChoice = form.querySelector('input[name="pickupOrDelivery"]');
-        if (firstChoice) firstChoice.focus();
-        return;
-      }
-
-      var hireStart = get("hireStart");
-      var hireEnd = get("hireEnd");
-      if (hireStart && hireEnd && hireEnd < hireStart) {
-        setStatus("Hire end date needs to be on or after the start date.", "error");
-        var endEl = document.getElementById("hireEnd");
-        if (endEl) endEl.focus();
-        return;
-      }
 
       if (!FORM_ACCESS_KEY) {
         sendByMailApp();

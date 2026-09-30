@@ -202,7 +202,7 @@ a { color: var(--accent-text); text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 46%;
   z-index: 0;
 }
 .hero--image::before {
@@ -1191,6 +1191,8 @@ input:focus, select:focus, textarea:focus {
   cursor: pointer;
 }
 .cal__day:hover { background: var(--cream); }
+.cal__day.is-past,
+.cal__day.is-past:hover { color: #b5b5b5; background: transparent; cursor: default; }
 .cal__day.is-muted { color: #b5b5b5; }
 .cal__day.is-today { box-shadow: inset 0 0 0 1px var(--gold-dark); }
 .cal__day.is-in { background: #e7f6fc; border-radius: 0; }
