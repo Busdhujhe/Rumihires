@@ -18,7 +18,7 @@
     return (
       '<div class="qty-stepper"' + maxAttr + ">" +
       '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
-      '<input type="text" class="quote-qty"' + idAttr + ' value="' + value + '" readonly inputmode="numeric" aria-label="Quantity">' +
+      '<input type="text" class="quote-qty"' + idAttr + ' value="' + value + '" inputmode="numeric" autocomplete="off" aria-label="Quantity">' +
       '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
       "</div>"
     );

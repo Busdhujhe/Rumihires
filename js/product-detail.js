@@ -179,7 +179,7 @@
     "<label>qty</label>" +
     '<div class="qty-stepper"' + (startMax ? ' data-max="' + startMax + '"' : "") + ">" +
     '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
-    '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" readonly inputmode="numeric" aria-label="Quantity">' +
+    '<input type="text" class="quote-qty" id="qty-' + esc(p.slug) + '" value="1" inputmode="numeric" autocomplete="off" aria-label="Quantity">' +
     '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
     "</div></div>" +
     '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '" data-price="' + gallery.options[0].price + '">add to quote</button>' +

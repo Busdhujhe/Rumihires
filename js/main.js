@@ -192,7 +192,7 @@
     return (
       '<div class="qty-stepper"' + (max > 0 ? ' data-max="' + max + '"' : "") + ">" +
       '<button type="button" class="qty-stepper__btn" data-step="-1" aria-label="Decrease quantity">−</button>' +
-      '<input type="text" class="quote-qty" value="' + value + '" readonly inputmode="numeric" aria-label="Quantity">' +
+      '<input type="text" class="quote-qty" value="' + value + '" inputmode="numeric" autocomplete="off" aria-label="Quantity">' +
       '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
       "</div>"
     );
@@ -219,6 +219,29 @@
     val = Math.max(1, Math.min(stepperMax(stepper), val));
     syncStepper(stepper, val);
     return val;
+  }
+
+  function writeQuoteQty(stepper, val) {
+    var row = stepper.closest(".quote-item");
+    if (!row) return;
+    var idx = parseInt(row.getAttribute("data-index"), 10);
+    var list = getQuote();
+    if (!list[idx]) return;
+    if (list[idx].qty !== val) {
+      list[idx].qty = val;
+      saveQuote(list, { renderPanel: false, renderEnquiry: false });
+      var priceHtml = priceCellHtml(list[idx]);
+      document.querySelectorAll('.quote-item[data-index="' + idx + '"] .quote-item__price').forEach(function (el) {
+        el.innerHTML = priceHtml;
+      });
+      var totalsHtml = summaryHtml(quoteTotals(list));
+      document.querySelectorAll(".quote-panel__summary").forEach(function (summary) {
+        summary.innerHTML = totalsHtml;
+      });
+    }
+    document.querySelectorAll('.quote-item[data-index="' + idx + '"] .qty-stepper').forEach(function (other) {
+      if (other !== stepper) syncStepper(other, val);
+    });
   }
 
   /* ---------- quote panel UI ---------- */
@@ -250,7 +273,7 @@
         '<button type="button" class="quote-panel__close" id="closeQuotePanel" aria-label="Close quote list">&times;</button>' +
         "</div>" +
         '<div class="quote-panel__body" id="quotePanelBody"></div>' +
-        '<p class="quote-panel__note">Pickup from Brisbane or delivery across QLD &amp; Northern NSW — both available. Delivery is quoted once we have your venue address, so it won\u2019t appear in this list yet.</p>' +
+        '<p class="quote-panel__note">Pickup from our Bethania pickup location or delivery across QLD &amp; Northern NSW — both available. Delivery is quoted once we have your venue address, so it won\u2019t appear in this list yet.</p>' +
         '<div class="quote-panel__foot">' +
         '<button type="button" class="btn btn--ghost btn--small" id="clearQuote">clear all</button>' +
         '<button type="button" class="btn btn--gold btn--small" id="sendQuotePanel">request quote</button>' +
@@ -427,24 +450,7 @@
       var stepper = stepBtn.closest(".qty-stepper");
       if (!stepper) return;
       var step = parseInt(stepBtn.getAttribute("data-step"), 10);
-      var val = applyStepperStep(stepper, step);
-
-      var row = stepper.closest(".quote-item");
-      if (row) {
-        var idx = parseInt(row.getAttribute("data-index"), 10);
-        var list = getQuote();
-        if (list[idx]) {
-          list[idx].qty = val;
-          saveQuote(list, { renderPanel: false });
-          var priceEl = row.querySelector(".quote-item__price");
-          if (priceEl) priceEl.innerHTML = priceCellHtml(list[idx]);
-          var summaries = document.querySelectorAll(".quote-panel__summary");
-          var totalsHtml = summaryHtml(quoteTotals(list));
-          summaries.forEach(function (summary) {
-            summary.innerHTML = totalsHtml;
-          });
-        }
-      }
+      writeQuoteQty(stepper, applyStepperStep(stepper, step));
       return;
     }
 
@@ -499,6 +505,37 @@
     list.push(entry);
     saveQuote(list);
     showToast("Added \u201c" + item + "\u201d \u00d7 " + qty + " to your quote list");
+  });
+
+  document.addEventListener("input", function (e) {
+    var input = e.target.closest && e.target.closest(".quote-qty");
+    if (!input) return;
+    var cleaned = input.value.replace(/\D/g, "");
+    if (input.value !== cleaned) input.value = cleaned;
+    var stepper = input.closest(".qty-stepper");
+    if (!stepper || !cleaned) return;
+    var max = stepperMax(stepper);
+    var val = parseInt(cleaned, 10);
+    if (!(val >= 1)) return;
+    if (val > max) {
+      val = max;
+      input.value = String(val);
+    }
+    var minus = stepper.querySelector('[data-step="-1"]');
+    var plus = stepper.querySelector('[data-step="1"]');
+    if (minus) minus.disabled = val <= 1;
+    if (plus) plus.disabled = val >= max;
+    writeQuoteQty(stepper, val);
+  });
+
+  document.addEventListener("change", function (e) {
+    var input = e.target.closest && e.target.closest(".quote-qty");
+    if (!input) return;
+    var stepper = input.closest(".qty-stepper");
+    if (!stepper) return;
+    var val = readQty(input);
+    syncStepper(stepper, val);
+    writeQuoteQty(stepper, val);
   });
 
   document.addEventListener("keydown", function (e) {

@@ -49,14 +49,14 @@ window.RUMI_MOMENTS = [
     file: "dessert-buffet-tiers.jpg",
     title: "Dessert buffet tiers",
     caption: "Silver snack stands, bowls of fruit and stacked plates styled for an outdoor sweet table.",
-    products: ["timeless-snack-stand-a", "timeless-snack-stand-b", "stainless-steel-bowls-a", "european-style-plates"]
+    products: ["timeless-snack-stand", "stainless-steel-bowls-a", "european-style-plates"]
   },
   {
     id: "dessert-table-umbrella",
     file: "dessert-table-umbrella-straight.jpg",
     title: "Sweet table in the shade",
     caption: "Pastries and silver stands under a scalloped French wave umbrella.",
-    products: ["french-wave-umbrella", "timeless-snack-stand-a", "timeless-snack-stand-b", "stainless-steel-bowls-a"]
+    products: ["french-wave-umbrella", "timeless-snack-stand", "stainless-steel-bowls-a"]
   },
   {
     id: "crimson-banquet",
@@ -91,7 +91,7 @@ window.RUMI_MOMENTS = [
     file: "golden-hour-couple.jpg",
     title: "Golden hour under the wave umbrella",
     caption: "A draped donut table for two, scalloped umbrella canopy and a silver snack stand catching the last light.",
-    products: ["french-wave-umbrella", "donut-table", "timeless-snack-stand-a"]
+    products: ["french-wave-umbrella", "donut-table", "timeless-snack-stand"]
   },
   {
     id: "silver-centrepiece",

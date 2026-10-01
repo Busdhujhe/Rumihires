@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const assetVersion = "72";
+const assetVersion = "80";
 const cssVersion = "91";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
@@ -192,8 +192,8 @@ function pageHtml(p) {
   <script src="js/products.js?v=${assetVersion}"></script>
   <script src="js/product-utils.js?v=${assetVersion}"></script>
   <script src="js/moments-data.js?v=66"></script>
-  <script src="js/product-detail.js?v=62"></script>
-  <script src="js/main.js?v=73"></script>
+  <script src="js/product-detail.js?v=63"></script>
+  <script src="js/main.js?v=81"></script>
 </body>
 </html>
 `;

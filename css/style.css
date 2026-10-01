@@ -316,13 +316,13 @@ a { color: var(--accent-text); text-decoration: none; }
   color: var(--accent-text);
 }
 .cc--seating {
-  background-image: url("../assets/img/collection-seating.jpg?v=100");
+  background-image: url("../assets/img/collection-seating.jpg?v=103");
 }
 .cc--umbrella {
   background-image: url("../assets/img/collection-umbrella.jpg?v=91");
 }
 .cc--carts {
-  background-image: url("../assets/img/collection-tables.jpg?v=91");
+  background-image: url("../assets/img/collection-tables.jpg?v=102");
 }
 .cc--eastern {
   background-image: url("../assets/img/collection-tableware.jpg?v=91");
@@ -550,7 +550,7 @@ a { color: var(--accent-text); text-decoration: none; }
 .qty-stepper__btn:hover:not(:disabled) { background: var(--gold); }
 .qty-stepper__btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .qty-stepper .quote-qty {
-  width: 2.5rem;
+  width: 3.1rem;
   padding: 0.5rem 0.2rem;
   text-align: center;
   border: none;
@@ -851,10 +851,12 @@ a { color: var(--accent-text); text-decoration: none; }
 #reviews { scroll-margin-top: 5.5rem; }
 .reviews {
   display: grid;
-  gap: 2.2rem;
+  grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25rem 1.75rem;
 }
 .reviews__intro {
-  max-width: 36rem;
+  max-width: none;
 }
 .reviews__logo {
   display: flex;
@@ -889,7 +891,7 @@ a { color: var(--accent-text); text-decoration: none; }
   color: var(--charcoal);
 }
 .reviews__stars {
-  color: var(--gold-dark);
+  color: #fbbc04;
   letter-spacing: 0.14em;
   font-size: 1.05rem;
 }
@@ -926,14 +928,20 @@ a { color: var(--accent-text); text-decoration: none; }
   border-bottom-color: currentColor;
   color: var(--charcoal);
 }
-.reviews__rail { min-width: 0; }
+.reviews__rail {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
 .reviews__viewport {
+  flex: 1 1 auto;
+  min-width: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  margin: 0 -0.2rem;
-  padding: 0.2rem;
+  padding: 0.2rem 0;
 }
 .reviews__viewport::-webkit-scrollbar { display: none; }
 .reviews__track {
@@ -945,11 +953,12 @@ a { color: var(--accent-text); text-decoration: none; }
   padding: 0;
 }
 .reviews__track > li {
-  flex: 0 0 min(34rem, 82%);
+  flex: 0 0 calc(50% - 0.5rem);
   scroll-snap-align: start;
   min-width: 0;
 }
 .reviews__quote {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -979,7 +988,7 @@ a { color: var(--accent-text); text-decoration: none; }
   margin-top: 1.25rem;
 }
 .reviews__card-stars {
-  color: var(--gold-dark);
+  color: #fbbc04;
   letter-spacing: 0.12em;
   font-size: 0.85rem;
 }
@@ -992,12 +1001,8 @@ a { color: var(--accent-text); text-decoration: none; }
   text-transform: none;
   color: var(--charcoal);
 }
-.reviews__controls {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
 .reviews__arrow {
+  flex: 0 0 auto;
   width: 44px;
   height: 44px;
   border: 1px solid var(--sand);
@@ -1420,7 +1425,7 @@ input:focus, select:focus, textarea:focus {
   text-align: right;
 }
 .quote-item__qty .qty-stepper .quote-qty {
-  width: 2.8rem;
+  width: 3.1rem;
 }
 /* Stands in for the stepper on pieces we only own one of. */
 .quote-item__fixed {
@@ -1548,6 +1553,7 @@ input:focus, select:focus, textarea:focus {
     grid-template-columns: 1fr;
     gap: 2.4rem;
   }
+  .reviews__track > li { flex-basis: min(34rem, 82%); }
   .reviews__intro { position: static; }
   .reviews__links {
     flex-direction: row;

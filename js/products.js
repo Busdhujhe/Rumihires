@@ -195,32 +195,29 @@ window.RUMI_PRODUCTS = [
     cataloguePage: 14
   },
   {
-    slug: "timeless-snack-stand-a",
+    slug: "timeless-snack-stand",
     cat: "tableware",
-    item: "Timeless Snack Stand A (3 level)",
-    title: "timeless snack stand · type a",
-    spec: "3 level",
+    item: "Timeless Snack Stand",
+    title: "timeless snack stand",
+    spec: "3 levels or 2 levels",
     price: 8,
     placeholder: "pi--tableware",
+    optionName: "levels",
+    imageLabel: "3 levels",
+    extraImages: [{ file: "timeless-snack-stand-b.png", label: "2 levels", price: 5 }],
     cataloguePage: 17
-  },
-  {
-    slug: "timeless-snack-stand-b",
-    cat: "tableware",
-    item: "Timeless Snack Stand B (2 level)",
-    title: "timeless snack stand · type b",
-    spec: "2 level",
-    price: 5,
-    placeholder: "pi--tableware",
-    cataloguePage: 18
   },
   {
     slug: "euro-tongs",
     cat: "tableware",
     item: "Euro Tongs",
     title: "euro tongs",
+    spec: "silver or gold",
     price: 5,
     placeholder: "pi--tableware",
+    optionName: "finish",
+    imageLabel: "silver",
+    extraImages: [{ file: "euro-tongs-gold.png", label: "gold" }],
     cataloguePage: 19
   },
   {
