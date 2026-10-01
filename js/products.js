@@ -212,12 +212,8 @@ window.RUMI_PRODUCTS = [
     cat: "tableware",
     item: "Euro Tongs",
     title: "euro tongs",
-    spec: "silver or gold",
     price: 5,
     placeholder: "pi--tableware",
-    optionName: "finish",
-    imageLabel: "silver",
-    extraImages: [{ file: "euro-tongs-gold.png", label: "gold" }],
     cataloguePage: 19
   },
   {
