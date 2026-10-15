@@ -143,6 +143,7 @@
     var card = document.createElement("article");
     card.className = "product";
     card.setAttribute("data-cat", p.cat);
+    card.setAttribute("data-cats", [p.cat].concat(p.alsoCats || []).join(" "));
 
     var detailUrl = productUrl(p.slug);
     var gallery = window.RUMI.productGallery(p);

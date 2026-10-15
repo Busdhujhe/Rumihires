@@ -15,10 +15,6 @@
     root.getAttribute("data-slug") ||
     new URLSearchParams(window.location.search).get("slug") ||
     slugFromPath();
-  if (slug === "french-wave-umbrella-xl") {
-    window.location.replace(window.RUMI.productUrl("french-wave-umbrella"));
-    return;
-  }
   var p = window.RUMI.getProduct(slug);
 
   if (!p) {

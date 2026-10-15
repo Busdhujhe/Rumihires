@@ -18,7 +18,7 @@ window.RUMI.esc = function (str) {
 };
 
 /* Bump when product photos are re-shot so browsers pick up the new files. */
-window.RUMI.assetVersion = "85";
+window.RUMI.assetVersion = "93";
 
 /* Moments gallery helpers — tagged real-event photos linked to hire products. */
 window.RUMI.momentsForProduct = function (slug) {
@@ -107,7 +107,7 @@ window.RUMI.stockNote = function () {
 
 /* Hire price for a quote-list item name. Same prefix match as maxQtyForItem
    so variant labels like " (silver pole)" still resolve. Option labels can
-   carry their own price (e.g. XL umbrella at $75). */
+   carry their own price (e.g. the 2-level snack stand at $5). */
 window.RUMI.priceForItem = function (item) {
   var list = window.RUMI_PRODUCTS || [];
   if (!item) return 0;

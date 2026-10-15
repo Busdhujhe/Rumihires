@@ -73,13 +73,6 @@ window.RUMI_MOMENTS = [
     products: []
   },
   {
-    id: "crimson-vintage-table",
-    file: "crimson-vintage-table.jpg",
-    title: "Vintage crimson vignette",
-    caption: "Lamps, teacups and a rotary phone styled against rich red drapery.",
-    products: []
-  },
-  {
     id: "ceremony-aisle",
     file: "ceremony-aisle.jpg",
     title: "Garden ceremony aisle",

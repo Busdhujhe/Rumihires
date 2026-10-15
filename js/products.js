@@ -1,6 +1,7 @@
 /* Rumi Hires — product catalogue data
    Images: place photos in assets/img/products/{slug}.png, or set imageExt for another format
    optionName turns the photo views into a customer-selectable variant carried through to the quote
+   alsoCats lists extra filters the item appears under besides its own cat
    Run scripts/extract-catalogue.ps1 after adding "Rumi Hires Catalogue.pdf" to project root. */
 window.RUMI_PRODUCTS = [
   {
@@ -11,7 +12,7 @@ window.RUMI_PRODUCTS = [
     spec: "matte white or gloss white · with arms",
     price: 18,
     bulk: "20+ from $15 each",
-    badge: "most hired",
+    badge: "signature piece",
     placeholder: "pi--chair-a",
     imageExt: "jpg",
     optionName: "finish",
@@ -92,21 +93,38 @@ window.RUMI_PRODUCTS = [
   {
     slug: "french-wave-umbrella",
     cat: "umbrella",
-    item: "French Wave Umbrella",
-    title: "french wave umbrella",
-    spec: "2.1m brown or silver · XL 2.65m · 57cm square base",
+    item: "French Wave Umbrella (Brown)",
+    title: "french wave umbrella · brown",
+    spec: "brown pole · 2.1m · 57cm square base",
     price: 55,
-    bulk: "5+ qty discount available · XL $75",
-    badge: "signature piece",
+    maxQty: 7,
+    bulk: "5+ qty discount available",
+    badge: "popular",
     placeholder: "pi--umbrella",
-    optionName: "style",
-    imageLabel: "brown pole · 2.1m",
-    imageMaxQty: 7,
-    extraImages: [
-      { file: "french-wave-umbrella-silver.png", label: "silver pole · 2.1m" },
-      { file: "french-wave-umbrella-xl.jpg", label: "XL silver · 2.65m", price: 75, maxQty: 6 }
-    ],
     cataloguePage: 6
+  },
+  {
+    slug: "french-wave-umbrella-silver",
+    cat: "umbrella",
+    item: "French Wave Umbrella (Silver)",
+    title: "french wave umbrella · silver",
+    spec: "silver pole · 2.1m · 57cm square base",
+    price: 55,
+    maxQty: 9,
+    bulk: "5+ qty discount available",
+    placeholder: "pi--umbrella"
+  },
+  {
+    slug: "french-wave-umbrella-xl",
+    cat: "umbrella",
+    item: "French Wave Umbrella XL (Silver)",
+    title: "french wave umbrella · xl silver",
+    spec: "silver pole · 2.65m · 57cm square base",
+    price: 65,
+    maxQty: 6,
+    bulk: "5+ qty discount available",
+    placeholder: "pi--umbrella",
+    imageExt: "jpg"
   },
   {
     slug: "donut-table",
@@ -152,12 +170,36 @@ window.RUMI_PRODUCTS = [
     cat: "sets",
     item: "French Black Lounge Bundle",
     title: "french black lounge bundle",
-    spec: "bench, day bed, 2 type a chairs, 2 type b chairs & 1 silver umbrella · save $30",
+    spec: "bench, day bed, 2 type a chairs, 2 type b chairs & 1 silver umbrella",
     price: 325,
     maxQty: 3,
     badge: "best value",
     placeholder: "pi--set",
     imageExt: "jpg"
+  },
+  {
+    slug: "french-wave-umbrella-bundle",
+    cat: "sets",
+    item: "French Wave Umbrella Bundle (4 umbrellas)",
+    title: "french wave umbrella bundle",
+    spec: "4 umbrellas · brown pole · 2.1m",
+    price: 220,
+    placeholder: "pi--set",
+    imageExt: "jpg"
+  },
+  {
+    slug: "instax-camera-bundle",
+    cat: "sets",
+    alsoCats: ["cameras"],
+    item: "Instax Camera Bundle (all 3 cameras)",
+    title: "instax camera bundle",
+    spec: "all 3 cameras · save $20 · 30 shots of film each",
+    price: 200,
+    bulk: "More or fewer shots of film available on enquiry",
+    badge: "best value",
+    placeholder: "pi--camera",
+    imageExt: "jpg",
+    cataloguePage: 25
   },
   {
     slug: "champagne-cooler",
@@ -287,18 +329,5 @@ window.RUMI_PRODUCTS = [
     imageExt: "jpg",
     extraImages: [{ file: "instax-mini-liplay-back.jpg", label: "back" }],
     cataloguePage: 24
-  },
-  {
-    slug: "instax-camera-bundle",
-    cat: "cameras",
-    item: "Instax Camera Bundle (all 3 cameras)",
-    title: "instax camera bundle",
-    spec: "all 3 cameras · save $20 · 30 shots of film each",
-    price: 200,
-    bulk: "More or fewer shots of film available on enquiry",
-    badge: "best value",
-    placeholder: "pi--camera",
-    imageExt: "jpg",
-    cataloguePage: 25
   }
 ];

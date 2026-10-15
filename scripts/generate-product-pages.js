@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const assetVersion = "85";
+const assetVersion = "93";
 const cssVersion = "113";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
@@ -78,10 +78,10 @@ function pageHtml(p) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="icon" href="favicon.ico" sizes="48x48" />
-  <link rel="icon" type="image/png" href="favicon-48.png" sizes="48x48" />
-  <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="favicon.ico?v=4" sizes="48x48" />
+  <link rel="icon" type="image/png" href="favicon-48.png?v=4" sizes="48x48" />
+  <link rel="icon" type="image/png" href="favicon-192.png?v=4" sizes="192x192" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=4" />
   <link rel="stylesheet" href="css/style.css?v=${cssVersion}" />
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head>
@@ -194,9 +194,9 @@ function pageHtml(p) {
 
   <script src="js/products.js?v=${assetVersion}"></script>
   <script src="js/product-utils.js?v=${assetVersion}"></script>
-  <script src="js/moments-data.js?v=68"></script>
-  <script src="js/product-detail.js?v=63"></script>
-  <script src="js/main.js?v=82"></script>
+  <script src="js/moments-data.js?v=69"></script>
+  <script src="js/product-detail.js?v=64"></script>
+  <script src="js/main.js?v=83"></script>
 </body>
 </html>
 `;

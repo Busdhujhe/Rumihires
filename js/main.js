@@ -559,7 +559,8 @@
     if (!productsWrap) return;
     var visible = 0;
     productsWrap.querySelectorAll(".product").forEach(function (card) {
-      var match = cat === "all" || card.getAttribute("data-cat") === cat;
+      var cats = (card.getAttribute("data-cats") || card.getAttribute("data-cat") || "").split(" ");
+      var match = cat === "all" || cats.indexOf(cat) !== -1;
       card.style.display = match ? "" : "none";
       if (match) visible++;
     });
@@ -583,7 +584,7 @@
     /* Links like ?cat=tableware still narrow the list even without a filter card. */
     var params = new URLSearchParams(window.location.search);
     var cat = params.get("cat");
-    if (cat && productsWrap && productsWrap.querySelector('.product[data-cat="' + cat + '"]')) {
+    if (cat && productsWrap && productsWrap.querySelector('.product[data-cats~="' + cat + '"]')) {
       applyFilter(cat);
     }
   }
