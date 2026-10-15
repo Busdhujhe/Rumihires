@@ -3,8 +3,8 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const assetVersion = "81";
-const cssVersion = "91";
+const assetVersion = "85";
+const cssVersion = "113";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
 new Function("window", productsCode)(sandbox.window);
@@ -78,6 +78,10 @@ function pageHtml(p) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="favicon-48.png" sizes="48x48" />
+  <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="stylesheet" href="css/style.css?v=${cssVersion}" />
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head>
@@ -92,7 +96,6 @@ function pageHtml(p) {
       <a href="index.html" class="logo">RUMI <span>HIRES</span></a>
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
       <nav class="nav">
-        <a href="index.html">home</a>
         <a href="items.html" class="active">items for hire</a>
         <a href="moments.html">moments</a>
         <a href="index.html#story">our story</a>
@@ -191,9 +194,9 @@ function pageHtml(p) {
 
   <script src="js/products.js?v=${assetVersion}"></script>
   <script src="js/product-utils.js?v=${assetVersion}"></script>
-  <script src="js/moments-data.js?v=66"></script>
+  <script src="js/moments-data.js?v=68"></script>
   <script src="js/product-detail.js?v=63"></script>
-  <script src="js/main.js?v=81"></script>
+  <script src="js/main.js?v=82"></script>
 </body>
 </html>
 `;

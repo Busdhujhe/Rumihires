@@ -566,21 +566,24 @@
     var noResults = document.getElementById("noResults");
     if (noResults) noResults.style.display = visible ? "none" : "block";
     if (filterWrap) {
-      filterWrap.querySelectorAll(".filter-chip").forEach(function (chip) {
-        chip.classList.toggle("active", chip.getAttribute("data-filter") === cat);
+      filterWrap.querySelectorAll("[data-filter]").forEach(function (chip) {
+        var on = chip.getAttribute("data-filter") === cat;
+        chip.classList.toggle("active", on);
+        chip.setAttribute("aria-pressed", on ? "true" : "false");
       });
     }
   }
 
   if (filterWrap) {
     filterWrap.addEventListener("click", function (e) {
-      var chip = e.target.closest(".filter-chip");
+      var chip = e.target.closest("[data-filter]");
       if (chip) applyFilter(chip.getAttribute("data-filter"));
     });
 
+    /* Links like ?cat=tableware still narrow the list even without a filter card. */
     var params = new URLSearchParams(window.location.search);
     var cat = params.get("cat");
-    if (cat && filterWrap.querySelector('[data-filter="' + cat + '"]')) {
+    if (cat && productsWrap && productsWrap.querySelector('.product[data-cat="' + cat + '"]')) {
       applyFilter(cat);
     }
   }

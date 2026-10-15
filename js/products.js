@@ -115,6 +115,7 @@ window.RUMI_PRODUCTS = [
     title: "donut table",
     price: 120,
     placeholder: "pi--table",
+    imageExt: "jpg",
     cataloguePage: 7
   },
   {
@@ -145,6 +146,18 @@ window.RUMI_PRODUCTS = [
     imageLabel: "matte white",
     extraImages: [{ file: "french-lite-iron-set-gloss.jpg", label: "gloss white" }],
     cataloguePage: 9
+  },
+  {
+    slug: "french-black-lounge-bundle",
+    cat: "sets",
+    item: "French Black Lounge Bundle",
+    title: "french black lounge bundle",
+    spec: "bench, day bed, 2 type a chairs, 2 type b chairs & 1 silver umbrella · save $30",
+    price: 325,
+    maxQty: 3,
+    badge: "best value",
+    placeholder: "pi--set",
+    imageExt: "jpg"
   },
   {
     slug: "champagne-cooler",

@@ -113,5 +113,26 @@ window.RUMI_MOMENTS = [
     title: "Pearl & silver details",
     caption: "Shell coasters and small silver bowls styled for a bright daytime reception table.",
     products: ["stainless-steel-bowls-b", "pearl-serving-tray"]
+  },
+  {
+    id: "garden-ceremony-rows",
+    file: "garden-ceremony-rows.jpg",
+    title: "Garden ceremony rows",
+    caption: "Rows of white French lite iron chairs set out on the lawn for a sunny backyard ceremony.",
+    products: ["french-lite-iron-chair"]
+  },
+  {
+    id: "white-chairs-umbrella-shade",
+    file: "white-chairs-umbrella-shade.jpg",
+    title: "Seating in the shade",
+    caption: "White French lite iron chairs gathered beneath scalloped umbrellas in a garden courtyard.",
+    products: ["french-lite-iron-chair", "french-wave-umbrella"]
+  },
+  {
+    id: "lakeside-lounge",
+    file: "lakeside-lounge.jpg",
+    title: "Lakeside lounge",
+    caption: "French black chairs and a bolstered day bed with cream cushions under a French wave umbrella by the water.",
+    products: ["french-black-chair-type-a", "french-black-day-bed", "french-wave-umbrella"]
   }
 ];
