@@ -71,6 +71,7 @@ window.RUMI_PRODUCTS = [
   {
     slug: "french-black-bench",
     cat: "lounge",
+    alsoCats: ["seating"],
     item: "French Black Bench",
     title: "french black bench",
     price: 75,
@@ -82,6 +83,7 @@ window.RUMI_PRODUCTS = [
   {
     slug: "french-black-day-bed",
     cat: "lounge",
+    alsoCats: ["seating"],
     item: "French Black Day Bed",
     title: "french black day bed",
     price: 75,
