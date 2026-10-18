@@ -168,6 +168,7 @@
     '<div class="product__cat">' + esc(catLabel) + "</div>" +
     "<h1>" + esc(p.title) + "</h1>" +
     (p.spec ? '<p class="product__spec">' + esc(p.spec) + "</p>" : "") +
+    (p.about ? '<p class="product-detail__lead">' + esc(p.about) + "</p>" : "") +
     '<div class="product__price" id="productPrice">$' + gallery.options[0].price + ' <span class="unit">/ hire</span></div>' +
     (p.bulk ? '<p class="product__bulk">' + esc(p.bulk) + "</p>" : "") +
     '<div class="product-detail__actions product__actions">' +
@@ -190,9 +191,10 @@
   if (metaDesc) {
     metaDesc.setAttribute(
       "content",
-      "Hire " + p.item + " from $" + p.price + " in Brisbane. " +
+      p.about ||
+      ("Hire " + p.item + " from $" + p.price + " in Brisbane. " +
       (p.bulk ? p.bulk + ". " : "") +
-      "Event & wedding hire — Rumi Hires."
+      "Event & wedding hire — Rumi Hires.")
     );
   }
 
@@ -203,7 +205,7 @@
       "@type": "Product",
       name: p.item,
       image: images.map(function (img) { return img.src; }),
-      description: "Hire " + p.item + " for events in Brisbane, Queensland and Northern NSW.",
+      description: p.about || ("Hire " + p.item + " for events in Brisbane, Queensland and Northern NSW."),
       offers: {
         "@type": "Offer",
         priceCurrency: "AUD",

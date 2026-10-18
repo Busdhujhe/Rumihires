@@ -51,12 +51,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella-silver.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella-silver.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -92,6 +92,11 @@
   </url>
   <url>
     <loc>https://rumihires.com/hire/instax-camera-bundle.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rumihires.com/hire/fabric-table-lamp.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -132,11 +137,6 @@
   </url>
   <url>
     <loc>https://rumihires.com/hire/pearl-serving-tray.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://rumihires.com/hire/fabric-table-lamp.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -10,6 +10,7 @@ window.RUMI_PRODUCTS = [
     item: "French Lite Iron Chair",
     title: "french lite iron chair",
     spec: "matte white or gloss white · with arms",
+    about: "The French Lite Iron chair is our signature piece, and it is generally used for ceremony seating.",
     price: 18,
     bulk: "20+ from $15 each",
     badge: "signature piece",
@@ -42,6 +43,7 @@ window.RUMI_PRODUCTS = [
     item: "French Black Chair Type A (with Arms)",
     title: "french black chair · type a",
     spec: "with arms",
+    about: "The French Black Chair Type A comes from our French Black collection. It is perfectly suited to cocktail hour, or to a lounge area where your guests have a comfortable, cushioned seat to relax and enjoy the night with family and friends.",
     price: 40,
     maxQty: 12,
     placeholder: "pi--chair-a",
@@ -58,6 +60,7 @@ window.RUMI_PRODUCTS = [
     item: "French Black Chair Type B (no Arms)",
     title: "french black chair · type b",
     spec: "no arms",
+    about: "The French Black Chair Type B comes from our French Black collection. Without arms, it sits neatly for cocktail hour and lounge seating, with a comfortable, cushioned seat so guests can relax and enjoy the night with family and friends.",
     price: 35,
     maxQty: 12,
     placeholder: "pi--chair-b",
@@ -70,10 +73,10 @@ window.RUMI_PRODUCTS = [
   },
   {
     slug: "french-black-bench",
-    cat: "lounge",
-    alsoCats: ["seating"],
+    cat: "seating",
     item: "French Black Bench",
     title: "french black bench",
+    about: "The French Black Bench comes from our French Black collection. It is made for cocktail hour and lounge areas, with a long cushioned seat where guests can sit together, relax, and enjoy the night with family and friends.",
     price: 75,
     maxQty: 6,
     placeholder: "pi--bench",
@@ -82,10 +85,10 @@ window.RUMI_PRODUCTS = [
   },
   {
     slug: "french-black-day-bed",
-    cat: "lounge",
-    alsoCats: ["seating"],
+    cat: "seating",
     item: "French Black Day Bed",
     title: "french black day bed",
+    about: "The French Black Day Bed comes from our French Black collection. It is the lounge piece for stretching out, with a cushioned day bed where guests can relax and enjoy the night with family and friends.",
     price: 75,
     maxQty: 3,
     placeholder: "pi--daybed",
@@ -93,28 +96,30 @@ window.RUMI_PRODUCTS = [
     cataloguePage: 5
   },
   {
-    slug: "french-wave-umbrella",
-    cat: "umbrella",
-    item: "French Wave Umbrella (Brown)",
-    title: "french wave umbrella · brown",
-    spec: "brown pole · 2.1m · 57cm square base",
-    price: 55,
-    maxQty: 7,
-    bulk: "5+ qty discount available",
-    badge: "popular",
-    placeholder: "pi--umbrella",
-    cataloguePage: 6
-  },
-  {
     slug: "french-wave-umbrella-silver",
     cat: "umbrella",
     item: "French Wave Umbrella (Silver)",
     title: "french wave umbrella · silver",
     spec: "silver pole · 2.1m · 57cm square base",
+    about: "Our popular French Wave umbrellas are both beautiful and practical for elevating your space whilst providing shade and a space for your guests to stand under and enjoy the event. The silver pole finish suits a clean, modern setup.",
     price: 55,
     maxQty: 9,
     bulk: "5+ qty discount available",
+    badge: "popular",
     placeholder: "pi--umbrella"
+  },
+  {
+    slug: "french-wave-umbrella",
+    cat: "umbrella",
+    item: "French Wave Umbrella (Brown)",
+    title: "french wave umbrella · brown",
+    spec: "brown pole · 2.1m · 57cm square base",
+    about: "Our popular French Wave umbrellas are both beautiful and practical for elevating your space whilst providing shade and a space for your guests to stand under and enjoy the event.",
+    price: 55,
+    maxQty: 7,
+    bulk: "5+ qty discount available",
+    placeholder: "pi--umbrella",
+    cataloguePage: 6
   },
   {
     slug: "french-wave-umbrella-xl",
@@ -122,6 +127,7 @@ window.RUMI_PRODUCTS = [
     item: "French Wave Umbrella XL (Silver)",
     title: "french wave umbrella · xl silver",
     spec: "silver pole · 2.65m · 57cm square base",
+    about: "Our popular French Wave umbrellas are both beautiful and practical for elevating your space whilst providing shade and a space for your guests to stand under and enjoy the event. The XL size gives a wider canopy for larger gatherings.",
     price: 65,
     maxQty: 6,
     bulk: "5+ qty discount available",
@@ -173,6 +179,7 @@ window.RUMI_PRODUCTS = [
     item: "French Black Lounge Bundle",
     title: "french black lounge bundle",
     spec: "bench, day bed, 2 type a chairs, 2 type b chairs & 1 silver umbrella",
+    about: "The French Black Lounge Bundle brings the collection together for cocktail hour or a lounge your guests can settle into. It includes a bench, a day bed, two Type A chairs, two Type B chairs and a silver umbrella, so there is a comfortable, cushioned seat for everyone to relax and enjoy the night with family and friends.",
     price: 325,
     maxQty: 3,
     badge: "best value",
@@ -182,12 +189,21 @@ window.RUMI_PRODUCTS = [
   {
     slug: "french-wave-umbrella-bundle",
     cat: "sets",
+    alsoCats: ["umbrella"],
     item: "French Wave Umbrella Bundle (4 umbrellas)",
     title: "french wave umbrella bundle",
-    spec: "4 umbrellas · brown pole · 2.1m",
-    price: 220,
+    spec: "4 umbrellas · brown or silver 2.1m · XL silver 2.65m",
+    about: "The French Wave Umbrella Bundle gives you four of our popular umbrellas in one hire — beautiful and practical for elevating your space, with shade and somewhere for guests to gather and enjoy the event. Choose brown, silver or XL silver to suit your setup.",
+    price: 200,
     placeholder: "pi--set",
-    imageExt: "jpg"
+    imageExt: "jpg",
+    optionName: "style",
+    imageLabel: "brown pole · 2.1m",
+    imageMaxQty: 1,
+    extraImages: [
+      { file: "french-wave-umbrella-bundle-silver.jpg", label: "silver pole · 2.1m", maxQty: 2 },
+      { file: "french-wave-umbrella-bundle-xl.jpg", label: "XL silver · 2.65m", price: 240, maxQty: 1 }
+    ]
   },
   {
     slug: "instax-camera-bundle",
@@ -202,6 +218,17 @@ window.RUMI_PRODUCTS = [
     placeholder: "pi--camera",
     imageExt: "jpg",
     cataloguePage: 25
+  },
+  {
+    slug: "fabric-table-lamp",
+    cat: "tableware",
+    item: "Fabric Table Lamp",
+    title: "fabric table lamp",
+    price: 13,
+    maxQty: 10,
+    bulk: "15+ qty discount available",
+    placeholder: "pi--tableware",
+    cataloguePage: 21
   },
   {
     slug: "champagne-cooler",
@@ -281,17 +308,6 @@ window.RUMI_PRODUCTS = [
     price: 18,
     placeholder: "pi--tableware",
     cataloguePage: 20
-  },
-  {
-    slug: "fabric-table-lamp",
-    cat: "tableware",
-    item: "Fabric Table Lamp",
-    title: "fabric table lamp",
-    price: 13,
-    maxQty: 10,
-    bulk: "15+ qty discount available",
-    placeholder: "pi--tableware",
-    cataloguePage: 21
   },
   {
     slug: "instax-mini-12",

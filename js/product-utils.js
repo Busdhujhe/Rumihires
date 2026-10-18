@@ -3,7 +3,6 @@ window.RUMI = window.RUMI || {};
 
 window.RUMI.catLabels = {
   seating: "seating",
-  lounge: "lounge",
   umbrella: "umbrellas",
   tables: "tables",
   sets: "sets",
@@ -18,7 +17,7 @@ window.RUMI.esc = function (str) {
 };
 
 /* Bump when product photos are re-shot so browsers pick up the new files. */
-window.RUMI.assetVersion = "93";
+window.RUMI.assetVersion = "105";
 
 /* Moments gallery helpers — tagged real-event photos linked to hire products. */
 window.RUMI.momentsForProduct = function (slug) {

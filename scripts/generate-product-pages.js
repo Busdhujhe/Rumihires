@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const assetVersion = "93";
+const assetVersion = "105";
 const cssVersion = "113";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
@@ -15,7 +15,6 @@ if (!Array.isArray(products) || !products.length) {
 
 const catLabels = {
   seating: "seating",
-  lounge: "lounge",
   umbrella: "umbrellas",
   tables: "tables",
   sets: "sets",
@@ -54,7 +53,7 @@ function pageHtml(p) {
     "@type": "Product",
     name: p.item,
     image: [`https://rumihires.com/${img.split("?")[0]}`],
-    description: `Hire ${p.item} for events in Brisbane, Queensland and Northern NSW.`,
+    description: p.about || `Hire ${p.item} for events in Brisbane, Queensland and Northern NSW.`,
     url: absUrl(p.slug),
     brand: { "@type": "Brand", name: "Rumi Hires" },
     offers: {
@@ -125,6 +124,7 @@ function pageHtml(p) {
             <div class="product__cat">${esc(cat)}</div>
             <h1 itemprop="name">${esc(p.title)}</h1>
             ${p.spec ? `<p class="product__spec">${esc(p.spec)}</p>` : ""}
+            ${p.about ? `<p class="product-detail__lead">${esc(p.about)}</p>` : ""}
             <div class="product__price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
               <meta itemprop="priceCurrency" content="AUD" />
               <meta itemprop="price" content="${esc(String(p.price))}" />
@@ -195,7 +195,7 @@ function pageHtml(p) {
   <script src="js/products.js?v=${assetVersion}"></script>
   <script src="js/product-utils.js?v=${assetVersion}"></script>
   <script src="js/moments-data.js?v=69"></script>
-  <script src="js/product-detail.js?v=64"></script>
+  <script src="js/product-detail.js?v=65"></script>
   <script src="js/main.js?v=83"></script>
 </body>
 </html>
