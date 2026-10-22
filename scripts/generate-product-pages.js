@@ -1,4 +1,4 @@
-/* Generate crawlable hire/{slug}.html pages from js/products.js */
+/* Generate crawlable hire/{slug}/index.html pages from js/products.js */
 const fs = require("fs");
 const path = require("path");
 
@@ -32,11 +32,30 @@ function esc(str) {
 
 function imageSrc(p) {
   const ext = p.imageExt || "png";
-  return `assets/img/products/${p.slug}.${ext}?v=${assetVersion}`;
+  return `/assets/img/products/${p.slug}.${ext}?v=${assetVersion}`;
 }
 
 function absUrl(slug) {
-  return `https://rumihires.com/hire/${slug}.html`;
+  return `https://rumihires.com/hire/${slug}/`;
+}
+
+function redirectHtml(targetPath) {
+  const abs = "https://rumihires.com" + targetPath;
+  return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting…</title>
+  <link rel="canonical" href="${abs}" />
+  <meta http-equiv="refresh" content="0; url=${targetPath}" />
+  <script>location.replace(${JSON.stringify(targetPath)});</script>
+</head>
+<body>
+  <p>This page has moved. <a href="${targetPath}">Continue</a>.</p>
+</body>
+</html>
+`;
 }
 
 function pageHtml(p) {
@@ -52,7 +71,7 @@ function pageHtml(p) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: p.item,
-    image: [`https://rumihires.com/${img.split("?")[0]}`],
+    image: [`https://rumihires.com${img.split("?")[0]}`],
     description: p.about || `Hire ${p.item} for events in Brisbane, Queensland and Northern NSW.`,
     url: absUrl(p.slug),
     brand: { "@type": "Brand", name: "Rumi Hires" },
@@ -73,15 +92,14 @@ function pageHtml(p) {
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}" />
   <link rel="canonical" href="${absUrl(p.slug)}" />
-  <base href="../" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="icon" href="favicon.ico?v=4" sizes="48x48" />
-  <link rel="icon" type="image/png" href="favicon-48.png?v=4" sizes="48x48" />
-  <link rel="icon" type="image/png" href="favicon-192.png?v=4" sizes="192x192" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=4" />
-  <link rel="stylesheet" href="css/style.css?v=${cssVersion}" />
+  <link rel="icon" href="/favicon.ico?v=4" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-48.png?v=4" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=4" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+  <link rel="stylesheet" href="/css/style.css?v=${cssVersion}" />
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
   <!-- Meta Pixel Code -->
   <script>
@@ -104,20 +122,20 @@ function pageHtml(p) {
 <body>
 
   <div class="announce">
-    <span class="announce__long">Brisbane based · servicing QLD &amp; Northern NSW — </span><a href="contact.html"><span class="announce__long">get your free quote</span><span class="announce__short">Brisbane · QLD &amp; Northern NSW — free quote</span></a>
+    <span class="announce__long">Brisbane based · servicing QLD &amp; Northern NSW — </span><a href="/contact/"><span class="announce__long">get your free quote</span><span class="announce__short">Brisbane · QLD &amp; Northern NSW — free quote</span></a>
   </div>
 
   <header class="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo">RUMI <span>HIRES</span></a>
+      <a href="/" class="logo">RUMI <span>HIRES</span></a>
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
       <nav class="nav">
-        <a href="items.html" class="active">items for hire</a>
-        <a href="moments.html">moments</a>
-        <a href="index.html#story">our story</a>
-        <a href="index.html#reviews">reviews</a>
-        <a href="index.html#faq">faq</a>
-        <a href="contact.html" class="btn btn--gold btn--small">book a chat</a>
+        <a href="/items/" class="active">items for hire</a>
+        <a href="/moments/">moments</a>
+        <a href="/#story">our story</a>
+        <a href="/#reviews">reviews</a>
+        <a href="/#faq">faq</a>
+        <a href="/contact/" class="btn btn--gold btn--small">book a chat</a>
       </nav>
     </div>
   </header>
@@ -126,9 +144,9 @@ function pageHtml(p) {
     <div id="productDetail" data-slug="${esc(p.slug)}">
       <div class="container">
         <nav class="product-detail__crumb" aria-label="Breadcrumb">
-          <a href="items.html">items for hire</a>
+          <a href="/items/">items for hire</a>
           <span aria-hidden="true">/</span>
-          <a href="items.html?cat=${esc(p.cat)}">${esc(cat)}</a>
+          <a href="/items/?cat=${esc(p.cat)}">${esc(cat)}</a>
           <span aria-hidden="true">/</span>
           <span>${esc(p.title)}</span>
         </nav>
@@ -148,8 +166,8 @@ function pageHtml(p) {
               $${p.price} <span class="unit">/ hire</span>
             </div>
             ${p.bulk ? `<p class="product__bulk">${esc(p.bulk)}</p>` : ""}
-            <p><a class="btn btn--gold" href="contact.html">request a free quote</a>
-            <a class="btn btn--ghost" href="items.html">browse all items</a></p>
+            <p><a class="btn btn--gold" href="/contact/">request a free quote</a>
+            <a class="btn btn--ghost" href="/items/">browse all items</a></p>
           </div>
         </article>
       </div>
@@ -168,19 +186,19 @@ function pageHtml(p) {
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <a href="index.html" class="logo">RUMI <span>HIRES</span></a>
+          <a href="/" class="logo">RUMI <span>HIRES</span></a>
           <p style="margin-top:1rem;">Curated, modern event furnishings built on taste, intention and a passion for unforgettable moments.</p>
         </div>
         <div>
           <h4>explore</h4>
           <ul>
-            <li><a href="items.html">all items</a></li>
-            <li><a href="moments.html">moments</a></li>
-            <li><a href="index.html#reviews">google reviews</a></li>
-            <li><a href="items.html?cat=seating">seating</a></li>
-            <li><a href="items.html?cat=tables">tables</a></li>
-            <li><a href="items.html?cat=umbrella">umbrellas</a></li>
-            <li><a href="items.html?cat=tableware">tableware</a></li>
+            <li><a href="/items/">all items</a></li>
+            <li><a href="/moments/">moments</a></li>
+            <li><a href="/#reviews">google reviews</a></li>
+            <li><a href="/items/?cat=seating">seating</a></li>
+            <li><a href="/items/?cat=tables">tables</a></li>
+            <li><a href="/items/?cat=umbrella">umbrellas</a></li>
+            <li><a href="/items/?cat=tableware">tableware</a></li>
           </ul>
         </div>
         <div>
@@ -198,7 +216,7 @@ function pageHtml(p) {
       </div>
       <div class="footer__bottom">
         <span>© <span id="year">2026</span> Rumi Hires. All rights reserved.</span>
-        <span><a href="terms.html">terms &amp; conditions</a> · <a href="privacy.html">privacy policy</a></span>
+        <span><a href="/terms/">terms &amp; conditions</a> · <a href="/privacy/">privacy policy</a></span>
       </div>
     </div>
   </footer>
@@ -209,11 +227,11 @@ function pageHtml(p) {
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
-  <script src="js/products.js?v=${assetVersion}"></script>
-  <script src="js/product-utils.js?v=${assetVersion}"></script>
-  <script src="js/moments-data.js?v=69"></script>
-  <script src="js/product-detail.js?v=65"></script>
-  <script src="js/main.js?v=83"></script>
+  <script src="/js/products.js?v=${assetVersion}"></script>
+  <script src="/js/product-utils.js?v=106"></script>
+  <script src="/js/moments-data.js?v=69"></script>
+  <script src="/js/product-detail.js?v=66"></script>
+  <script src="/js/main.js?v=85"></script>
 </body>
 </html>
 `;
@@ -224,15 +242,24 @@ fs.mkdirSync(hireDir, { recursive: true });
 
 const urls = [
   { loc: "https://rumihires.com/", changefreq: "weekly", priority: "1.0" },
-  { loc: "https://rumihires.com/items.html", changefreq: "weekly", priority: "0.9" },
-  { loc: "https://rumihires.com/contact.html", changefreq: "monthly", priority: "0.8" },
-  { loc: "https://rumihires.com/moments.html", changefreq: "weekly", priority: "0.7" },
-  { loc: "https://rumihires.com/catalogue.html", changefreq: "monthly", priority: "0.6" }
+  { loc: "https://rumihires.com/items/", changefreq: "weekly", priority: "0.9" },
+  { loc: "https://rumihires.com/contact/", changefreq: "monthly", priority: "0.8" },
+  { loc: "https://rumihires.com/moments/", changefreq: "weekly", priority: "0.7" },
+  { loc: "https://rumihires.com/catalogue/", changefreq: "monthly", priority: "0.6" },
+  { loc: "https://rumihires.com/privacy/", changefreq: "yearly", priority: "0.3" },
+  { loc: "https://rumihires.com/terms/", changefreq: "yearly", priority: "0.3" }
 ];
 
 products.forEach(function (p) {
-  const file = path.join(hireDir, p.slug + ".html");
+  const dir = path.join(hireDir, p.slug);
+  fs.mkdirSync(dir, { recursive: true });
+  const file = path.join(dir, "index.html");
   fs.writeFileSync(file, pageHtml(p), "utf8");
+  fs.writeFileSync(
+    path.join(hireDir, p.slug + ".html"),
+    redirectHtml("/hire/" + p.slug + "/"),
+    "utf8"
+  );
   urls.push({
     loc: absUrl(p.slug),
     changefreq: "monthly",

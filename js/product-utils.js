@@ -29,15 +29,15 @@ window.RUMI.momentsForProduct = function (slug) {
 };
 
 window.RUMI.momentSrc = function (m) {
-  return "assets/img/moments/" + m.file + "?v=" + window.RUMI.assetVersion;
+  return "/assets/img/moments/" + m.file + "?v=" + window.RUMI.assetVersion;
 };
 
 window.RUMI.momentsUrl = function (slug) {
-  return slug ? "moments.html?product=" + encodeURIComponent(slug) : "moments.html";
+  return slug ? "/moments/?product=" + encodeURIComponent(slug) : "/moments/";
 };
 
 window.RUMI.imagePath = function (slug, ext) {
-  return "assets/img/products/" + slug + "." + (ext || "png") + "?v=" + window.RUMI.assetVersion;
+  return "/assets/img/products/" + slug + "." + (ext || "png") + "?v=" + window.RUMI.assetVersion;
 };
 
 /* Silent stock ceiling — 0 means no limit. Never shown to customers.
@@ -147,7 +147,7 @@ window.RUMI.imageForItem = function (item) {
           var views = p.finishes[f].views || [];
           var first = views[0];
           var file = first && typeof first !== "string" ? first.file : first;
-          if (file) return "assets/img/products/" + file + "?v=" + window.RUMI.assetVersion;
+          if (file) return "/assets/img/products/" + file + "?v=" + window.RUMI.assetVersion;
           return window.RUMI.imagePath(p.slug, p.imageExt);
         }
       }
@@ -158,7 +158,7 @@ window.RUMI.imageForItem = function (item) {
         var label = typeof extra === "string" ? "" : extra.label;
         var fileName = typeof extra === "string" ? extra : extra.file;
         if (label && label === optionLabel) {
-          return "assets/img/products/" + fileName + "?v=" + window.RUMI.assetVersion;
+          return "/assets/img/products/" + fileName + "?v=" + window.RUMI.assetVersion;
         }
       }
     }
@@ -187,7 +187,7 @@ window.RUMI.getProduct = function (slug) {
 };
 
 window.RUMI.productUrl = function (slug) {
-  return "hire/" + encodeURIComponent(slug) + ".html";
+  return "/hire/" + encodeURIComponent(slug) + "/";
 };
 
 window.RUMI.productImgClasses = function (p) {
@@ -203,7 +203,7 @@ window.RUMI.productGallery = function (p) {
 
   function fileSrc(file) {
     if (!file) return window.RUMI.imagePath(p.slug, p.imageExt);
-    return "assets/img/products/" + file + "?v=" + v;
+    return "/assets/img/products/" + file + "?v=" + v;
   }
 
   function makeView(file, viewLabel, optionLabel, price) {

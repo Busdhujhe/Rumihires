@@ -9,7 +9,7 @@
   var catLabels = window.RUMI.catLabels;
   var esc = window.RUMI ? window.RUMI.esc : function (s) { return s; };
   var productUrl = window.RUMI ? window.RUMI.productUrl : function (slug) {
-    return "product.html?slug=" + encodeURIComponent(slug);
+    return "/product/?slug=" + encodeURIComponent(slug);
   };
 
   function qtyStepperHtml(value, id, max) {

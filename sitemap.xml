@@ -6,152 +6,162 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/items.html</loc>
+    <loc>https://rumihires.com/items/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/contact.html</loc>
+    <loc>https://rumihires.com/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/moments.html</loc>
+    <loc>https://rumihires.com/moments/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/catalogue.html</loc>
+    <loc>https://rumihires.com/catalogue/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-lite-iron-chair.html</loc>
+    <loc>https://rumihires.com/privacy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://rumihires.com/terms/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://rumihires.com/hire/french-lite-iron-chair/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-black-chair-type-a.html</loc>
+    <loc>https://rumihires.com/hire/french-black-chair-type-a/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-black-chair-type-b.html</loc>
+    <loc>https://rumihires.com/hire/french-black-chair-type-b/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-black-bench.html</loc>
+    <loc>https://rumihires.com/hire/french-black-bench/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-black-day-bed.html</loc>
+    <loc>https://rumihires.com/hire/french-black-day-bed/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella-silver.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella-silver/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella-xl.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella-xl/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/donut-table.html</loc>
+    <loc>https://rumihires.com/hire/donut-table/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-lite-iron-table.html</loc>
+    <loc>https://rumihires.com/hire/french-lite-iron-table/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-lite-iron-set.html</loc>
+    <loc>https://rumihires.com/hire/french-lite-iron-set/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-black-lounge-bundle.html</loc>
+    <loc>https://rumihires.com/hire/french-black-lounge-bundle/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/french-wave-umbrella-bundle.html</loc>
+    <loc>https://rumihires.com/hire/french-wave-umbrella-bundle/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/instax-camera-bundle.html</loc>
+    <loc>https://rumihires.com/hire/instax-camera-bundle/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/fabric-table-lamp.html</loc>
+    <loc>https://rumihires.com/hire/fabric-table-lamp/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/champagne-cooler.html</loc>
+    <loc>https://rumihires.com/hire/champagne-cooler/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/stainless-steel-bowls-a.html</loc>
+    <loc>https://rumihires.com/hire/stainless-steel-bowls-a/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/stainless-steel-bowls-b.html</loc>
+    <loc>https://rumihires.com/hire/stainless-steel-bowls-b/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/stainless-steel-bowls-c.html</loc>
+    <loc>https://rumihires.com/hire/stainless-steel-bowls-c/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/european-style-plates.html</loc>
+    <loc>https://rumihires.com/hire/european-style-plates/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/timeless-snack-stand.html</loc>
+    <loc>https://rumihires.com/hire/timeless-snack-stand/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/euro-tongs.html</loc>
+    <loc>https://rumihires.com/hire/euro-tongs/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/pearl-serving-tray.html</loc>
+    <loc>https://rumihires.com/hire/pearl-serving-tray/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/instax-mini-12.html</loc>
+    <loc>https://rumihires.com/hire/instax-mini-12/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/instax-square-sq40.html</loc>
+    <loc>https://rumihires.com/hire/instax-square-sq40/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rumihires.com/hire/instax-mini-liplay.html</loc>
+    <loc>https://rumihires.com/hire/instax-mini-liplay/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

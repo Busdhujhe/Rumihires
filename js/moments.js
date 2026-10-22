@@ -12,7 +12,7 @@
   var activeId = new URLSearchParams(window.location.search).get("shot") || "";
 
   function momentSrc(m) {
-    return "assets/img/moments/" + m.file + "?v=" + window.RUMI.assetVersion;
+    return "/assets/img/moments/" + m.file + "?v=" + window.RUMI.assetVersion;
   }
 
   function productLabel(slug) {
@@ -149,7 +149,7 @@
           "</a>"
         );
       }).join("") +
-      '<a class="moments-lightbox__hire" href="items.html">browse all items for hire</a>';
+      '<a class="moments-lightbox__hire" href="/items/">browse all items for hire</a>';
 
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");

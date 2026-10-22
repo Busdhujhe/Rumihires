@@ -21,7 +21,7 @@
     root.innerHTML =
       '<div class="product-detail__missing">' +
       "<h1>item not found</h1>" +
-      '<p>Sorry — we couldn\u2019t find that product. <a href=\"items.html\">Browse all items</a>.</p>' +
+      '<p>Sorry — we couldn\u2019t find that product. <a href=\"/items/\">Browse all items</a>.</p>' +
       "</div>";
     document.title = "Item not found | Rumi Hires";
     return;
@@ -133,7 +133,7 @@
       '<div class="product-moments__grid">' +
       inMoments.slice(0, 6).map(function (m) {
         return (
-          '<a class="product-moments__shot" href="moments.html?shot=' + esc(m.id) + '&product=' + esc(p.slug) + '" title="' + esc(m.title) + '">' +
+          '<a class="product-moments__shot" href="/moments/?shot=' + esc(m.id) + '&product=' + esc(p.slug) + '" title="' + esc(m.title) + '">' +
           '<img src="' + esc(window.RUMI.momentSrc(m)) + '" alt="' + esc(m.title) + '" loading="lazy">' +
           "</a>"
         );
@@ -148,9 +148,9 @@
   root.innerHTML =
     '<div class="container">' +
     '<nav class="product-detail__crumb" aria-label="Breadcrumb">' +
-    '<a href="items.html">items for hire</a>' +
+    '<a href="/items/">items for hire</a>' +
     '<span aria-hidden="true">/</span>' +
-    '<a href="items.html?cat=' + esc(p.cat) + '">' + esc(catLabel) + "</a>" +
+    '<a href="/items/?cat=' + esc(p.cat) + '">' + esc(catLabel) + "</a>" +
     '<span aria-hidden="true">/</span>' +
     "<span>" + esc(p.title) + "</span>" +
     "</nav>" +
@@ -180,7 +180,7 @@
     '<button type="button" class="qty-stepper__btn" data-step="1" aria-label="Increase quantity">+</button>' +
     "</div></div>" +
     '<button type="button" class="btn btn--gold add-quote" data-item="' + esc(p.item) + '" data-price="' + gallery.options[0].price + '">add to quote</button>' +
-    '<a href="contact.html" class="btn btn--ghost">ask about this item</a>' +
+    '<a href="/contact/" class="btn btn--ghost">ask about this item</a>' +
     "</div></div></div>" +
     momentsHtml +
     "</div>" +

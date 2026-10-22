@@ -311,7 +311,7 @@
     if (!list.length) {
       panelBody.innerHTML =
         '<p class="quote-panel__empty">Your quote list is empty. ' +
-        '<a href="items.html">Browse items</a> to add pieces.</p>';
+        '<a href="/items/">Browse items</a> to add pieces.</p>';
       if (note) note.style.display = "none";
       return;
     }
@@ -363,7 +363,7 @@
       "<h3>your quote list</h3>" +
       '<p class="enquiry-quote__lead">These pieces will be included with your enquiry. You can still change quantities or remove items.</p>' +
       '<div class="enquiry-quote__list">' + quoteListHtml(list) + "</div>" +
-      '<p class="enquiry-quote__more"><a href="items.html">Add more items</a></p>';
+      '<p class="enquiry-quote__more"><a href="/items/">Add more items</a></p>';
     wrap.querySelectorAll(".qty-stepper").forEach(function (stepper) {
       syncStepper(stepper, readQty(stepper.querySelector(".quote-qty")));
     });
@@ -390,7 +390,7 @@
       showToast("Your items are attached — just add your details");
       return;
     }
-    window.location.href = "contact.html#enquiry";
+    window.location.href = "/contact/#enquiry";
   }
 
   var toastTimer;
@@ -838,7 +838,7 @@
         (replyTo ? " and we'll reply to " + esc(replyTo) : "") +
         ". We aim to come back to you within one business day.</p>" +
         '<p class="form-success__next">In the meantime, feel free to ' +
-        '<a href="items.html">keep browsing the collection</a>.</p>' +
+        '<a href="/items/">keep browsing the collection</a>.</p>' +
         "</div>";
       card.scrollIntoView({ behavior: "smooth", block: "center" });
     }
