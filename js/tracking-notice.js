@@ -33,7 +33,13 @@
     "#rumiPrivacyNotice .rpn__ok:hover{background:rgba(255,255,255,.08)}" +
     "@media (max-width:640px){#rumiPrivacyNotice .rpn__ok{width:100%}}";
 
+  var timer = null;
+
   function dismiss() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
     try {
       if (window.localStorage) localStorage.setItem(KEY, "1");
     } catch (err) {}
@@ -44,4 +50,5 @@
   document.head.appendChild(style);
   document.body.appendChild(bar);
   document.getElementById("rumiPrivacyOk").addEventListener("click", dismiss);
+  timer = setTimeout(dismiss, 10000);
 })();
