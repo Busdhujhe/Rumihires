@@ -4,7 +4,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const assetVersion = "105";
-const cssVersion = "113";
+const cssVersion = "115";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
 new Function("window", productsCode)(sandbox.window);
