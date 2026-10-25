@@ -4,7 +4,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const assetVersion = "105";
-const cssVersion = "115";
+const cssVersion = "116";
 const productsCode = fs.readFileSync(path.join(root, "js", "products.js"), "utf8");
 const sandbox = { window: {} };
 new Function("window", productsCode)(sandbox.window);
@@ -223,7 +223,7 @@ function pageHtml(p) {
 
   <div class="toast" id="toast"></div>
   <div class="quote-bar" id="quoteBar">
-    <span class="quote-bar__count"><strong id="quoteCount">0</strong> piece(s) in your quote list</span>
+    <span class="quote-bar__count"><strong id="quoteCount">0</strong><span class="quote-bar__label-full"> piece(s) in your quote list</span><span class="quote-bar__label-short"> in quote</span></span>
     <button class="btn btn--gold btn--small" id="sendQuote">request quote</button>
   </div>
 
