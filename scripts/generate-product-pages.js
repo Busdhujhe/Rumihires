@@ -95,11 +95,11 @@ function pageHtml(p) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico?v=7" sizes="any" />
-  <link rel="icon" type="image/png" href="/favicon-48.png?v=7" sizes="48x48" />
-  <link rel="icon" type="image/png" href="/favicon-192.png?v=7" sizes="192x192" />
-  <link rel="icon" type="image/png" href="/favicon-512.png?v=7" sizes="512x512" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" />
+  <link rel="icon" href="/favicon.ico?v=8" sizes="any" />
+  <link rel="icon" type="image/png" href="/favicon-48.png?v=8" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=8" sizes="192x192" />
+  <link rel="icon" type="image/png" href="/favicon-512.png?v=8" sizes="512x512" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=8" />
   <link rel="stylesheet" href="/css/style.css?v=${cssVersion}" />
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
   <!-- Meta Pixel Code -->
